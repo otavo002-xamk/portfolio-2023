@@ -2,7 +2,7 @@ import React from "react";
 
 function Content() {
   return (
-    <div class="col-end-7 col-span-2">
+    <div className="col-start-2 col-end-7 bg-red-100">
       <p>Content</p>
     </div>
   );
