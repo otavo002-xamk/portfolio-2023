@@ -4,7 +4,7 @@ import LeftNavBar from "./LeftNavBar";
 
 function Center() {
   return (
-    <div className="grid grid-cols-6">
+    <div className="grid grid-cols-6 h-full">
       <LeftNavBar />
       <Content />
     </div>
