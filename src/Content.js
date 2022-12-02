@@ -8,7 +8,7 @@ import Sample4 from "./pages/Sample4";
 
 function Content() {
   return (
-    <div className="col-start-2 col-end-7 w-full bg-red-100 pt-52">
+    <div className="lg:col-start-2 lg:col-end-7 w-full bg-red-100 pt-52">
       <h3>Content</h3>
       <Router>
         <Routes>

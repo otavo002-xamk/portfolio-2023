@@ -2,8 +2,8 @@ import React from "react";
 
 function LeftNavBar() {
   return (
-    <div className="bg-leftNavBar bg-cover col-start-1 col-end-1 bg-black">
-      <p>Left Navigation Bar</p>
+    <div className="bg-leftNavBar bg-cover pt-40 lg:col-start-1 lg:col-end-1 bg-black">
+      <p className="text-white">Left Navigation Bar</p>
     </div>
   );
 }
