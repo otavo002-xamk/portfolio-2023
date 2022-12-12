@@ -1,10 +1,4 @@
-import {
-  render,
-  screen,
-  fireEvent,
-  waitFor,
-  act,
-} from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import LeftNavBar from "../LeftNavBar";
 import "@testing-library/jest-dom";
 import { RouterProvider, createMemoryRouter, Outlet } from "react-router-dom";
