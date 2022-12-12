@@ -5,7 +5,7 @@ import Center from "./Center";
 
 function App() {
   return (
-    <div className="h-screen">
+    <div className="h-screen bg-red-100">
       <TopHeader />
       <Center />
       <Footer />
