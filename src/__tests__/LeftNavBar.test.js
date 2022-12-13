@@ -60,6 +60,17 @@ const testCases = [
   },
 ];
 
+const mockChildComponent = jest.fn();
+
+jest.mock("../MenuButton", () => (props) => {
+  mockChildComponent(props);
+  return (
+    <div onClick={props.handleMenuChange}>
+      {props.menuOpen ? "Menu open!" : "Menu closed!"}
+    </div>
+  );
+});
+
 beforeEach(() => render(<RouterProvider router={testRouter} />));
 
 describe("Only frontpage renders initially", () => {
@@ -86,4 +97,22 @@ describe("Clicking link renders match", () => {
       });
     }
   );
+});
+
+describe("Menu open state changes", () => {
+  it("should toggle the menu open state", () => {
+    expect(mockChildComponent).toHaveBeenCalledWith(
+      expect.objectContaining({
+        menuOpen: false,
+      })
+    );
+    expect(screen.getByText("Menu closed!")).toBeInTheDocument();
+    expect(screen.queryByText("Menu open!")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByText("Menu closed!"));
+    expect(screen.getByText("Menu open!")).toBeInTheDocument();
+    expect(screen.queryByText("Menu closed!")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByText("Menu open!"));
+    expect(screen.getByText("Menu closed!")).toBeInTheDocument();
+    expect(screen.queryByText("Menu open!")).not.toBeInTheDocument();
+  });
 });

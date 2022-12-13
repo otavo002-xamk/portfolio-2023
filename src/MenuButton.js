@@ -6,7 +6,11 @@ function MenuButton({ handleMenuChange, menuOpen }) {
   const bar3WhenMenuOpen = menuOpen && "-rotate-45 -translate-y-2";
 
   return (
-    <div className="menu-container lg:hidden" onClick={handleMenuChange}>
+    <div
+      className="menu-container lg:hidden"
+      data-testid="menu-container"
+      onClick={handleMenuChange}
+    >
       <div
         className={`${bar1WhenMenuOpen} duration-100 w-6 h-1 bg-white mt-1`}
       ></div>
