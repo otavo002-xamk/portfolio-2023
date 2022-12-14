@@ -18,5 +18,6 @@ const testRouter = createMemoryRouter([
 beforeAll(() => render(<RouterProvider router={testRouter} />));
 
 it("renders", () => {
+  expect(screen.getByText("Content")).toBeInTheDocument();
   expect(screen.getByText("Child component!")).toBeInTheDocument();
 });
