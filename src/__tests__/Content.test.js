@@ -1,4 +1,3 @@
-import TestRenderer from "react-test-renderer";
 import Content from "../Content";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { render, screen } from "@testing-library/react";
