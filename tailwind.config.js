@@ -8,6 +8,9 @@ module.exports = {
         leftNavBar: "url('./pictures/WP_20191220_324.jpg')",
       },
     },
+    fontFamily: {
+      serif: ["Times New Roman"],
+    },
   },
   plugins: [],
 };
