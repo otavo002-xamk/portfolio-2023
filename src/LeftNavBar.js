@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import MenuButton from "./MenuButton";
 
 function LeftNavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const changeMenuOpenState = () => setMenuOpen(!menuOpen);
   const itemsWhenMenuOpen = !menuOpen && "hidden";
+  const location = useLocation();
+
+  useEffect(() => setMenuOpen(false), [location]);
 
   return (
     <div className="bg-leftNavBar bg-cover pt-40 lg:col-start-1 lg:col-end-1 p-4 bg-black">
