@@ -1,13 +1,19 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import LeftNavBar from "../LeftNavBar";
 import "@testing-library/jest-dom";
-import { RouterProvider, createMemoryRouter, Outlet } from "react-router-dom";
+import {
+  RouterProvider,
+  createMemoryRouter,
+  Outlet,
+  Link,
+} from "react-router-dom";
 
 const testRouter = createMemoryRouter([
   {
     path: "/",
     element: (
       <>
+        <Link to="/">Front page</Link>
         <LeftNavBar />
         <Outlet />
       </>
@@ -115,4 +121,23 @@ describe("Menu open state changes", () => {
     expect(screen.getByText("Menu closed!")).toBeInTheDocument();
     expect(screen.queryByText("Menu open!")).not.toBeInTheDocument();
   });
+
+  it.each([...testCases, { path: "/", text: "Front page", content: "Front!" }])(
+    "should close the menu when location chages to $path",
+    ({ text }) => {
+      expect(mockChildComponent).toHaveBeenCalledWith(
+        expect.objectContaining({
+          menuOpen: false,
+        })
+      );
+      expect(screen.getByText("Menu closed!")).toBeInTheDocument();
+      expect(screen.queryByText("Menu open!")).not.toBeInTheDocument();
+      fireEvent.click(screen.getByText("Menu closed!"));
+      expect(screen.getByText("Menu open!")).toBeInTheDocument();
+      expect(screen.queryByText("Menu closed!")).not.toBeInTheDocument();
+      fireEvent.click(screen.getByText(text));
+      expect(screen.getByText("Menu closed!")).toBeInTheDocument();
+      expect(screen.queryByText("Menu open!")).not.toBeInTheDocument();
+    }
+  );
 });
