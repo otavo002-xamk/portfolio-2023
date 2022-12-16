@@ -1,10 +1,15 @@
 import React from "react";
+import { ThemeContext } from "../theme-context";
 
 function FrontPage() {
   return (
-    <div>
-      <p>Front Page!</p>
-    </div>
+    <ThemeContext.Consumer>
+      {({ theme }) => (
+        <div>
+          <p className={theme.text}>Front Page!</p>
+        </div>
+      )}
+    </ThemeContext.Consumer>
   );
 }
 
