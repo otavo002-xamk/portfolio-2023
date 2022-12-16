@@ -1,6 +1,7 @@
 import Content from "../Content";
 import { RouterProvider, createMemoryRouter } from "react-router-dom";
 import { render, screen } from "@testing-library/react";
+import { ThemeContext, themes } from "../theme-context";
 
 const testRouter = createMemoryRouter([
   {
@@ -15,7 +16,14 @@ const testRouter = createMemoryRouter([
   },
 ]);
 
-beforeAll(() => render(<RouterProvider router={testRouter} />));
+const theme = themes.light;
+beforeAll(() =>
+  render(
+    <ThemeContext.Provider value={{ theme }}>
+      <RouterProvider router={testRouter} />
+    </ThemeContext.Provider>
+  )
+);
 
 it("renders", () => {
   expect(screen.getByText("Content")).toBeInTheDocument();
