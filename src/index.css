@@ -14,3 +14,11 @@ code {
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.toggle-bg:after {
+  content: "";
+  @apply absolute top-0.5 left-0.5 bg-white border h-5 w-5 transition;
+}
+input:checked + .toggle-bg:after {
+  transform: translateX(100%);
+}
