@@ -37,7 +37,7 @@ describe("Link works", () => {
   it("should redirect to front page when the home-icon is clicked", async () => {
     expect(screen.getByText("Sample 1!")).toBeInTheDocument();
     expect(screen.queryByText("Front!")).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole("img", { Name: "home" }));
+    fireEvent.click(screen.getByAltText("home"));
     await waitFor(() => {
       expect(screen.getByText("Front!")).toBeInTheDocument();
       expect(screen.queryByText("Sample 1!")).not.toBeInTheDocument();

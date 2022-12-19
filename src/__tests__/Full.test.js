@@ -13,13 +13,13 @@ describe("Top Header", () => {
   beforeEach(() => render(<RouterProvider router={testRouter(1)} />));
 
   it("should render the home-icon image-element", () => {
-    expect(screen.getByRole("img", { Name: "home" })).toBeInTheDocument();
+    expect(screen.getByAltText("home")).toBeInTheDocument();
   });
 
   it("should redirect to front-page when image is clicked", async () => {
     expect(screen.getByText("Sample 1!")).toBeInTheDocument();
     expect(screen.queryByText("Front!")).not.toBeInTheDocument();
-    fireEvent.click(screen.getByRole("img", { Name: "home" }));
+    fireEvent.click(screen.getByAltText("home"));
     expect(screen.getByText("Front Page!")).toBeInTheDocument();
     expect(screen.queryByText("Sample 1!")).not.toBeInTheDocument();
   });

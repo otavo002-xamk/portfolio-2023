@@ -16,7 +16,7 @@ function TopHeader() {
       <div className="float-left">
         <Link to="/">
           <img
-            aria-label="home"
+            alt="home"
             className="object-scale-down h-32 opacity-50 hover:opacity-100 blur-sm hover:blur-none duration-300"
             src={Image}
           />
@@ -35,8 +35,8 @@ function TopHeader() {
             className="sr-only"
           />
           <div className="toggle-bg bg-black h-6 w-12">
-            <img src={Sun} className="h-6 w-6 float-left" />
-            <img src={Moon} className="h-6 w-6 float-right" />
+            <img src={Sun} alt="sun" className="h-6 w-6 float-left" />
+            <img src={Moon} alt="moon" className="h-6 w-6 float-right" />
           </div>
         </label>
       </div>
