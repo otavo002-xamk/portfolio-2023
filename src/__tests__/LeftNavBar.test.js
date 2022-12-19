@@ -7,7 +7,6 @@ import {
   Outlet,
   Link,
 } from "react-router-dom";
-import { ThemeContext, themes } from "../theme-context";
 
 const testRouter = createMemoryRouter([
   {
@@ -68,7 +67,6 @@ const testCases = [
 ];
 
 const mockChildComponent = jest.fn();
-const theme = themes.light;
 
 jest.mock("../MenuButton", () => (props) => {
   mockChildComponent(props);
@@ -79,13 +77,7 @@ jest.mock("../MenuButton", () => (props) => {
   );
 });
 
-beforeEach(() =>
-  render(
-    <ThemeContext.Provider value={{ theme }}>
-      <RouterProvider router={testRouter} />
-    </ThemeContext.Provider>
-  )
-);
+beforeEach(() => render(<RouterProvider router={testRouter} />));
 
 describe("Only frontpage renders initially", () => {
   it("should render frontpage before any link is clicked", () =>

@@ -1,6 +1,6 @@
 import TestRenderer from "react-test-renderer";
 import Center from "../Center";
-import { BrowserRouter } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
 
 const testContent = ["Left Nav-Bar!", "Content!"];
 
@@ -8,9 +8,9 @@ jest.mock("../LeftNavBar", () => () => <p>Left Nav-Bar!</p>);
 jest.mock("../Content", () => () => <p>Content!</p>);
 
 const testRenderer = TestRenderer.create(
-  <BrowserRouter>
+  <MemoryRouter>
     <Center />
-  </BrowserRouter>
+  </MemoryRouter>
 );
 
 const childComponents = testRenderer.toJSON().children;

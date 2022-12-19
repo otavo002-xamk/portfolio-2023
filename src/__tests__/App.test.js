@@ -1,6 +1,6 @@
 import TestRenderer from "react-test-renderer";
 import App from "../App";
-import { BrowserRouter, screen } from "react-router-dom";
+import { MemoryRouter } from "react-router-dom";
 
 const testContent = ["Top Header!", "Center!", "Footer!"];
 
@@ -9,9 +9,9 @@ jest.mock("../Center", () => () => <p>Center!</p>);
 jest.mock("../Footer", () => () => <p>Footer!</p>);
 
 const testRenderer = TestRenderer.create(
-  <BrowserRouter>
+  <MemoryRouter>
     <App />
-  </BrowserRouter>
+  </MemoryRouter>
 );
 
 const childComponents = testRenderer.toJSON().children;
