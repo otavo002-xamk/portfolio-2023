@@ -1,15 +1,10 @@
 import React from "react";
-import { ThemeContext } from "../theme-context";
 
 function Sample2() {
   return (
-    <ThemeContext.Consumer>
-      {({ theme }) => (
-        <div>
-          <p className={theme.text}>Sample 2!</p>
-        </div>
-      )}
-    </ThemeContext.Consumer>
+    <div>
+      <p className="dark:text-white">Sample 2!</p>
+    </div>
   );
 }
 

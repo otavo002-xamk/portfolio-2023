@@ -2,26 +2,22 @@ import "./App.css";
 import TopHeader from "./TopHeader";
 import Footer from "./Footer";
 import Center from "./Center";
-import { ThemeContext, themes } from "./theme-context";
-import { useState } from "react";
+import { ThemeContext } from "./theme-context";
 
 function App() {
-  const [theme, setTheme] = useState(themes.dark);
-  const updateTheme = (theme) => {
-    theme === themes.light ? setTheme(themes.dark) : setTheme(themes.light);
+  const updateTheme = () => {
+    document.body.classList.contains("dark")
+      ? document.body.classList.remove("dark")
+      : document.body.classList.add("dark");
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, updateTheme }}>
-      <ThemeContext.Consumer>
-        {({ theme }) => (
-          <div className={`h-screen ${theme.backGround}`}>
-            <TopHeader />
-            <Center />
-            <Footer />
-          </div>
-        )}
-      </ThemeContext.Consumer>
+    <ThemeContext.Provider value={{ updateTheme }}>
+      <div className="h-screen bg-red-100 dark:bg-black">
+        <TopHeader />
+        <Center />
+        <Footer />
+      </div>
     </ThemeContext.Provider>
   );
 }

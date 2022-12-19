@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Image from "./pictures/home.png";
 import Sun from "./pictures/sum_03.png";
-import Moon from "./pictures/1476842879.png";
+import Moon from "./pictures/Crescent-moon.png";
 import { ThemeContext } from "./theme-context";
 
 function TopHeader() {
   return (
     <ThemeContext.Consumer>
-      {({ theme, updateTheme }) => (
+      {({ updateTheme }) => (
         <div className="p-2 bg-header bg-cover absolute w-full bg-red-600 h-40">
           <div className="float-left">
             <Link to="/">
@@ -22,12 +22,12 @@ function TopHeader() {
 
           <div className="float-right">
             <label
-              for="toggle-theme"
+              htmlFor="toggle-theme"
               className="flex items-center cursor-pointer relative"
             >
               <input
                 type="checkbox"
-                onClick={() => updateTheme(theme)}
+                onClick={() => updateTheme()}
                 id="toggle-theme"
                 className="sr-only"
               />
