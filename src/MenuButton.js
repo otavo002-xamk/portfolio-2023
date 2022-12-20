@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 function MenuButton({ handleMenuChange, menuOpen }) {
   const bar1WhenMenuOpen = menuOpen
@@ -23,5 +24,10 @@ function MenuButton({ handleMenuChange, menuOpen }) {
     </div>
   );
 }
+
+MenuButton.propTypes = {
+  handleMenuChange: PropTypes.func.isRequired,
+  menuOpen: PropTypes.bool,
+};
 
 export default MenuButton;
