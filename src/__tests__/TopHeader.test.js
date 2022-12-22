@@ -31,7 +31,17 @@ const testRouter = createMemoryRouter(
   }
 );
 
-beforeAll(() => render(<RouterProvider router={testRouter} />));
+const mockChildComponent = jest.fn();
+
+jest.mock("../ThemeToggler", () => (props) => {
+  mockChildComponent(props);
+  return <p>Theme Toggler!</p>;
+});
+
+beforeEach(() => {
+  jest.clearAllMocks();
+  render(<RouterProvider router={testRouter} />);
+});
 
 describe("Link works", () => {
   it("should redirect to front page when the home-icon is clicked", async () => {
@@ -42,5 +52,10 @@ describe("Link works", () => {
       expect(screen.getByText("Front!")).toBeInTheDocument();
       expect(screen.queryByText("Sample 1!")).not.toBeInTheDocument();
     });
+  });
+
+  it("should render ThemeToggler with the right props", () => {
+    expect(mockChildComponent).toHaveBeenCalledTimes(1);
+    expect(screen.getByText("Theme Toggler!")).toBeInTheDocument();
   });
 });
