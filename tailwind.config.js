@@ -9,6 +9,7 @@ module.exports = {
       default: "1px 1px 1px black",
       white: "1px 1px 1px white",
       active: "1px 1px 1px #f87171",
+      hover: "1px 1px 1px #fca5a5",
     },
     extend: {
       boxShadow: {

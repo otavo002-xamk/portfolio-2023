@@ -40,7 +40,7 @@ function LeftNavBar() {
             link1Active
               ? "text-red-400 text-shadow-active"
               : "text-white dark:text-black"
-          } my-1 font-serif`}
+          } my-1 font-serif hover:text-red-300 dark:hover:text-red-300 hover:text-shadow-hover`}
         >
           <Link to="/sample1">Sample 1</Link>
         </p>
@@ -49,7 +49,7 @@ function LeftNavBar() {
             link2Active
               ? "text-red-400 text-shadow-active"
               : "text-white dark:text-black"
-          } my-1 font-serif`}
+          } my-1 font-serif hover:text-red-300 dark:hover:text-red-300 hover:text-shadow-hover`}
         >
           <Link to="/sample2">Sample 2</Link>
         </p>
@@ -58,7 +58,7 @@ function LeftNavBar() {
             link3Active
               ? "text-red-400 text-shadow-active"
               : "text-white dark:text-black"
-          } my-1 font-serif`}
+          } my-1 font-serif hover:text-red-300 dark:hover:text-red-300 hover:text-shadow-hover`}
         >
           <Link to="/sample3">Sample 3</Link>
         </p>
@@ -67,7 +67,7 @@ function LeftNavBar() {
             link4Active
               ? "text-red-400 text-shadow-active"
               : "text-white dark:text-black"
-          } my-1 font-serif`}
+          } my-1 font-serif hover:text-red-300 dark:hover:text-red-300 hover:text-shadow-hover`}
         >
           <Link to="/sample4">Sample 4</Link>
         </p>

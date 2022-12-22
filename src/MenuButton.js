@@ -12,7 +12,7 @@ function MenuButton({ handleMenuChange, menuOpen }) {
 
   return (
     <div
-      className="menu-container mt-4 lg:hidden"
+      className="menu-container mt-4 cursor-pointer lg:hidden"
       data-testid="menu-container"
       onClick={handleMenuChange}
     >
