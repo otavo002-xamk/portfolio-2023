@@ -1,5 +1,4 @@
 import MenuButton from "../MenuButton";
-import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 
 const changeMenuOpen = jest.fn();
@@ -12,7 +11,7 @@ describe("Component rendering and function calling", () => {
 
   it("should render the component and call the function", () => {
     fireEvent.click(screen.getByTestId("menu-container"));
-    () => expect(changeMenuOpen).toHaveBeenCalledTimes(1);
+    expect(changeMenuOpen).toHaveBeenCalledTimes(1);
   });
 });
 
