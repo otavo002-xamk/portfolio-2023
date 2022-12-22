@@ -12,7 +12,7 @@ function TopHeader() {
   };
 
   return (
-    <div className="p-2 bg-header bg-cover absolute w-full bg-red-600 h-40">
+    <div className="p-2 bg-header bg-cover absolute w-full bg-red-600 h-40 shadow-headerShadow">
       <div className="float-left">
         <Link to="/">
           <img
