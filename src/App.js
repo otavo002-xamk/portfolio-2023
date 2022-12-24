@@ -7,9 +7,10 @@ import { useState } from "react";
 
 function App() {
   const [language, setLanguage] = useState(languages.en);
+  const updateLanguage = (language) => setLanguage(language);
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage }}>
+    <LanguageContext.Provider value={{ language, updateLanguage }}>
       <div className="h-screen bg-red-100 dark:bg-black">
         <TopHeader />
         <Center />
