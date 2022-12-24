@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Image from "./pictures/home.png";
 import ThemeToggler from "./ThemeToggler";
+import LanguageToggler from "./LanguageToggler";
 
 function TopHeader() {
   const updateTheme = () => {
@@ -22,7 +23,10 @@ function TopHeader() {
         </Link>
       </div>
 
-      <ThemeToggler handleClick={updateTheme} />
+      <div className="float-right">
+        <ThemeToggler handleClick={updateTheme} />
+        <LanguageToggler />
+      </div>
     </div>
   );
 }
