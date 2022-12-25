@@ -7,7 +7,9 @@ import { useState } from "react";
 
 function App() {
   const [language, setLanguage] = useState(languages.en);
-  const updateLanguage = (language) => setLanguage(language);
+  const updateLanguage = (event) => {
+    console.log(event);
+  };
 
   return (
     <LanguageContext.Provider value={{ language, updateLanguage }}>
