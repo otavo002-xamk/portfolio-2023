@@ -17,7 +17,7 @@ function TopHeader() {
         <Link to="/">
           <img
             alt="home"
-            className="object-scale-down h-32 opacity-50 hover:opacity-100 blur-sm hover:blur-none duration-300"
+            className="object-scale-down h-24 tablet:h-32 opacity-50 hover:opacity-100 blur-sm hover:blur-none duration-300"
             src={Image}
           />
         </Link>

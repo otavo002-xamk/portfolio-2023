@@ -6,8 +6,8 @@ import Select from "react-select";
 
 function LanguageToggler() {
   const options = [
-    { value: "en", label: <img src={england} /> },
-    { value: "fi", label: <img src={finland} /> },
+    { value: "en", label: <img src={england} alt="en" /> },
+    { value: "fi", label: <img src={finland} alt="fi" /> },
   ];
 
   return (
@@ -26,9 +26,13 @@ function LanguageToggler() {
                 ...baseStyles,
                 display: "none",
               }),
+              dropdownIndicator: (baseStyles) => ({
+                ...baseStyles,
+                cursor: "pointer",
+              }),
             }}
             unstyled
-            className="w-20 h-20"
+            className="tablet:w-20 tablet:h-20 w-14 h-14"
             placeholder={<img src={language.flag} />}
             options={options}
             onChange={updateLanguage}

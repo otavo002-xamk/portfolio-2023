@@ -4,7 +4,7 @@ import Moon from "./pictures/Crescent-moon.png";
 
 function ThemeToggler({ handleClick }) {
   return (
-    <div className="float-left shadow-md">
+    <div className="float-left tablet:pt-4 pt-2 shadow-md">
       <label
         htmlFor="toggle-theme"
         className="flex items-center cursor-pointer relative"

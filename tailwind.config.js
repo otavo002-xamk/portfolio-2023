@@ -5,6 +5,9 @@ module.exports = {
   content: ["./src/*.{js,jsx,ts,tsx}"],
   darkMode: "class",
   theme: {
+    screens: {
+      tablet: "400px",
+    },
     textShadow: {
       default: "1px 1px 1px black",
       white: "1px 1px 1px white",
