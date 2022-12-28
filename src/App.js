@@ -8,7 +8,7 @@ import { useState } from "react";
 function App() {
   const [language, setLanguage] = useState(languages.en);
   const updateLanguage = (event) => {
-    console.log(event);
+    setLanguage(languages[event.value]);
   };
 
   return (

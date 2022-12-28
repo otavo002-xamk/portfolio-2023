@@ -33,7 +33,7 @@ function LanguageToggler() {
             }}
             unstyled
             className="tablet:w-20 tablet:h-20 w-14 h-14"
-            placeholder={<img src={language.flag} />}
+            placeholder={<img src={language.flag} alt={language.name} />}
             options={options}
             onChange={updateLanguage}
           />

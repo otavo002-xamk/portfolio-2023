@@ -1,10 +1,15 @@
 import React from "react";
+import { LanguageContext } from "../language-context";
 
 function Sample1() {
   return (
-    <div>
-      <p className="dark:text-white">Sample 1!</p>
-    </div>
+    <LanguageContext.Consumer>
+      {({ language }) => (
+        <div>
+          <p className="dark:text-white">{language.pages.sample1.content}</p>
+        </div>
+      )}
+    </LanguageContext.Consumer>
   );
 }
 
