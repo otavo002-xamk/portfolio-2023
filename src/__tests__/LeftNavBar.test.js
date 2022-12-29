@@ -7,6 +7,7 @@ import {
   Outlet,
   Link,
 } from "react-router-dom";
+import { LanguageContext, languages } from "../language-context";
 
 const testRouter = createMemoryRouter([
   {
@@ -67,6 +68,7 @@ const testCases = [
 ];
 
 const mockChildComponent = jest.fn();
+const language = languages.en;
 
 jest.mock("../MenuButton", () => (props) => {
   mockChildComponent(props);
@@ -77,7 +79,13 @@ jest.mock("../MenuButton", () => (props) => {
   );
 });
 
-beforeEach(() => render(<RouterProvider router={testRouter} />));
+beforeEach(() =>
+  render(
+    <LanguageContext.Provider value={{ language }}>
+      <RouterProvider router={testRouter} />
+    </LanguageContext.Provider>
+  )
+);
 
 describe("Only frontpage renders initially", () => {
   it("should render frontpage before any link is clicked", () =>
