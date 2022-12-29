@@ -67,6 +67,7 @@ const testCases = [
   },
 ];
 
+jest.mock("../language-context");
 const mockChildComponent = jest.fn();
 const language = languages.en;
 

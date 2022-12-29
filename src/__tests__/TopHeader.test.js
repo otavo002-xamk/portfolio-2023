@@ -38,6 +38,11 @@ jest.mock("../ThemeToggler", () => (props) => {
   return <p>Theme Toggler!</p>;
 });
 
+jest.mock("../LanguageToggler", () => () => {
+  mockChildComponent();
+  return <p>Language Toggler!</p>;
+});
+
 beforeEach(() => {
   jest.clearAllMocks();
   render(<RouterProvider router={testRouter} />);
@@ -54,8 +59,9 @@ describe("Link works", () => {
     });
   });
 
-  it("should render ThemeToggler with the right props", () => {
-    expect(mockChildComponent).toHaveBeenCalledTimes(1);
+  it("should render the ThemeToggler & LanguageToggler components", () => {
+    expect(mockChildComponent).toHaveBeenCalledTimes(2);
     expect(screen.getByText("Theme Toggler!")).toBeInTheDocument();
+    expect(screen.getByText("Language Toggler!")).toBeInTheDocument();
   });
 });
