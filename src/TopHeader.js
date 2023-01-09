@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import Image from "./pictures/home.png";
 import ThemeToggler from "./ThemeToggler";
-import LanguageToggler from "./LanguageToggler";
+import LanguageToggler from "./LanguageToggler.tsx";
 
 function TopHeader() {
   const updateTheme = () => {

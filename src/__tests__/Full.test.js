@@ -1,5 +1,5 @@
 import { RouterProvider } from "react-router-dom";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import testRouter from "../testRouter";
 
 const navBarLinks = [
@@ -22,6 +22,45 @@ describe("Top Header", () => {
     fireEvent.click(screen.getByAltText("home"));
     expect(screen.getByText("Front Page!")).toBeInTheDocument();
     expect(screen.queryByText("Sample 1!")).not.toBeInTheDocument();
+  });
+});
+
+describe("The Language Toggler", () => {
+  beforeEach(() => render(<RouterProvider router={testRouter(0)} />));
+
+  it("should change the language from english to finnish & back to english", async () => {
+    expect(screen.queryByText("Front Page!")).toBeInTheDocument();
+    expect(screen.queryByText("Etusivu!")).not.toBeInTheDocument();
+
+    fireEvent.change(screen.getByTestId("language-toggler-input"), {
+      target: { value: "fi" },
+    });
+
+    await waitFor(() =>
+      expect(screen.getByTestId("finnish-flag")).toBeInTheDocument()
+    );
+
+    fireEvent.click(screen.getByTestId("finnish-flag"));
+
+    await waitFor(() => {
+      expect(screen.getByText("Etusivu!")).toBeInTheDocument();
+      expect(screen.queryByText("Front Page!")).not.toBeInTheDocument();
+    });
+
+    fireEvent.change(screen.getByTestId("language-toggler-input"), {
+      target: { value: "en" },
+    });
+
+    await waitFor(() =>
+      expect(screen.getByTestId("english-flag")).toBeInTheDocument()
+    );
+
+    fireEvent.click(screen.getByTestId("english-flag"));
+
+    await waitFor(() => {
+      expect(screen.getByText("Front Page!")).toBeInTheDocument();
+      expect(screen.queryByText("Etusivu!")).not.toBeInTheDocument();
+    });
   });
 });
 

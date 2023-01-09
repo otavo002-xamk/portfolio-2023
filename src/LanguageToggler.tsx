@@ -2,14 +2,29 @@ import React from "react";
 import { LanguageContext } from "./language-context";
 import england from "./pictures/gb.png";
 import finland from "./pictures/fi.png";
-import Select from "react-select";
+import Select, { components, InputProps } from "react-select";
+
+interface Option {
+  value: string;
+  label: any;
+}
+
+const options: Option[] = [
+  {
+    value: "en",
+    label: <img data-testid="english-flag" src={england} alt="en" />,
+  },
+  {
+    value: "fi",
+    label: <img data-testid="finnish-flag" src={finland} alt="fi" />,
+  },
+];
+
+const Input = (props: InputProps<Option, true>) => (
+  <components.Input {...props} data-testid="language-toggler-input" />
+);
 
 function LanguageToggler() {
-  const options = [
-    { value: "en", label: <img src={england} alt="en" /> },
-    { value: "fi", label: <img src={finland} alt="fi" /> },
-  ];
-
   return (
     <LanguageContext.Consumer>
       {({ language, updateLanguage }) => (
@@ -35,6 +50,7 @@ function LanguageToggler() {
             className="tablet:w-20 tablet:h-20 w-14 h-14"
             placeholder={<img src={language.flag} alt={language.name} />}
             options={options}
+            components={{ Input }}
             onChange={updateLanguage}
           />
         </div>
