@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { LanguageContext } from "../language-context";
+import { ReactAnySliderDots as Dots } from "react-any-slider-dots";
+import "react-any-slider-dots/dist/dots.css";
+
 const a = require("../slides/a.jpg");
 const b = require("../slides/b.jpg");
 const c = require("../slides/c.jpg");
@@ -32,11 +35,18 @@ function FrontPage() {
   return (
     <LanguageContext.Consumer>
       {({ language }) => (
-        <div>
+        <div className="SLIDER-CONTAINER" style={{ position: "relative" }}>
           <button onClick={() => changeSlide(null, -1)}>Prev!</button>
           <button onClick={() => changeSlide(null)}>Next!</button>
           <img src={currentSlide} alt="slideshow" />
           <p className="dark:text-white">{language.pages.frontPage.content}</p>
+          <Dots
+            dotGap={12}
+            dotSize={12}
+            dotsCount={slides.length}
+            activeIndex={slides.indexOf(currentSlide)}
+            visibleDotsCount={slides.length}
+          />
         </div>
       )}
     </LanguageContext.Consumer>
