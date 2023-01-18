@@ -32,6 +32,8 @@ function FrontPage() {
     else setCurrentSlide(nextSlide);
   };
 
+  const testFunction = (event) => console.log(event.target.id);
+
   return (
     <LanguageContext.Consumer>
       {({ language }) => (
@@ -46,6 +48,7 @@ function FrontPage() {
             dotsCount={slides.length}
             activeIndex={slides.indexOf(currentSlide)}
             visibleDotsCount={slides.length}
+            handleClick={testFunction}
           />
         </div>
       )}
