@@ -2,7 +2,7 @@
 const twTextShadow = require("tailwindcss-textshadow");
 
 module.exports = {
-  content: ["./src/*.{js,jsx,ts,tsx}"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   darkMode: "class",
   theme: {
     screens: {

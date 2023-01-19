@@ -37,20 +37,34 @@ function FrontPage() {
   return (
     <LanguageContext.Consumer>
       {({ language }) => (
-        <div className="SLIDER-CONTAINER" style={{ position: "relative" }}>
-          <button onClick={() => changeSlide(null, -1)}>Prev!</button>
-          <button onClick={() => changeSlide(null)}>Next!</button>
-          <img src={currentSlide} alt="slideshow" />
+        <>
+          <div className="relative">
+            <button
+              className="h-16 w-10 left-0 top-2/4 text-red-600 text-4xl hover:bg-black duration-300 rounded-sm absolute"
+              onClick={() => changeSlide(null, -1)}
+            >
+              &#10094;
+            </button>
+            <button
+              className="h-16 w-10 right-0 top-2/4 text-red-600 text-4xl hover:bg-black duration-300 rounded-sm absolute"
+              onClick={() => changeSlide(null)}
+            >
+              &#10095;
+            </button>
+            <img src={currentSlide} alt="slideshow" />
+          </div>
+          <div className="relative">
+            <Dots
+              dotGap={12}
+              dotSize={12}
+              dotsCount={slides.length}
+              activeIndex={slides.indexOf(currentSlide)}
+              visibleDotsCount={slides.length}
+              handleClick={handleClick}
+            />
+          </div>
           <p className="dark:text-white">{language.pages.frontPage.content}</p>
-          <Dots
-            dotGap={12}
-            dotSize={12}
-            dotsCount={slides.length}
-            activeIndex={slides.indexOf(currentSlide)}
-            visibleDotsCount={slides.length}
-            handleClick={handleClick}
-          />
-        </div>
+        </>
       )}
     </LanguageContext.Consumer>
   );
