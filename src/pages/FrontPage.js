@@ -40,20 +40,20 @@ function FrontPage() {
         <>
           <div className="relative">
             <button
-              className="h-16 w-10 left-0 top-2/4 text-red-600 text-4xl hover:bg-black duration-300 rounded-sm absolute"
+              className="h-10 w-6 tablet:h-16 tablet:w-10 left-0 top-2/4 text-red-600 text-xl tablet:text-4xl hover:bg-black duration-300 rounded-sm absolute"
               onClick={() => changeSlide(null, -1)}
             >
               &#10094;
             </button>
             <button
-              className="h-16 w-10 right-0 top-2/4 text-red-600 text-4xl hover:bg-black duration-300 rounded-sm absolute"
+              className="h-10 w-6 tablet:h-16 tablet:w-10 right-0 top-2/4 text-red-600  text-xl tablet:text-4xl hover:bg-black duration-300 rounded-sm absolute"
               onClick={() => changeSlide(null)}
             >
               &#10095;
             </button>
             <img src={currentSlide} alt="slideshow" />
           </div>
-          <div className="relative">
+          <div className="relative hidden tablet:block">
             <Dots
               dotGap={12}
               dotSize={12}
