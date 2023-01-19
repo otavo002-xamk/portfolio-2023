@@ -32,9 +32,7 @@ function FrontPage() {
     else setCurrentSlide(nextSlide);
   };
 
-  const clickTest = (event) => console.log(event.target.id);
-  const mouseOverTest = (event) => console.log(event.target.id);
-  const mouseOutTest = (event) => console.log(event.target.id);
+  const handleClick = (event) => changeSlide(event.target.id.slice(9, 10));
 
   return (
     <LanguageContext.Consumer>
@@ -50,9 +48,7 @@ function FrontPage() {
             dotsCount={slides.length}
             activeIndex={slides.indexOf(currentSlide)}
             visibleDotsCount={slides.length}
-            handleClick={clickTest}
-            handleMouseOver={mouseOverTest}
-            handleMouseOut={mouseOutTest}
+            handleClick={handleClick}
           />
         </div>
       )}
