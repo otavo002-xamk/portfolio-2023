@@ -40,12 +40,14 @@ function FrontPage() {
         <>
           <div className="relative">
             <button
+              data-testid="slider-prev-button"
               className="h-10 w-6 tablet:h-16 tablet:w-10 left-0 top-2/4 text-red-600 text-xl tablet:text-4xl hover:bg-black duration-300 rounded-sm absolute"
               onClick={() => changeSlide(null, -1)}
             >
               &#10094;
             </button>
             <button
+              data-testid="slider-next-button"
               className="h-10 w-6 tablet:h-16 tablet:w-10 right-0 top-2/4 text-red-600  text-xl tablet:text-4xl hover:bg-black duration-300 rounded-sm absolute"
               onClick={() => changeSlide(null)}
             >
