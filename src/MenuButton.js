@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 
 function MenuButton({ handleMenuChange, menuOpen }) {
@@ -30,4 +30,4 @@ MenuButton.propTypes = {
   menuOpen: PropTypes.bool,
 };
 
-export default MenuButton;
+export default memo(MenuButton);

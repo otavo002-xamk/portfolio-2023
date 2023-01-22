@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { LanguageContext } from "./language-context";
 import MenuButton from "./MenuButton";
 
 function LeftNavBar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const changeMenuOpenState = () => setMenuOpen(!menuOpen);
+  const changeMenuOpenState = useCallback(
+    () => setMenuOpen(!menuOpen),
+    [menuOpen]
+  );
   const itemsWhenMenuOpen = !menuOpen && "hidden";
   const location = useLocation();
   let link1Active = false;

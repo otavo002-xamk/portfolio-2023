@@ -74,19 +74,17 @@ const language = languages.en;
 jest.mock("../MenuButton", () => (props) => {
   mockChildComponent(props);
   return (
-    <div onClick={props.handleMenuChange}>
-      {props.menuOpen ? "Menu open!" : "Menu closed!"}
-    </div>
+    <div data-testid="menu-change-handler" onClick={props.handleMenuChange} />
   );
 });
 
-beforeEach(() =>
+beforeEach(() => {
   render(
     <LanguageContext.Provider value={{ language }}>
       <RouterProvider router={testRouter} />
     </LanguageContext.Provider>
-  )
-);
+  );
+});
 
 describe("Only frontpage renders initially", () => {
   it("should render frontpage before any link is clicked", () =>
@@ -121,14 +119,26 @@ describe("Menu open state changes", () => {
         menuOpen: false,
       })
     );
-    expect(screen.getByText("Menu closed!")).toBeInTheDocument();
-    expect(screen.queryByText("Menu open!")).not.toBeInTheDocument();
-    fireEvent.click(screen.getByText("Menu closed!"));
-    expect(screen.getByText("Menu open!")).toBeInTheDocument();
-    expect(screen.queryByText("Menu closed!")).not.toBeInTheDocument();
-    fireEvent.click(screen.getByText("Menu open!"));
-    expect(screen.getByText("Menu closed!")).toBeInTheDocument();
-    expect(screen.queryByText("Menu open!")).not.toBeInTheDocument();
+
+    expect(mockChildComponent).toHaveBeenCalledTimes(1);
+    fireEvent.click(screen.getByTestId("menu-change-handler"));
+
+    expect(mockChildComponent).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        menuOpen: true,
+      })
+    );
+
+    expect(mockChildComponent).toHaveBeenCalledTimes(2);
+    fireEvent.click(screen.getByTestId("menu-change-handler"));
+
+    expect(mockChildComponent).toHaveBeenLastCalledWith(
+      expect.objectContaining({
+        menuOpen: false,
+      })
+    );
+
+    expect(mockChildComponent).toHaveBeenCalledTimes(3);
   });
 
   it.each([...testCases, { path: "/", text: "Front page", content: "Front!" }])(
@@ -139,14 +149,20 @@ describe("Menu open state changes", () => {
           menuOpen: false,
         })
       );
-      expect(screen.getByText("Menu closed!")).toBeInTheDocument();
-      expect(screen.queryByText("Menu open!")).not.toBeInTheDocument();
-      fireEvent.click(screen.getByText("Menu closed!"));
-      expect(screen.getByText("Menu open!")).toBeInTheDocument();
-      expect(screen.queryByText("Menu closed!")).not.toBeInTheDocument();
+      expect(mockChildComponent).toHaveBeenCalledTimes(1);
+      fireEvent.click(screen.getByTestId("menu-change-handler"));
+      expect(mockChildComponent).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          menuOpen: true,
+        })
+      );
+      expect(mockChildComponent).toHaveBeenCalledTimes(2);
       fireEvent.click(screen.getByText(text));
-      expect(screen.getByText("Menu closed!")).toBeInTheDocument();
-      expect(screen.queryByText("Menu open!")).not.toBeInTheDocument();
+      expect(mockChildComponent).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          menuOpen: false,
+        })
+      );
     }
   );
 });
