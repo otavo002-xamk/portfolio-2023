@@ -1,5 +1,11 @@
 import { RouterProvider } from "react-router-dom";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from "@testing-library/react";
 import testRouter from "../testRouter";
 
 const navBarLinks = [
@@ -8,6 +14,14 @@ const navBarLinks = [
   ["Sample 3", "Sample 3!"],
   ["Sample 4", "Sample 4!"],
 ];
+
+const testCases = [];
+
+for (let i = 0; i < 8; i++) {
+  i < 7
+    ? testCases.push({ first: i, second: i + 1 })
+    : testCases.push({ first: i, second: 0 });
+}
 
 describe("Top Header", () => {
   beforeEach(() => render(<RouterProvider router={testRouter(1)} />));
@@ -83,12 +97,83 @@ describe("LeftNavBar", () => {
   );
 });
 
-describe("Content", () => {
+describe("Front Page", () => {
   beforeEach(() => render(<RouterProvider router={testRouter(0)} />));
 
   it("should render the content", () => {
     expect(screen.getByText("Content")).toBeInTheDocument();
     expect(screen.getByText("Front Page!")).toBeInTheDocument();
+    expect(screen.getByTestId("slider-prev-button")).toBeInTheDocument();
+    expect(screen.getByTestId("slider-next-button")).toBeInTheDocument();
+    expect(screen.getByAltText("slideshow-0")).toBeInTheDocument();
+  });
+
+  it("should move to the next slide when clicking the arrow", () => {
+    testCases.forEach((testCase) => {
+      expect(
+        screen.getByAltText(`slideshow-${testCase.first}`)
+      ).toBeInTheDocument();
+
+      expect(
+        screen.queryByAltText(`slideshow-${testCase.second}`)
+      ).not.toBeInTheDocument();
+
+      fireEvent.click(screen.getByTestId("slider-next-button"));
+
+      expect(
+        screen.getByAltText(`slideshow-${testCase.second}`)
+      ).toBeInTheDocument();
+
+      expect(
+        screen.queryByAltText(`slideshow-${testCase.first}`)
+      ).not.toBeInTheDocument();
+    });
+  });
+
+  it("should move to the previous slide when clicking the arrow", () => {
+    [...testCases].reverse().forEach((testCase) => {
+      expect(
+        screen.getByAltText(`slideshow-${testCase.second}`)
+      ).toBeInTheDocument();
+
+      expect(
+        screen.queryByAltText(`slideshow-${testCase.first}`)
+      ).not.toBeInTheDocument();
+
+      fireEvent.click(screen.getByTestId("slider-prev-button"));
+
+      expect(
+        screen.getByAltText(`slideshow-${testCase.first}`)
+      ).toBeInTheDocument();
+
+      expect(
+        screen.queryByAltText(`slideshow-${testCase.second}`)
+      ).not.toBeInTheDocument();
+    });
+  });
+
+  jest.useFakeTimers();
+
+  it("should move to the next slide automatically in every 5 seconds", () => {
+    testCases.forEach((testCase) => {
+      expect(
+        screen.getByAltText(`slideshow-${testCase.first}`)
+      ).toBeInTheDocument();
+
+      expect(
+        screen.queryByAltText(`slideshow-${testCase.second}`)
+      ).not.toBeInTheDocument();
+
+      act(() => jest.runOnlyPendingTimers());
+
+      expect(
+        screen.getByAltText(`slideshow-${testCase.second}`)
+      ).toBeInTheDocument();
+
+      expect(
+        screen.queryByAltText(`slideshow-${testCase.first}`)
+      ).not.toBeInTheDocument();
+    });
   });
 });
 

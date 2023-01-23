@@ -8,11 +8,9 @@ const language = languages.en;
 const testCases = [];
 
 for (let i = 0; i < 8; i++) {
-  if (i < 7) {
-    testCases.push({ first: i, second: i + 1 });
-  } else {
-    testCases.push({ first: i, second: 0 });
-  }
+  i < 7
+    ? testCases.push({ first: i, second: i + 1 })
+    : testCases.push({ first: i, second: 0 });
 }
 
 jest.mock("react-any-slider-dots", () => {
