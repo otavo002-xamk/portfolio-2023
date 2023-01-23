@@ -15,6 +15,7 @@ const h = require("../slides/h.jpg");
 function FrontPage() {
   const slides = [a, b, c, d, e, f, g, h];
   const [currentSlide, setCurrentSlide] = useState(slides[0]);
+  const currentIndex = slides.indexOf(currentSlide);
 
   useEffect(() => {
     let timeOut = setTimeout(() => changeSlide(null), 5000);
@@ -53,14 +54,14 @@ function FrontPage() {
             >
               &#10095;
             </button>
-            <img src={currentSlide} alt="slideshow" />
+            <img src={currentSlide} alt={`slideshow-${currentIndex}`} />
           </div>
           <div className="relative hidden tablet:block">
             <Dots
               dotGap={12}
               dotSize={12}
               dotsCount={slides.length}
-              activeIndex={slides.indexOf(currentSlide)}
+              activeIndex={currentIndex}
               visibleDotsCount={slides.length}
               handleClick={handleClick}
             />

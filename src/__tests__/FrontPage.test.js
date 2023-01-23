@@ -54,7 +54,7 @@ describe("Rendering", () => {
     expect(mockChildComponent).toHaveBeenCalledTimes(1);
     expect(screen.getByTestId("slider-prev-button")).toBeInTheDocument();
     expect(screen.getByTestId("slider-next-button")).toBeInTheDocument();
-    expect(screen.getByAltText("slideshow")).toBeInTheDocument();
+    expect(screen.getByAltText("slideshow-0")).toBeInTheDocument();
     expect(screen.getByText("Change slide 5!")).toBeInTheDocument();
     expect(screen.getByText("Front Page!")).toBeInTheDocument();
   });
@@ -68,6 +68,8 @@ describe("Changing slides", () => {
       })
     );
 
+    expect(screen.getByAltText("slideshow-0")).toBeInTheDocument();
+    expect(screen.queryByAltText("slideshow-5")).not.toBeInTheDocument();
     fireEvent.click(screen.getByText("Change slide 5!"));
     expect(mockChildComponent).toHaveBeenCalledTimes(2);
 
@@ -76,11 +78,14 @@ describe("Changing slides", () => {
         activeIndex: 5,
       })
     );
+
+    expect(screen.getByAltText("slideshow-5")).toBeInTheDocument();
+    expect(screen.queryByAltText("slideshow-0")).not.toBeInTheDocument();
   });
 
   it("should move to the next slide when clicking the arrow", () => {
-    testCases.forEach((testCase, index) => {
-      expect(mockChildComponent).toHaveBeenCalledTimes(index + 1);
+    testCases.forEach((testCase) => {
+      expect(mockChildComponent).toHaveBeenCalledTimes(testCase.first + 1);
 
       expect(mockChildComponent).toHaveBeenLastCalledWith(
         expect.objectContaining({
@@ -88,14 +93,30 @@ describe("Changing slides", () => {
         })
       );
 
+      expect(
+        screen.getByAltText(`slideshow-${testCase.first}`)
+      ).toBeInTheDocument();
+
+      expect(
+        screen.queryByAltText(`slideshow-${testCase.second}`)
+      ).not.toBeInTheDocument();
+
       fireEvent.click(screen.getByTestId("slider-next-button"));
-      expect(mockChildComponent).toHaveBeenCalledTimes(index + 2);
+      expect(mockChildComponent).toHaveBeenCalledTimes(testCase.first + 2);
 
       expect(mockChildComponent).toHaveBeenLastCalledWith(
         expect.objectContaining({
           activeIndex: testCase.second,
         })
       );
+
+      expect(
+        screen.getByAltText(`slideshow-${testCase.second}`)
+      ).toBeInTheDocument();
+
+      expect(
+        screen.queryByAltText(`slideshow-${testCase.first}`)
+      ).not.toBeInTheDocument();
     });
   });
 
@@ -109,6 +130,14 @@ describe("Changing slides", () => {
         })
       );
 
+      expect(
+        screen.getByAltText(`slideshow-${testCase.second}`)
+      ).toBeInTheDocument();
+
+      expect(
+        screen.queryByAltText(`slideshow-${testCase.first}`)
+      ).not.toBeInTheDocument();
+
       fireEvent.click(screen.getByTestId("slider-prev-button"));
       expect(mockChildComponent).toHaveBeenCalledTimes(index + 2);
 
@@ -117,14 +146,22 @@ describe("Changing slides", () => {
           activeIndex: testCase.first,
         })
       );
+
+      expect(
+        screen.getByAltText(`slideshow-${testCase.first}`)
+      ).toBeInTheDocument();
+
+      expect(
+        screen.queryByAltText(`slideshow-${testCase.second}`)
+      ).not.toBeInTheDocument();
     });
   });
 
   jest.useFakeTimers();
 
   it("should move to the next slide automatically in every 5 seconds", () => {
-    testCases.forEach((testCase, index) => {
-      expect(mockChildComponent).toHaveBeenCalledTimes(index + 1);
+    testCases.forEach((testCase) => {
+      expect(mockChildComponent).toHaveBeenCalledTimes(testCase.first + 1);
 
       expect(mockChildComponent).toHaveBeenLastCalledWith(
         expect.objectContaining({
@@ -132,14 +169,30 @@ describe("Changing slides", () => {
         })
       );
 
+      expect(
+        screen.getByAltText(`slideshow-${testCase.first}`)
+      ).toBeInTheDocument();
+
+      expect(
+        screen.queryByAltText(`slideshow-${testCase.second}`)
+      ).not.toBeInTheDocument();
+
       act(() => jest.runOnlyPendingTimers());
-      expect(mockChildComponent).toHaveBeenCalledTimes(index + 2);
+      expect(mockChildComponent).toHaveBeenCalledTimes(testCase.first + 2);
 
       expect(mockChildComponent).toHaveBeenLastCalledWith(
         expect.objectContaining({
           activeIndex: testCase.second,
         })
       );
+
+      expect(
+        screen.getByAltText(`slideshow-${testCase.second}`)
+      ).toBeInTheDocument();
+
+      expect(
+        screen.queryByAltText(`slideshow-${testCase.first}`)
+      ).not.toBeInTheDocument();
     });
   });
 });
