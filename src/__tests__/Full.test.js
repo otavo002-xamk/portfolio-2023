@@ -9,7 +9,7 @@ import {
 import testRouter from "../testRouter";
 
 const navBarLinks = [
-  ["Sample 1", "Sample 1!"],
+  ["Math Game", "Math Game!"],
   ["Sample 2", "Sample 2!"],
   ["Sample 3", "Sample 3!"],
   ["Sample 4", "Sample 4!"],
@@ -31,11 +31,11 @@ describe("Top Header", () => {
   });
 
   it("should redirect to front-page when image is clicked", async () => {
-    expect(screen.getByText("Sample 1!")).toBeInTheDocument();
+    expect(screen.getByText("Math Game!")).toBeInTheDocument();
     expect(screen.queryByText("Front!")).not.toBeInTheDocument();
     fireEvent.click(screen.getByAltText("home"));
     expect(screen.getByText("Front Page!")).toBeInTheDocument();
-    expect(screen.queryByText("Sample 1!")).not.toBeInTheDocument();
+    expect(screen.queryByText("Math Game!")).not.toBeInTheDocument();
   });
 });
 

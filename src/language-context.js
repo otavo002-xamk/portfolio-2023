@@ -10,9 +10,9 @@ export const languages = {
       frontPage: {
         content: "Front Page!",
       },
-      sample1: {
-        link: "Sample 1",
-        content: "Sample 1!",
+      mathGame: {
+        link: "Math Game",
+        content: "Math Game!",
       },
       sample2: {
         link: "Sample 2",
@@ -35,9 +35,9 @@ export const languages = {
       frontPage: {
         content: "Etusivu!",
       },
-      sample1: {
-        link: "Näyte 1",
-        content: "Näyte 1!",
+      mathGame: {
+        link: "Matikkapeli",
+        content: "Matikkapeli!",
       },
       sample2: {
         link: "Näyte 2",

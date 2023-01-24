@@ -19,14 +19,14 @@ const testRouter = createMemoryRouter(
           element: <p>Front!</p>,
         },
         {
-          path: "sample1",
+          path: "MathGame",
           element: <p>Sample 1!</p>,
         },
       ],
     },
   ],
   {
-    initialEntries: ["/sample1"],
+    initialEntries: ["/MathGame"],
     initialIndex: 0,
   }
 );

@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import FrontPage from "./pages/FrontPage";
-import Sample1 from "./pages/Sample1";
+import MathGame from "./pages/MathGame";
 import Sample2 from "./pages/Sample2";
 import Sample3 from "./pages/Sample3";
 import Sample4 from "./pages/Sample4";
@@ -16,8 +16,8 @@ const router = createBrowserRouter([
         element: <FrontPage />,
       },
       {
-        path: "/sample1",
-        element: <Sample1 />,
+        path: "/MathGame",
+        element: <MathGame />,
       },
       {
         path: "/sample2",

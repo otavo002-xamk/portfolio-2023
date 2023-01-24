@@ -19,7 +19,7 @@ function LeftNavBar() {
   useEffect(() => setMenuOpen(false), [location]);
 
   switch (location.pathname) {
-    case "/sample1":
+    case "/MathGame":
       link1Active = true;
       break;
     case "/sample2":
@@ -51,7 +51,7 @@ function LeftNavBar() {
                   : "text-white dark:text-black"
               } my-1 font-serif hover:text-red-300 dark:hover:text-red-300 hover:text-shadow-hover`}
             >
-              <Link to="/sample1">{language.pages.sample1.link}</Link>
+              <Link to="/MathGame">{language.pages.mathGame.link}</Link>
             </p>
             <p
               className={`${

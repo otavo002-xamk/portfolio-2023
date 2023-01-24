@@ -25,8 +25,8 @@ const testRouter = createMemoryRouter([
         element: <p>Front!</p>,
       },
       {
-        path: "sample1",
-        element: <p>Sample 1!</p>,
+        path: "MathGame",
+        element: <p>Math Game!</p>,
       },
       {
         path: "sample2",
@@ -46,9 +46,9 @@ const testRouter = createMemoryRouter([
 
 const testCases = [
   {
-    path: "/sample1",
-    text: "Sample 1",
-    content: "Sample 1!",
+    path: "/MathGame",
+    text: "Math Game",
+    content: "Math Game!",
   },
   {
     path: "/sample2",
