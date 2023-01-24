@@ -24,6 +24,7 @@ module.exports = {
         darkBurger: "1px 1px 2px black",
         closeBurger: "1px 1px 2px #f87171",
         footer: "0 -2px 8px #881337",
+        mathBox: "1px 1px 2px black",
       },
       backgroundImage: {
         header: "url('./pictures/jarvi.jpg')",

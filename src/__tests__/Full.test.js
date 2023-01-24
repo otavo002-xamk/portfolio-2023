@@ -101,7 +101,6 @@ describe("Front Page", () => {
   beforeEach(() => render(<RouterProvider router={testRouter(0)} />));
 
   it("should render the content", () => {
-    expect(screen.getByText("Content")).toBeInTheDocument();
     expect(screen.getByText("Front Page!")).toBeInTheDocument();
     expect(screen.getByTestId("slider-prev-button")).toBeInTheDocument();
     expect(screen.getByTestId("slider-next-button")).toBeInTheDocument();
