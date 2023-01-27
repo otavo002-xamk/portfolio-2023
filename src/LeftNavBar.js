@@ -38,7 +38,7 @@ function LeftNavBar() {
   return (
     <LanguageContext.Consumer>
       {({ language }) => (
-        <div className="bg-leftNavBar bg-cover pt-40 lg:col-start-1 lg:col-end-1 p-4 bg-black dark:bg-red-100 shadow-navbar dark:shadow-darkNavbar text-shadow-white dark:text-shadow">
+        <div className="lg:h-screen bg-leftNavBar bg-cover pt-40 lg:col-start-1 lg:col-end-1 p-4 bg-black dark:bg-red-100 shadow-navbar dark:shadow-darkNavbar text-shadow-white dark:text-shadow">
           <MenuButton
             handleMenuChange={changeMenuOpenState}
             menuOpen={menuOpen}
