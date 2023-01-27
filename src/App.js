@@ -13,9 +13,11 @@ function App() {
 
   return (
     <LanguageContext.Provider value={{ language, updateLanguage }}>
-      <div className="h-screen bg-red-100 dark:bg-black">
+      <div className="min-h-screen bg-red-100 dark:bg-black">
         <TopHeader />
         <Center />
+      </div>
+      <div>
         <Footer />
       </div>
     </LanguageContext.Provider>

@@ -1,5 +1,7 @@
 import React from "react";
 import { LanguageContext } from "../language-context";
+import Correct from "../pictures/correct.png";
+import False from "../pictures/false.png";
 
 function MathGame() {
   const randomNumbers = [
@@ -35,7 +37,7 @@ function MathGame() {
           <br />
           <div className="grid grid-rows-2 tablet:flex tablet:items-stretch">
             <div className="row-start-1 row-span-1 self-center text-center py-2 bg-rose-200 tablet:w-2/12">
-              {randomNumbers[0]}
+              <p>{randomNumbers[0]}</p>
             </div>
             <div className="row-start-1 row-span-1 self-center text-center py-2 tablet:w-1/12">
               +
@@ -58,25 +60,29 @@ function MathGame() {
                   <td
                     id={`td1-${tableOfOptions[0]}`}
                     onClick={chooseAnswer}
-                    className="cursor-pointer shadow-mathBox w-full text-center py-2 bg-red-400"
+                    className="flex justify-center gap-1 cursor-pointer shadow-mathBox w-full text-center py-2 bg-red-400"
                   >
-                    {tableOfOptions[0]}
+                    <p onClick={() => console.log("hey")}>
+                      {tableOfOptions[0]}
+                    </p>
+                    <img className="h-6" src={Correct} />
                   </td>
                 </tr>
                 <tr>
                   <td
                     id={`td2-${tableOfOptions[1]}`}
                     onClick={chooseAnswer}
-                    className="cursor-pointer shadow-mathBox w-full text-center py-2 bg-red-400"
+                    className="flex justify-center gap-1 cursor-pointer shadow-mathBox w-full text-center py-2 bg-red-400"
                   >
                     {tableOfOptions[1]}
+                    <img className="h-6" src={False} />
                   </td>
                 </tr>
                 <tr>
                   <td
                     id={`td3-${tableOfOptions[2]}`}
                     onClick={chooseAnswer}
-                    className="cursor-pointer shadow-mathBox w-full text-center py-2 bg-red-400"
+                    className="flex justify-center gap-1 cursor-pointer shadow-mathBox w-full text-center py-2 bg-red-400"
                   >
                     {tableOfOptions[2]}
                   </td>
@@ -85,7 +91,7 @@ function MathGame() {
                   <td
                     id={`td4-${tableOfOptions[3]}`}
                     onClick={chooseAnswer}
-                    className="cursor-pointer shadow-mathBox w-full text-center py-2 bg-red-400"
+                    className="flex justify-center gap-1 cursor-pointer shadow-mathBox w-full text-center py-2 bg-red-400"
                   >
                     {tableOfOptions[3]}
                   </td>
