@@ -1,6 +1,7 @@
 import React from "react";
 import Sun from "./pictures/sum_03.png";
 import Moon from "./pictures/Crescent-moon.png";
+import PropTypes from "prop-types";
 
 function ThemeToggler({ handleClick }) {
   return (
@@ -23,5 +24,7 @@ function ThemeToggler({ handleClick }) {
     </div>
   );
 }
+
+ThemeToggler.propTypes = { handleClick: PropTypes.func.isRequired };
 
 export default ThemeToggler;
