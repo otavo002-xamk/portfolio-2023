@@ -7,8 +7,8 @@ function Equation({ randomNumbers, tableOfOptions }) {
   const [showCorrect, setShowCorrect] = useState(false);
   const [showWrong, setShowWrong] = useState(null);
   const [isTableLocked, setTableLocked] = useState(false);
-
   const sum = randomNumbers[0] + randomNumbers[1] + randomNumbers[2];
+
   const chooseAnswer = (event) => {
     if (!isTableLocked) {
       event.target.id.slice(4) != sum && setShowWrong(event.target.id);
@@ -39,66 +39,23 @@ function Equation({ randomNumbers, tableOfOptions }) {
       </div>
       <table className="col-start-2 col-span-2 tablet:w-2/12 border-separate">
         <tbody>
-          <tr>
-            <td
-              id={`td1-${tableOfOptions[0]}`}
-              onClick={chooseAnswer}
-              className="flex justify-center gap-1 cursor-pointer shadow-mathBox w-full text-center py-2 bg-red-400"
-            >
-              {tableOfOptions[0]}
-              {tableOfOptions[0] == sum && showCorrect && (
-                <img className="h-6" src={Correct} />
-              )}
-              {showWrong === `td1-${tableOfOptions[0]}` && (
-                <img className="h-6" src={False} />
-              )}
-            </td>
-          </tr>
-          <tr>
-            <td
-              id={`td2-${tableOfOptions[1]}`}
-              onClick={chooseAnswer}
-              className="flex justify-center gap-1 cursor-pointer shadow-mathBox w-full text-center py-2 bg-red-400"
-            >
-              {tableOfOptions[1]}
-              {tableOfOptions[1] == sum && showCorrect && (
-                <img className="h-6" src={Correct} />
-              )}
-              {showWrong === `td2-${tableOfOptions[0]}` && (
-                <img className="h-6" src={False} />
-              )}
-            </td>
-          </tr>
-          <tr>
-            <td
-              id={`td3-${tableOfOptions[2]}`}
-              onClick={chooseAnswer}
-              className="flex justify-center gap-1 cursor-pointer shadow-mathBox w-full text-center py-2 bg-red-400"
-            >
-              {tableOfOptions[2]}
-              {tableOfOptions[2] == sum && showCorrect && (
-                <img className="h-6" src={Correct} />
-              )}
-              {showWrong === `td3-${tableOfOptions[2]}` && (
-                <img className="h-6" src={False} />
-              )}
-            </td>
-          </tr>
-          <tr>
-            <td
-              id={`td4-${tableOfOptions[3]}`}
-              onClick={chooseAnswer}
-              className="flex justify-center gap-1 cursor-pointer shadow-mathBox w-full text-center py-2 bg-red-400"
-            >
-              {tableOfOptions[3]}
-              {tableOfOptions[3] == sum && showCorrect && (
-                <img className="h-6" src={Correct} />
-              )}
-              {showWrong === `td4-${tableOfOptions[3]}` && (
-                <img className="h-6" src={False} />
-              )}
-            </td>
-          </tr>
+          {tableOfOptions.map((option, index) => (
+            <tr>
+              <td
+                id={`td${index + 1}-${option}`}
+                onClick={chooseAnswer}
+                className="flex justify-center gap-1 cursor-pointer shadow-mathBox w-full text-center py-2 bg-red-400"
+              >
+                {option}
+                {option == sum && showCorrect && (
+                  <img className="h-6" src={Correct} />
+                )}
+                {showWrong === `td${index + 1}-${option}` && (
+                  <img className="h-6" src={False} />
+                )}
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
       <div className="self-center float-left text-center py-2 tablet:w-1/12">

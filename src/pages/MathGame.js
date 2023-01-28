@@ -20,12 +20,6 @@ function MathGame() {
 
   const tableOfOptions = randomResults.sort();
 
-  const chooseAnswer = (event) => {
-    event.target.id.slice(4) == sum
-      ? console.log("correct!")
-      : console.log("false!");
-  };
-
   return (
     <LanguageContext.Consumer>
       {({ language }) => (
