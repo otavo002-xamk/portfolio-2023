@@ -7,7 +7,11 @@ function MathGame() {
   const [tableOfOptions, setTableOfOptions] = useState([]);
 
   useEffect(() => {
-    const pushStuffToArrays = (cb) => {
+    const randoms = [];
+    const randomResults = [];
+    const options = [];
+
+    for (let i = 0; i < 5; i++) {
       let randomThree = [];
       let threeRandomResults = [];
 
@@ -16,35 +20,19 @@ function MathGame() {
         threeRandomResults.push(Number((Math.random() * 300).toFixed(0)));
       }
 
-      cb(randomThree, threeRandomResults);
-    };
+      randoms.push(randomThree);
+      randomResults.push(threeRandomResults);
+      randomResults[randomResults.length - 1].push(
+        randomThree[0] + randomThree[1] + randomThree[2]
+      );
+    }
 
-    const createrandomsAndResults = (cb) => {
-      const randoms = [];
-      const randomResults = [];
-
-      for (let i = 0; i < 5; i++) {
-        pushStuffToArrays((randomThree, threeRandomResults) => {
-          randoms.push(randomThree);
-          randomResults.push(threeRandomResults);
-        });
-      }
-
-      cb(randoms, randomResults);
-    };
-
-    createrandomsAndResults((randoms, randomResults) => {
-      const sums = [];
-      const options = [];
-
-      randoms.forEach((randomThree, index) => {
-        sums.push(randomThree[0] + randomThree[1] + randomThree[2]);
-        randomResults[index].push(sums[index]);
-        options.push(randomResults[index].sort());
-      });
-      setRandomNumbers(randoms);
-      setTableOfOptions(options);
+    randomResults.forEach((randomResult) => {
+      options.push(randomResult.sort());
     });
+
+    setRandomNumbers(randoms);
+    setTableOfOptions(options);
   }, []);
 
   return (
