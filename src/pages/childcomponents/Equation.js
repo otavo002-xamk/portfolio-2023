@@ -42,6 +42,7 @@ function Equation({ randomNumbers, tableOfOptions }) {
           {tableOfOptions.map((option, index) => (
             <tr>
               <td
+                key={index}
                 id={`td${index + 1}-${option}`}
                 onClick={chooseAnswer}
                 className="flex justify-center gap-1 cursor-pointer shadow-mathBox w-full text-center py-2 bg-red-400"
