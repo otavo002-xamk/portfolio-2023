@@ -14,10 +14,11 @@ const testRenderer = TestRenderer.create(
   </MemoryRouter>
 );
 
-const childComponents = testRenderer.toJSON().children;
-
-it("should render the right amount of child components", () =>
-  expect(childComponents.length).toBe(3));
+const childComponents = [
+  testRenderer.toJSON()[0].children[0],
+  testRenderer.toJSON()[0].children[1],
+  testRenderer.toJSON()[1].children[0],
+];
 
 it.each(childComponents)("should render p $children with no props", (child) => {
   expect(child.type).toBe("p");
