@@ -64,11 +64,21 @@ function MathGame() {
               />
             ))
           )}
-          {isNextButtonDisabled ? (
-            <button disabled>NEXT</button>
-          ) : (
-            <button onClick={moveToNextEquation}>NEXT</button>
-          )}
+          <br />
+          <div className="flex justify-center">
+            {isNextButtonDisabled ? (
+              <button className="margin-auto text-stone-400" disabled>
+                NEXT &#10095;
+              </button>
+            ) : (
+              <button
+                className="margin-auto text-red-900 dark:text-white text-shadow dark:text-shadow-white"
+                onClick={moveToNextEquation}
+              >
+                NEXT &#10095;
+              </button>
+            )}
+          </div>
         </>
       )}
     </LanguageContext.Consumer>
