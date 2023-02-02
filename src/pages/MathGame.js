@@ -5,6 +5,8 @@ import Equation from "./childcomponents/Equation";
 function MathGame() {
   const [randomNumbers, setRandomNumbers] = useState([]);
   const [tableOfOptions, setTableOfOptions] = useState([]);
+  const [currentEquation, setCurrentEquation] = useState(0);
+  const [isNextButtonDisabled, setNextButtonDisabled] = useState(true);
 
   useEffect(() => {
     const randoms = [];
@@ -35,10 +37,15 @@ function MathGame() {
     setTableOfOptions(options);
   }, []);
 
+  const moveToNextEquation = () => {
+    setNextButtonDisabled(true);
+    setCurrentEquation(currentEquation + 1);
+  };
+
   return (
     <LanguageContext.Consumer>
       {({ language }) => (
-        <div>
+        <>
           <h1 className="text-2xl dark:text-white">
             {language.pages.mathGame.content}
           </h1>
@@ -46,12 +53,23 @@ function MathGame() {
           {tableOfOptions.length === 0 || randomNumbers.length === 0 ? (
             <p>loading...</p>
           ) : (
-            <Equation
-              randomNumbers={randomNumbers[0]}
-              tableOfOptions={tableOfOptions[0]}
-            />
+            randomNumbers.map((_equation, index) => (
+              <Equation
+                shouldBeHidden={
+                  currentEquation !== index && currentEquation < 5
+                }
+                randomNumbers={randomNumbers[index]}
+                tableOfOptions={tableOfOptions[index]}
+                setNextButtonDisabled={setNextButtonDisabled}
+              />
+            ))
           )}
-        </div>
+          {isNextButtonDisabled ? (
+            <button disabled>NEXT</button>
+          ) : (
+            <button onClick={moveToNextEquation}>NEXT</button>
+          )}
+        </>
       )}
     </LanguageContext.Consumer>
   );
