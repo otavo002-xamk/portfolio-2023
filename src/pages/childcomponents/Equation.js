@@ -8,6 +8,7 @@ function Equation({
   randomNumbers,
   tableOfOptions,
   setNextButtonDisabled,
+  addPoint,
 }) {
   const [showCorrect, setShowCorrect] = useState(false);
   const [showWrong, setShowWrong] = useState(null);
@@ -16,7 +17,9 @@ function Equation({
 
   const chooseAnswer = (event) => {
     if (!isTableLocked) {
-      event.target.id.slice(4) != sum && setShowWrong(event.target.id);
+      event.target.id.slice(4) != sum
+        ? setShowWrong(event.target.id)
+        : addPoint();
       setShowCorrect(true);
       setTableLocked(true);
       setNextButtonDisabled(false);
@@ -24,7 +27,7 @@ function Equation({
   };
 
   return (
-    <div className={shouldBeHidden && `hidden`}>
+    <div className={`${shouldBeHidden && "hidden"}`}>
       <div className="grid grid-rows-2 tablet:flex tablet:items-stretch">
         <div className="row-start-1 row-span-1 self-center text-center py-2 bg-rose-200 tablet:w-2/12">
           <p>{randomNumbers[0]}</p>
@@ -47,9 +50,8 @@ function Equation({
         <table className="col-start-2 col-span-2 tablet:w-2/12 border-separate">
           <tbody>
             {tableOfOptions.map((option, index) => (
-              <tr>
+              <tr key={index.toString()}>
                 <td
-                  key={index}
                   id={`td${index + 1}-${option}`}
                   onClick={chooseAnswer}
                   className="flex justify-center gap-1 cursor-pointer shadow-mathBox w-full text-center py-2 bg-red-400"
@@ -70,6 +72,7 @@ function Equation({
           ?
         </div>
       </div>
+      <br />
     </div>
   );
 }
@@ -79,6 +82,7 @@ Equation.propTypes = {
   randomNumbers: PropTypes.array.isRequired,
   tableOfOptions: PropTypes.array.isRequired,
   setNextButtonDisabled: PropTypes.func.isRequired,
+  addPoint: PropTypes.func.isRequired,
 };
 
 export default Equation;

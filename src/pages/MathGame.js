@@ -7,6 +7,9 @@ function MathGame() {
   const [tableOfOptions, setTableOfOptions] = useState([]);
   const [currentEquation, setCurrentEquation] = useState(0);
   const [isNextButtonDisabled, setNextButtonDisabled] = useState(true);
+  const [points, setPoints] = useState(0);
+
+  const addPoint = () => setPoints((points) => points + 1);
 
   useEffect(() => {
     const randoms = [];
@@ -50,35 +53,41 @@ function MathGame() {
             {language.pages.mathGame.content}
           </h1>
           <br />
+          {currentEquation === 5 && points === 5 && <h2>YOU DID IT!!!</h2>}
+          {currentEquation === 5 && <h2>Your results: {points} / 5</h2>}
           {tableOfOptions.length === 0 || randomNumbers.length === 0 ? (
             <p>loading...</p>
           ) : (
             randomNumbers.map((_equation, index) => (
               <Equation
+                key={index.toString()}
                 shouldBeHidden={
                   currentEquation !== index && currentEquation < 5
                 }
                 randomNumbers={randomNumbers[index]}
                 tableOfOptions={tableOfOptions[index]}
                 setNextButtonDisabled={setNextButtonDisabled}
+                addPoint={addPoint}
               />
             ))
           )}
-          <br />
-          <div className="flex justify-center">
-            {isNextButtonDisabled ? (
-              <button className="margin-auto text-stone-400" disabled>
-                NEXT &#10095;
-              </button>
-            ) : (
-              <button
-                className="margin-auto text-red-900 dark:text-white text-shadow dark:text-shadow-white"
-                onClick={moveToNextEquation}
-              >
-                NEXT &#10095;
-              </button>
-            )}
-          </div>
+          {currentEquation < 5 && (
+            <div className="flex gap-10 justify-center">
+              <p>{points} / 5</p>
+              {isNextButtonDisabled ? (
+                <button className="margin-auto text-stone-400" disabled>
+                  NEXT &#10095;
+                </button>
+              ) : (
+                <button
+                  className="margin-auto text-red-900 dark:text-white text-shadow dark:text-shadow-white"
+                  onClick={moveToNextEquation}
+                >
+                  NEXT &#10095;
+                </button>
+              )}
+            </div>
+          )}
         </>
       )}
     </LanguageContext.Consumer>
