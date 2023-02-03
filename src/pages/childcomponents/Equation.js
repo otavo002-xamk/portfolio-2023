@@ -58,10 +58,10 @@ function Equation({
                 >
                   {option}
                   {option == sum && showCorrect && (
-                    <img className="h-6" src={Correct} />
+                    <img className="h-6" alt="correct" src={Correct} />
                   )}
                   {showWrong === `td${index + 1}-${option}` && (
-                    <img className="h-6" src={False} />
+                    <img className="h-6" alt="false" src={False} />
                   )}
                 </td>
               </tr>

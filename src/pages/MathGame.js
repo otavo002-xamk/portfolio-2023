@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { LanguageContext } from "../language-context";
+import { LanguageContext, languages } from "../language-context";
 import Equation from "./childcomponents/Equation";
 
 function MathGame() {
@@ -53,8 +53,14 @@ function MathGame() {
             {language.pages.mathGame.content}
           </h1>
           <br />
-          {currentEquation === 5 && points === 5 && <h2>YOU DID IT!!!</h2>}
-          {currentEquation === 5 && <h2>Your results: {points} / 5</h2>}
+          {currentEquation === 5 && points === 5 && (
+            <h2>{language.pages.mathGame.successMessage}</h2>
+          )}
+          {currentEquation === 5 && (
+            <h2>
+              {language.pages.mathGame.yourResults}: {points} / 5
+            </h2>
+          )}
           {tableOfOptions.length === 0 || randomNumbers.length === 0 ? (
             <p>loading...</p>
           ) : (
