@@ -1,8 +1,6 @@
 import Equation from "../pages/childcomponents/Equation";
-import { LanguageContext, languages } from "../language-context";
 import { fireEvent, render, screen } from "@testing-library/react";
 
-const language = languages.en;
 const randomNumbers = [32, 17, 94];
 const sum = randomNumbers[0] + randomNumbers[1] + randomNumbers[2];
 const falseOption = 114;
@@ -11,17 +9,13 @@ const setNextButtonDisabled = jest.fn();
 const addPoint = jest.fn();
 
 beforeEach(() => {
-  jest.clearAllMocks();
-
   render(
-    <LanguageContext.Provider value={{ language }}>
-      <Equation
-        randomNumbers={randomNumbers}
-        tableOfOptions={tableOfOptions}
-        setNextButtonDisabled={setNextButtonDisabled}
-        addPoint={addPoint}
-      />
-    </LanguageContext.Provider>
+    <Equation
+      randomNumbers={randomNumbers}
+      tableOfOptions={tableOfOptions}
+      setNextButtonDisabled={setNextButtonDisabled}
+      addPoint={addPoint}
+    />
   );
 });
 

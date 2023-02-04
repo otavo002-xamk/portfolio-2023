@@ -81,11 +81,16 @@ function MathGame() {
             <div className="flex gap-10 justify-center">
               <p>{points} / 5</p>
               {isNextButtonDisabled ? (
-                <button className="margin-auto text-stone-400" disabled>
+                <button
+                  data-testid="disabled-mathgame-next-button"
+                  className="margin-auto text-stone-400"
+                  disabled
+                >
                   NEXT &#10095;
                 </button>
               ) : (
                 <button
+                  data-testid="mathgame-next-button"
                   className="margin-auto text-red-900 dark:text-white text-shadow dark:text-shadow-white"
                   onClick={moveToNextEquation}
                 >

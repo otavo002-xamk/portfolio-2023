@@ -13,6 +13,8 @@ export const languages = {
       mathGame: {
         link: "Math Game",
         content: "Math Game!",
+        successMessage: "YOU DID IT!!!",
+        yourResults: "Your results",
       },
       sample2: {
         link: "Sample 2",
@@ -38,6 +40,8 @@ export const languages = {
       mathGame: {
         link: "Matikkapeli",
         content: "Matikkapeli!",
+        successMessage: "KAIKKI OIKEIN!!!",
+        yourResults: "Tuloksesi",
       },
       sample2: {
         link: "Näyte 2",
