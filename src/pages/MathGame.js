@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { LanguageContext, languages } from "../language-context";
+import React, { useCallback, useEffect, useState } from "react";
+import { LanguageContext } from "../language-context";
 import Equation from "./childcomponents/Equation";
 
 function MathGame() {
@@ -8,8 +8,20 @@ function MathGame() {
   const [currentEquation, setCurrentEquation] = useState(0);
   const [isNextButtonDisabled, setNextButtonDisabled] = useState(true);
   const [points, setPoints] = useState(0);
+  const [state, setState] = useState(0);
 
   const addPoint = () => setPoints((points) => points + 1);
+
+  const resetStates = useCallback(() => {
+    setRandomNumbers([]);
+    setTableOfOptions([]);
+    setCurrentEquation(0);
+    setNextButtonDisabled(true);
+    setPoints(0);
+    setState((state) => {
+      return { ...state };
+    });
+  }, []);
 
   useEffect(() => {
     const randoms = [];
@@ -38,7 +50,7 @@ function MathGame() {
 
     setRandomNumbers(randoms);
     setTableOfOptions(options);
-  }, []);
+  }, [state]);
 
   const moveToNextEquation = () => {
     setNextButtonDisabled(true);
@@ -61,8 +73,14 @@ function MathGame() {
               {language.pages.mathGame.yourResults}: {points} / 5
             </h2>
           )}
+          <button
+            className="underline text-red-600 text-shadow dark:text-shadow-white"
+            onClick={resetStates}
+          >
+            {language.pages.mathGame.startOver}
+          </button>
           {tableOfOptions.length === 0 || randomNumbers.length === 0 ? (
-            <p>loading...</p>
+            <p className=" dark:text-white">loading...</p>
           ) : (
             randomNumbers.map((_equation, index) => (
               <Equation

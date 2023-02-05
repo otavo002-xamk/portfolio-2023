@@ -15,6 +15,7 @@ export const languages = {
         content: "Math Game!",
         successMessage: "YOU DID IT!!!",
         yourResults: "Your results",
+        startOver: "Start over.",
       },
       sample2: {
         link: "Sample 2",
@@ -42,6 +43,7 @@ export const languages = {
         content: "Matikkapeli!",
         successMessage: "KAIKKI OIKEIN!!!",
         yourResults: "Tuloksesi",
+        startOver: "Aloita alusta.",
       },
       sample2: {
         link: "Näyte 2",
