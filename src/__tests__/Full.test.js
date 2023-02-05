@@ -7,14 +7,10 @@ import {
   act,
 } from "@testing-library/react";
 import testRouter from "../testRouter";
+import { languages } from "../language-context";
 
-const navBarLinks = [
-  ["Math Game", "Math Game!"],
-  ["Sample 2", "Sample 2!"],
-  ["Sample 3", "Sample 3!"],
-  ["Sample 4", "Sample 4!"],
-];
-
+const { frontPage, mathGame, sample2, sample3, sample4 } = languages.en.pages;
+const navBarLinks = [mathGame, sample2, sample3, sample4];
 const testCases = [];
 
 for (let i = 0; i < 8; i++) {
@@ -31,11 +27,11 @@ describe("Top Header", () => {
   });
 
   it("should redirect to front-page when image is clicked", async () => {
-    expect(screen.getByText("Math Game!")).toBeInTheDocument();
-    expect(screen.queryByText("Front!")).not.toBeInTheDocument();
+    expect(screen.getByText(mathGame.content)).toBeInTheDocument();
+    expect(screen.queryByText(frontPage.content)).not.toBeInTheDocument();
     fireEvent.click(screen.getByAltText("home"));
-    expect(screen.getByText("Front Page!")).toBeInTheDocument();
-    expect(screen.queryByText("Math Game!")).not.toBeInTheDocument();
+    expect(screen.getByText(frontPage.content)).toBeInTheDocument();
+    expect(screen.queryByText(mathGame.content)).not.toBeInTheDocument();
   });
 });
 
@@ -43,7 +39,7 @@ describe("The Language Toggler", () => {
   beforeEach(() => render(<RouterProvider router={testRouter(0)} />));
 
   it("should change the language from english to finnish & back to english", async () => {
-    expect(screen.queryByText("Front Page!")).toBeInTheDocument();
+    expect(screen.queryByText(frontPage.content)).toBeInTheDocument();
     expect(screen.queryByText("Etusivu!")).not.toBeInTheDocument();
 
     fireEvent.change(screen.getByTestId("language-toggler-input"), {
@@ -58,7 +54,7 @@ describe("The Language Toggler", () => {
 
     await waitFor(() => {
       expect(screen.getByText("Etusivu!")).toBeInTheDocument();
-      expect(screen.queryByText("Front Page!")).not.toBeInTheDocument();
+      expect(screen.queryByText(frontPage.content)).not.toBeInTheDocument();
     });
 
     fireEvent.change(screen.getByTestId("language-toggler-input"), {
@@ -72,7 +68,7 @@ describe("The Language Toggler", () => {
     fireEvent.click(screen.getByTestId("english-flag"));
 
     await waitFor(() => {
-      expect(screen.getByText("Front Page!")).toBeInTheDocument();
+      expect(screen.getByText(frontPage.content)).toBeInTheDocument();
       expect(screen.queryByText("Etusivu!")).not.toBeInTheDocument();
     });
   });
@@ -85,14 +81,14 @@ describe("LeftNavBar", () => {
     expect(screen.getByTestId("menu-container")).toBeInTheDocument());
 
   it.each(navBarLinks)(
-    "should render the navbar link %s and render page %s when the link is clicked",
-    (navBarLink, pathContent) => {
-      expect(screen.getByText(navBarLink)).toBeInTheDocument();
-      expect(screen.getByText("Front Page!")).toBeInTheDocument();
-      expect(screen.queryByText(pathContent)).not.toBeInTheDocument();
-      fireEvent.click(screen.getByText(navBarLink));
-      expect(screen.getByText(pathContent)).toBeInTheDocument();
-      expect(screen.queryByText("Front Page!")).not.toBeInTheDocument();
+    "should render the navbar link $link and render content $content when the link is clicked",
+    (navBarLink) => {
+      expect(screen.getByText(navBarLink.link)).toBeInTheDocument();
+      expect(screen.getByText(frontPage.content)).toBeInTheDocument();
+      expect(screen.queryByText(navBarLink.content)).not.toBeInTheDocument();
+      fireEvent.click(screen.getByText(navBarLink.link));
+      expect(screen.getByText(navBarLink.content)).toBeInTheDocument();
+      expect(screen.queryByText(frontPage.content)).not.toBeInTheDocument();
     }
   );
 });
@@ -101,7 +97,7 @@ describe("Front Page", () => {
   beforeEach(() => render(<RouterProvider router={testRouter(0)} />));
 
   it("should render the content", () => {
-    expect(screen.getByText("Front Page!")).toBeInTheDocument();
+    expect(screen.getByText(frontPage.content)).toBeInTheDocument();
     expect(screen.getByTestId("slider-prev-button")).toBeInTheDocument();
     expect(screen.getByTestId("slider-next-button")).toBeInTheDocument();
     expect(screen.getByAltText("slideshow-0")).toBeInTheDocument();

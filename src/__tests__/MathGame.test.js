@@ -5,6 +5,7 @@ import { screen, render, fireEvent } from "@testing-library/react";
 jest.mock("../language-context");
 const mockChildComponent = jest.fn();
 const language = languages.en;
+const englishMathGameContext = language.pages.mathGame;
 const testTexts = ["Set next button disabled!", "Add point!"];
 const setNextButtonDisabledText = testTexts[0];
 const AddPointText = testTexts[1];
@@ -45,7 +46,9 @@ describe("Rendering", () => {
   );
 
   it("should render button and title", () => {
-    expect(screen.getByText("Math Game!")).toBeInTheDocument();
+    expect(
+      screen.getByText(englishMathGameContext.content)
+    ).toBeInTheDocument();
     expect(screen.getByText(/NEXT/)).toBeInTheDocument();
   });
 
@@ -122,7 +125,9 @@ describe("Enabling and disabling NEXT-button", () => {
 describe("Adding points", () => {
   it("shoud add points when the mock-button is clicked", () => {
     expect(screen.queryByText(/Your results: /)).not.toBeInTheDocument();
-    expect(screen.queryByText("YOU DID IT!!!")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(englishMathGameContext.successMessage)
+    ).not.toBeInTheDocument();
 
     [0, 1, 2, 3, 4].forEach((index) => {
       [0, 1, 2, 3, 4].forEach((pointAmount) => {
@@ -138,7 +143,9 @@ describe("Adding points", () => {
       fireEvent.click(screen.getByTestId("mathgame-next-button"));
     });
 
-    expect(screen.getByText("YOU DID IT!!!")).toBeInTheDocument();
+    expect(
+      screen.getByText(englishMathGameContext.successMessage)
+    ).toBeInTheDocument();
     expect(screen.getByText("Your results: 5 / 5")).toBeInTheDocument();
   });
 
@@ -151,7 +158,9 @@ describe("Adding points", () => {
 
     fireEvent.click(screen.getAllByText(setNextButtonDisabledText)[0]);
     fireEvent.click(screen.getByTestId("mathgame-next-button"));
-    expect(screen.queryByText("YOU DID IT!!!")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(englishMathGameContext.successMessage)
+    ).not.toBeInTheDocument();
     expect(screen.getByText("Your results: 4 / 5")).toBeInTheDocument();
   });
 });
