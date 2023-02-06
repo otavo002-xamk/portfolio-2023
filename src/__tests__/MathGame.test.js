@@ -5,7 +5,8 @@ import { screen, render, fireEvent } from "@testing-library/react";
 jest.mock("../language-context");
 const mockChildComponent = jest.fn();
 const language = languages.en;
-const englishMathGameContext = language.pages.mathGame;
+const { content, successMessage, yourResults, startOver } =
+  language.pages.mathGame;
 const testTexts = ["Set next button disabled!", "Add point!"];
 const setNextButtonDisabledText = testTexts[0];
 const AddPointText = testTexts[1];
@@ -31,7 +32,7 @@ beforeEach(() => {
   );
 });
 
-describe("Rendering", () => {
+describe("Rendering & hiding", () => {
   it("should call the child component with right props", () => {
     expect(mockChildComponent).toHaveBeenCalledTimes(5);
 
@@ -46,9 +47,8 @@ describe("Rendering", () => {
   );
 
   it("should render button and title", () => {
-    expect(
-      screen.getByText(englishMathGameContext.content)
-    ).toBeInTheDocument();
+    expect(screen.getByText(content)).toBeInTheDocument();
+
     expect(screen.getByText(/NEXT/)).toBeInTheDocument();
   });
 
@@ -87,6 +87,7 @@ describe("Random numbers & sums", () => {
         mockCall[0].randomNumbers[0] +
         mockCall[0].randomNumbers[1] +
         mockCall[0].randomNumbers[2];
+
       expect(mockCall[0].tableOfOptions).toContain(sum);
     });
   });
@@ -103,7 +104,6 @@ describe("Enabling and disabling NEXT-button", () => {
     ).not.toBeInTheDocument();
 
     fireEvent.click(screen.getAllByText(setNextButtonDisabledText)[0]);
-
     expect(screen.getByTestId("mathgame-next-button")).toBeInTheDocument();
 
     expect(
@@ -123,11 +123,9 @@ describe("Enabling and disabling NEXT-button", () => {
 });
 
 describe("Adding points", () => {
-  it("shoud add points when the mock-button is clicked", () => {
+  it("shoud add points when the mock-button is clicked, should render a success-message when there's 5 points", () => {
     expect(screen.queryByText(/Your results: /)).not.toBeInTheDocument();
-    expect(
-      screen.queryByText(englishMathGameContext.successMessage)
-    ).not.toBeInTheDocument();
+    expect(screen.queryByText(successMessage)).not.toBeInTheDocument();
 
     [0, 1, 2, 3, 4].forEach((index) => {
       [0, 1, 2, 3, 4].forEach((pointAmount) => {
@@ -143,10 +141,8 @@ describe("Adding points", () => {
       fireEvent.click(screen.getByTestId("mathgame-next-button"));
     });
 
-    expect(
-      screen.getByText(englishMathGameContext.successMessage)
-    ).toBeInTheDocument();
-    expect(screen.getByText("Your results: 5 / 5")).toBeInTheDocument();
+    expect(screen.getByText(successMessage)).toBeInTheDocument();
+    expect(screen.getByText(`${yourResults}: 5 / 5`)).toBeInTheDocument();
   });
 
   it("should not render the succes-message unless there's 5 points", () => {
@@ -158,9 +154,26 @@ describe("Adding points", () => {
 
     fireEvent.click(screen.getAllByText(setNextButtonDisabledText)[0]);
     fireEvent.click(screen.getByTestId("mathgame-next-button"));
-    expect(
-      screen.queryByText(englishMathGameContext.successMessage)
-    ).not.toBeInTheDocument();
-    expect(screen.getByText("Your results: 4 / 5")).toBeInTheDocument();
+    expect(screen.queryByText(successMessage)).not.toBeInTheDocument();
+    expect(screen.getByText(`${yourResults}: 4 / 5`)).toBeInTheDocument();
+  });
+});
+
+describe("Start over button", () => {
+  it("should reload the page when the button is clicked", () => {
+    expect(screen.getByText(startOver)).toBeInTheDocument();
+
+    [0, 1, 2, 3, 4].forEach((_nthTime) => {
+      fireEvent.click(screen.getAllByText(AddPointText)[0]);
+      fireEvent.click(screen.getAllByText(setNextButtonDisabledText)[0]);
+      fireEvent.click(screen.getByTestId("mathgame-next-button"));
+    });
+
+    expect(screen.getByText(successMessage)).toBeInTheDocument();
+    expect(screen.getByText(`${yourResults}: 5 / 5`)).toBeInTheDocument();
+    fireEvent.click(screen.getByText("Start over!"));
+    expect(screen.queryByText(successMessage)).not.toBeInTheDocument();
+    expect(screen.getByText("0 / 5")).toBeInTheDocument();
+    expect(screen.queryByText(/Your results:/)).not.toBeInTheDocument();
   });
 });
