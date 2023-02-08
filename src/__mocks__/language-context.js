@@ -12,7 +12,7 @@ export const languages = {
       },
       mathGame: {
         link: "Math Game",
-        content: "Math Game!",
+        title: "Math Game!",
         successMessage: "YOU DID IT!!!",
         yourResults: "Your results",
         startOver: "Start over!",
@@ -40,7 +40,7 @@ export const languages = {
       },
       mathGame: {
         link: "Matikkapeli",
-        content: "Matikkapeli!",
+        title: "Matikkapeli!",
         successMessage: "KAIKKI OIKEIN!!!",
         yourResults: "Tuloksesi",
         startOver: "Aloita alusta!",

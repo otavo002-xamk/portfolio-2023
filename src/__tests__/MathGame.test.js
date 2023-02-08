@@ -5,7 +5,7 @@ import { screen, render, fireEvent } from "@testing-library/react";
 jest.mock("../language-context");
 const mockChildComponent = jest.fn();
 const language = languages.en;
-const { content, successMessage, yourResults, startOver } =
+const { title, successMessage, yourResults, startOver } =
   language.pages.mathGame;
 const testTexts = ["Set next button disabled!", "Add point!"];
 const setNextButtonDisabledText = testTexts[0];
@@ -47,7 +47,7 @@ describe("Rendering & hiding", () => {
   );
 
   it("should render button and title", () => {
-    expect(screen.getByText(content)).toBeInTheDocument();
+    expect(screen.getByText(title)).toBeInTheDocument();
 
     expect(screen.getByText(/NEXT/)).toBeInTheDocument();
   });

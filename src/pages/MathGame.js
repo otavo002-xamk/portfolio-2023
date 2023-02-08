@@ -62,7 +62,7 @@ function MathGame() {
       {({ language }) => (
         <>
           <h1 className="text-2xl dark:text-white">
-            {language.pages.mathGame.content}
+            {language.pages.mathGame.title}
           </h1>
           <br />
           {currentEquation === 5 && points === 5 && (

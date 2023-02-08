@@ -27,7 +27,7 @@ function Equation({
   };
 
   return (
-    <div className={`${shouldBeHidden && "hidden"}`}>
+    <div hidden={shouldBeHidden}>
       <div className="grid grid-rows-2 tablet:flex tablet:items-stretch">
         <div className="row-start-1 row-span-1 self-center text-center py-2 bg-rose-200 tablet:w-2/12">
           <p>{randomNumbers[0]}</p>
