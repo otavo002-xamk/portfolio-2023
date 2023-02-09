@@ -27,6 +27,12 @@ describe("Rendering", () => {
     }
   );
 
+  it("should render +, = & ? correctly", () => {
+    expect(screen.getAllByText("+")).toHaveLength(2);
+    expect(screen.getByText("=")).toBeInTheDocument();
+    expect(screen.getByText("?")).toBeInTheDocument();
+  });
+
   it("should include the correct sum in the optons list", () => {
     expect(screen.getByText(sum.toString())).toBeInTheDocument();
   });

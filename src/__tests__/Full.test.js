@@ -27,11 +27,11 @@ describe("Top Header", () => {
   });
 
   it("should redirect to front-page when image is clicked", async () => {
-    expect(screen.getByText(mathGame.content)).toBeInTheDocument();
+    expect(screen.getByText(mathGame.title)).toBeInTheDocument();
     expect(screen.queryByText(frontPage.content)).not.toBeInTheDocument();
     fireEvent.click(screen.getByAltText("home"));
     expect(screen.getByText(frontPage.content)).toBeInTheDocument();
-    expect(screen.queryByText(mathGame.content)).not.toBeInTheDocument();
+    expect(screen.queryByText(mathGame.title)).not.toBeInTheDocument();
   });
 });
 

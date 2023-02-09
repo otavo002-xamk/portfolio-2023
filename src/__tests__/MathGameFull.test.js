@@ -9,27 +9,21 @@ const language = languages.en;
 const { title, successMessage, yourResults, startOver } =
   language.pages.mathGame;
 
-const renderMathGame = () => {
+beforeEach(() => {
   render(
     <LanguageContext.Provider value={{ language }}>
       <MathGame />
     </LanguageContext.Provider>
   );
-};
+});
 
 describe("Rendering", () => {
-  beforeEach(() => renderMathGame());
-
-  it("should render", () => {
+  it("should render elements correctly", () => {
     expect(screen.getByText(title)).toBeInTheDocument();
     expect(screen.getByText(startOver)).toBeInTheDocument();
     expect(screen.getByText(/NEXT/)).toBeInTheDocument();
-    screen.debug();
-  });
-});
-
-describe("Random numbers & table of options", () => {
-  it("should render ps", () => {
-    expect(screen.getAllByRole("div", { hidden: true }).length).toBe(5);
+    expect(screen.getAllByText("+")).toHaveLength(10);
+    expect(screen.getAllByText("=")).toHaveLength(5);
+    expect(screen.getAllByText("?")).toHaveLength(5);
   });
 });
