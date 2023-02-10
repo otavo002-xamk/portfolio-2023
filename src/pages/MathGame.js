@@ -82,13 +82,13 @@ function MathGame() {
           {tableOfOptions.length === 0 || randomNumbers.length === 0 ? (
             <p className=" dark:text-white">loading...</p>
           ) : (
-            randomNumbers.map((_equation, index) => (
+            randomNumbers.map((randomThree, index) => (
               <Equation
                 key={index.toString()}
                 shouldBeHidden={
                   currentEquation !== index && currentEquation < 5
                 }
-                randomNumbers={randomNumbers[index]}
+                randomNumbers={randomThree}
                 tableOfOptions={tableOfOptions[index]}
                 setNextButtonDisabled={setNextButtonDisabled}
                 addPoint={addPoint}

@@ -8,7 +8,7 @@ export const languages = {
     flag: En,
     pages: {
       frontPage: {
-        content: "Front Page!",
+        title: "Front Page!",
       },
       mathGame: {
         link: "Math Game",
@@ -19,15 +19,15 @@ export const languages = {
       },
       sample2: {
         link: "Sample 2",
-        content: "Sample 2!",
+        title: "Sample 2!",
       },
       sample3: {
         link: "Sample 3",
-        content: "Sample 3!",
+        title: "Sample 3!",
       },
       sample4: {
         link: "Sample 4",
-        content: "Sample 4!",
+        title: "Sample 4!",
       },
     },
   },
@@ -36,7 +36,7 @@ export const languages = {
     flag: Fi,
     pages: {
       frontPage: {
-        content: "Etusivu!",
+        title: "Etusivu!",
       },
       mathGame: {
         link: "Matikkapeli",
@@ -47,15 +47,15 @@ export const languages = {
       },
       sample2: {
         link: "Näyte 2",
-        content: "Näyte 2!",
+        title: "Näyte 2!",
       },
       sample3: {
         link: "Näyte 3",
-        content: "Näyte 3!",
+        title: "Näyte 3!",
       },
       sample4: {
         link: "Näyte 4",
-        content: "Näyte 4!",
+        title: "Näyte 4!",
       },
     },
   },

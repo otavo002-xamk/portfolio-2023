@@ -9,6 +9,8 @@ import {
 import testRouter from "../testRouter";
 import { languages } from "../language-context";
 
+jest.mock("../language-context");
+const language = languages.en;
 const { frontPage, mathGame, sample2, sample3, sample4 } = languages.en.pages;
 const navBarLinks = [mathGame, sample2, sample3, sample4];
 const testCases = [];
@@ -28,9 +30,9 @@ describe("Top Header", () => {
 
   it("should redirect to front-page when image is clicked", async () => {
     expect(screen.getByText(mathGame.title)).toBeInTheDocument();
-    expect(screen.queryByText(frontPage.content)).not.toBeInTheDocument();
+    expect(screen.queryByText(frontPage.title)).not.toBeInTheDocument();
     fireEvent.click(screen.getByAltText("home"));
-    expect(screen.getByText(frontPage.content)).toBeInTheDocument();
+    expect(screen.getByText(frontPage.title)).toBeInTheDocument();
     expect(screen.queryByText(mathGame.title)).not.toBeInTheDocument();
   });
 });
@@ -39,7 +41,7 @@ describe("The Language Toggler", () => {
   beforeEach(() => render(<RouterProvider router={testRouter(0)} />));
 
   it("should change the language from english to finnish & back to english", async () => {
-    expect(screen.queryByText(frontPage.content)).toBeInTheDocument();
+    expect(screen.queryByText(frontPage.title)).toBeInTheDocument();
     expect(screen.queryByText("Etusivu!")).not.toBeInTheDocument();
 
     fireEvent.change(screen.getByTestId("language-toggler-input"), {
@@ -54,7 +56,7 @@ describe("The Language Toggler", () => {
 
     await waitFor(() => {
       expect(screen.getByText("Etusivu!")).toBeInTheDocument();
-      expect(screen.queryByText(frontPage.content)).not.toBeInTheDocument();
+      expect(screen.queryByText(frontPage.title)).not.toBeInTheDocument();
     });
 
     fireEvent.change(screen.getByTestId("language-toggler-input"), {
@@ -68,7 +70,7 @@ describe("The Language Toggler", () => {
     fireEvent.click(screen.getByTestId("english-flag"));
 
     await waitFor(() => {
-      expect(screen.getByText(frontPage.content)).toBeInTheDocument();
+      expect(screen.getByText(frontPage.title)).toBeInTheDocument();
       expect(screen.queryByText("Etusivu!")).not.toBeInTheDocument();
     });
   });
@@ -84,11 +86,11 @@ describe("LeftNavBar", () => {
     "should render the navbar link $link and render content $content when the link is clicked",
     (navBarLink) => {
       expect(screen.getByText(navBarLink.link)).toBeInTheDocument();
-      expect(screen.getByText(frontPage.content)).toBeInTheDocument();
-      expect(screen.queryByText(navBarLink.content)).not.toBeInTheDocument();
+      expect(screen.getByText(frontPage.title)).toBeInTheDocument();
+      expect(screen.queryByText(navBarLink.title)).not.toBeInTheDocument();
       fireEvent.click(screen.getByText(navBarLink.link));
-      expect(screen.getByText(navBarLink.content)).toBeInTheDocument();
-      expect(screen.queryByText(frontPage.content)).not.toBeInTheDocument();
+      expect(screen.getByText(navBarLink.title)).toBeInTheDocument();
+      expect(screen.queryByText(frontPage.title)).not.toBeInTheDocument();
     }
   );
 });
@@ -97,7 +99,7 @@ describe("Front Page", () => {
   beforeEach(() => render(<RouterProvider router={testRouter(0)} />));
 
   it("should render the content", () => {
-    expect(screen.getByText(frontPage.content)).toBeInTheDocument();
+    expect(screen.getByText(frontPage.title)).toBeInTheDocument();
     expect(screen.getByTestId("slider-prev-button")).toBeInTheDocument();
     expect(screen.getByTestId("slider-next-button")).toBeInTheDocument();
     expect(screen.getByAltText("slideshow-0")).toBeInTheDocument();
@@ -169,6 +171,20 @@ describe("Front Page", () => {
         screen.queryByAltText(`slideshow-${testCase.first}`)
       ).not.toBeInTheDocument();
     });
+  });
+});
+
+describe("MathGame", () => {
+  const { title, startOver } = language.pages.mathGame;
+  beforeEach(() => render(<RouterProvider router={testRouter(1)} />));
+
+  it("should render elements correctly", () => {
+    expect(screen.getByText(title)).toBeInTheDocument();
+    expect(screen.getByText(startOver)).toBeInTheDocument();
+    expect(screen.getByText(/NEXT/)).toBeInTheDocument();
+    expect(screen.getAllByText("+")).toHaveLength(10);
+    expect(screen.getAllByText("=")).toHaveLength(5);
+    expect(screen.getAllByText("?")).toHaveLength(5);
   });
 });
 

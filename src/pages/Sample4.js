@@ -6,7 +6,7 @@ function Sample4() {
     <LanguageContext.Consumer>
       {({ language }) => (
         <div>
-          <p className="dark:text-white">{language.pages.sample4.content}</p>
+          <p className="dark:text-white">{language.pages.sample4.title}</p>
         </div>
       )}
     </LanguageContext.Consumer>
