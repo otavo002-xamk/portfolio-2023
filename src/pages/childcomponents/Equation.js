@@ -4,6 +4,7 @@ import Correct from "../../pictures/correct.png";
 import False from "../../pictures/false.png";
 
 function Equation({
+  index,
   shouldBeHidden,
   randomNumbers,
   tableOfOptions,
@@ -17,7 +18,7 @@ function Equation({
 
   const chooseAnswer = (event) => {
     if (!isTableLocked) {
-      event.target.id.slice(4) != sum
+      event.target.id.slice(6) != sum
         ? setShowWrong(event.target.id)
         : addPoint();
       setShowCorrect(true);
@@ -49,10 +50,10 @@ function Equation({
         </div>
         <table className="col-start-2 col-span-2 tablet:w-2/12 border-separate">
           <tbody>
-            {tableOfOptions.map((option, index) => (
-              <tr key={index.toString()}>
+            {tableOfOptions.map((option, i) => (
+              <tr key={i.toString()}>
                 <td
-                  id={`td${index + 1}-${option}`}
+                  id={`td${index + 1}-${i + 1}-${option}`}
                   onClick={chooseAnswer}
                   className="flex justify-center gap-1 cursor-pointer shadow-mathBox w-full text-center py-2 bg-red-400"
                 >
@@ -60,7 +61,7 @@ function Equation({
                   {option == sum && showCorrect && (
                     <img className="h-6" alt="correct" src={Correct} />
                   )}
-                  {showWrong === `td${index + 1}-${option}` && (
+                  {showWrong === `td${index + 1}-${i + 1}-${option}` && (
                     <img className="h-6" alt="false" src={False} />
                   )}
                 </td>
@@ -78,6 +79,7 @@ function Equation({
 }
 
 Equation.propTypes = {
+  index: PropTypes.number.isRequired,
   shouldBeHidden: PropTypes.bool,
   randomNumbers: PropTypes.array.isRequired,
   tableOfOptions: PropTypes.array.isRequired,

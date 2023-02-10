@@ -11,6 +11,7 @@ const addPoint = jest.fn();
 beforeEach(() => {
   render(
     <Equation
+      index={1}
       randomNumbers={randomNumbers}
       tableOfOptions={tableOfOptions}
       setNextButtonDisabled={setNextButtonDisabled}
