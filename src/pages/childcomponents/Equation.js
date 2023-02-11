@@ -18,7 +18,7 @@ function Equation({
 
   const chooseAnswer = (event) => {
     if (!isTableLocked) {
-      event.target.id.slice(6) != sum
+      event.target.id.slice(7) != sum
         ? setShowWrong(event.target.id)
         : addPoint();
       setShowCorrect(true);
@@ -28,32 +28,44 @@ function Equation({
   };
 
   return (
-    <div hidden={shouldBeHidden}>
+    <div data-testid={`equation-${index}`} hidden={shouldBeHidden}>
       <div className="grid grid-rows-2 tablet:flex tablet:items-stretch">
-        <div className="row-start-1 row-span-1 self-center text-center py-2 bg-rose-200 tablet:w-2/12">
+        <div
+          data-testid={`random-number-${index}-1`}
+          className="row-start-1 row-span-1 self-center text-center py-2 bg-rose-200 tablet:w-2/12"
+        >
           {randomNumbers[0]}
         </div>
         <div className="row-start-1 row-span-1 self-center text-center py-2 tablet:w-1/12">
           +
         </div>
-        <div className="row-start-1 row-span-1 self-center text-center py-2 bg-rose-200 tablet:w-2/12">
+        <div
+          data-testid={`random-number-${index}-2`}
+          className="row-start-1 row-span-1 self-center text-center py-2 bg-rose-200 tablet:w-2/12"
+        >
           {randomNumbers[1]}
         </div>
         <div className="row-start-1 row-span-1 self-center text-center py-2 tablet:w-1/12">
           +
         </div>
-        <div className="row-start-1 row-span-1 self-center text-center py-2 bg-rose-200 tablet:w-2/12">
+        <div
+          data-testid={`random-number-${index}-3`}
+          className="row-start-1 row-span-1 self-center text-center py-2 bg-rose-200 tablet:w-2/12"
+        >
           {randomNumbers[2]}
         </div>
         <div className="row-start-1 row-span-1 self-center text-center py-2 tablet:w-1/12">
           =
         </div>
         <table className="col-start-2 col-span-2 tablet:w-2/12 border-separate">
-          <tbody>
+          <tbody data-testid={`equation-options-table-tb-${index}`}>
             {tableOfOptions.map((option, i) => (
               <tr key={i.toString()}>
                 <td
-                  id={`td${index + 1}-${i + 1}-${option}`}
+                  id={`td-${index + 1}-${i + 1}-${option}`}
+                  data-testid={`equation-options-table-td-${index + 1}-${
+                    i + 1
+                  }`}
                   onClick={chooseAnswer}
                   className="flex justify-center gap-1 cursor-pointer shadow-mathBox w-full text-center py-2 bg-red-400"
                 >
@@ -61,7 +73,7 @@ function Equation({
                   {option == sum && showCorrect && (
                     <img className="h-6" alt="correct" src={Correct} />
                   )}
-                  {showWrong === `td${index + 1}-${i + 1}-${option}` && (
+                  {showWrong === `td-${index + 1}-${i + 1}-${option}` && (
                     <img className="h-6" alt="false" src={False} />
                   )}
                 </td>

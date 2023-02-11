@@ -66,7 +66,7 @@ describe("Rendering & hiding", () => {
       });
 
       fireEvent.click(screen.getAllByText(setNextButtonDisabledText)[0]);
-      fireEvent.click(screen.getByTestId("mathgame-next-button"));
+      fireEvent.click(screen.getByText(/NEXT/));
     });
   });
 });
@@ -95,30 +95,11 @@ describe("Random numbers & sums", () => {
 
 describe("Enabling and disabling NEXT-button", () => {
   it("should enable the NEXT-button by clicking the table and then disable it by clicking the button itself", () => {
-    expect(
-      screen.getByTestId("disabled-mathgame-next-button")
-    ).toBeInTheDocument();
-
-    expect(
-      screen.queryByTestId("mathgame-next-button")
-    ).not.toBeInTheDocument();
-
+    expect(screen.getByText(/NEXT/)).toBeDisabled();
     fireEvent.click(screen.getAllByText(setNextButtonDisabledText)[0]);
-    expect(screen.getByTestId("mathgame-next-button")).toBeInTheDocument();
-
-    expect(
-      screen.queryByTestId("disabled-mathgame-next-button")
-    ).not.toBeInTheDocument();
-
-    fireEvent.click(screen.getByTestId("mathgame-next-button"));
-
-    expect(
-      screen.getByTestId("disabled-mathgame-next-button")
-    ).toBeInTheDocument();
-
-    expect(
-      screen.queryByTestId("mathgame-next-button")
-    ).not.toBeInTheDocument();
+    expect(screen.getByText(/NEXT/)).not.toBeDisabled();
+    fireEvent.click(screen.getByText(/NEXT/));
+    expect(screen.getByText(/NEXT/)).toBeDisabled();
   });
 });
 
@@ -138,7 +119,7 @@ describe("Adding points", () => {
 
       fireEvent.click(screen.getAllByText(AddPointText)[0]);
       fireEvent.click(screen.getAllByText(setNextButtonDisabledText)[0]);
-      fireEvent.click(screen.getByTestId("mathgame-next-button"));
+      fireEvent.click(screen.getByText(/NEXT/));
     });
 
     expect(screen.getByText(successMessage)).toBeInTheDocument();
@@ -149,11 +130,11 @@ describe("Adding points", () => {
     [1, 2, 3, 4].forEach((_nthTime) => {
       fireEvent.click(screen.getAllByText(AddPointText)[0]);
       fireEvent.click(screen.getAllByText(setNextButtonDisabledText)[0]);
-      fireEvent.click(screen.getByTestId("mathgame-next-button"));
+      fireEvent.click(screen.getByText(/NEXT/));
     });
 
     fireEvent.click(screen.getAllByText(setNextButtonDisabledText)[0]);
-    fireEvent.click(screen.getByTestId("mathgame-next-button"));
+    fireEvent.click(screen.getByText(/NEXT/));
     expect(screen.queryByText(successMessage)).not.toBeInTheDocument();
     expect(screen.getByText(`${yourResults}: 4 / 5`)).toBeInTheDocument();
   });
@@ -166,7 +147,7 @@ describe("Start over button", () => {
     [0, 1, 2, 3, 4].forEach((_nthTime) => {
       fireEvent.click(screen.getAllByText(AddPointText)[0]);
       fireEvent.click(screen.getAllByText(setNextButtonDisabledText)[0]);
-      fireEvent.click(screen.getByTestId("mathgame-next-button"));
+      fireEvent.click(screen.getByText(/NEXT/));
     });
 
     expect(screen.getByText(successMessage)).toBeInTheDocument();
