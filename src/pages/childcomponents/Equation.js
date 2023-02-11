@@ -31,7 +31,7 @@ function Equation({
     <div data-testid={`equation-${index}`} hidden={shouldBeHidden}>
       <div className="grid grid-rows-2 tablet:flex tablet:items-stretch">
         <div
-          data-testid={`random-number-${index}-1`}
+          data-testid={`random-number-${index}-0`}
           className="row-start-1 row-span-1 self-center text-center py-2 bg-rose-200 tablet:w-2/12"
         >
           {randomNumbers[0]}
@@ -40,7 +40,7 @@ function Equation({
           +
         </div>
         <div
-          data-testid={`random-number-${index}-2`}
+          data-testid={`random-number-${index}-1`}
           className="row-start-1 row-span-1 self-center text-center py-2 bg-rose-200 tablet:w-2/12"
         >
           {randomNumbers[1]}
@@ -49,7 +49,7 @@ function Equation({
           +
         </div>
         <div
-          data-testid={`random-number-${index}-3`}
+          data-testid={`random-number-${index}-2`}
           className="row-start-1 row-span-1 self-center text-center py-2 bg-rose-200 tablet:w-2/12"
         >
           {randomNumbers[2]}
@@ -62,10 +62,8 @@ function Equation({
             {tableOfOptions.map((option, i) => (
               <tr key={i.toString()}>
                 <td
-                  id={`td-${index + 1}-${i + 1}-${option}`}
-                  data-testid={`equation-options-table-td-${index + 1}-${
-                    i + 1
-                  }`}
+                  id={`td-${index}-${i}-${option}`}
+                  data-testid={`equation-options-table-td-${index}-${i}`}
                   onClick={chooseAnswer}
                   className="flex justify-center gap-1 cursor-pointer shadow-mathBox w-full text-center py-2 bg-red-400"
                 >
@@ -73,7 +71,7 @@ function Equation({
                   {option == sum && showCorrect && (
                     <img className="h-6" alt="correct" src={Correct} />
                   )}
-                  {showWrong === `td-${index + 1}-${i + 1}-${option}` && (
+                  {showWrong === `td-${index}-${i}-${option}` && (
                     <img className="h-6" alt="false" src={False} />
                   )}
                 </td>

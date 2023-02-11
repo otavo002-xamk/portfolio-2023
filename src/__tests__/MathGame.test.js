@@ -48,7 +48,6 @@ describe("Rendering & hiding", () => {
 
   it("should render button and title", () => {
     expect(screen.getByText(title)).toBeInTheDocument();
-
     expect(screen.getByText(/NEXT/)).toBeInTheDocument();
   });
 
