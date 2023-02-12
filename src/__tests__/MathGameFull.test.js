@@ -7,13 +7,13 @@ const language = languages.en;
 const { title, startOver, successMessage, yourResults } =
   language.pages.mathGame;
 
-const calculateSum = (nthTime, cb) => {
+const calculateSum = (equationIndex, cb) => {
   let randomNumbers = [];
 
   [0, 1, 2].forEach((randomNumber) => {
     randomNumbers.push(
       Number(
-        screen.getByTestId(`random-number-${nthTime}-${randomNumber}`)
+        screen.getByTestId(`random-number-${equationIndex}-${randomNumber}`)
           .textContent
       )
     );
@@ -89,9 +89,9 @@ describe("Rendering", () => {
 });
 
 describe("Choosing and clicking next", () => {
-  const testEquationVisibilities = (nthTime) => {
+  const testEquationVisibilities = (equationIndex) => {
     [0, 1, 2, 3, 4].forEach((index) => {
-      nthTime === index
+      equationIndex === index
         ? expect(screen.getByTestId(`equation-${index}`)).toBeVisible
         : expect(screen.getByTestId(`equation-${index}`)).not.toBeVisible;
     });
@@ -101,19 +101,19 @@ describe("Choosing and clicking next", () => {
     expect(screen.queryByText(/Your results: /)).not.toBeInTheDocument();
     expect(screen.queryByText(successMessage)).not.toBeInTheDocument();
 
-    [0, 1, 2, 3, 4].forEach((nthTime) => {
+    [0, 1, 2, 3, 4].forEach((equationIndex) => {
       expect(screen.getByText("0 / 5")).toBeInTheDocument();
-      testEquationVisibilities(nthTime);
+      testEquationVisibilities(equationIndex);
       expect(screen.getByText(/NEXT/)).toBeDisabled();
 
-      calculateSum(nthTime, (sum) =>
-        screen.getByTestId(`equation-options-table-td-${nthTime}-0`)
+      calculateSum(equationIndex, (sum) =>
+        screen.getByTestId(`equation-options-table-td-${equationIndex}-0`)
           .textContent != sum
           ? fireEvent.click(
-              screen.getByTestId(`equation-options-table-td-${nthTime}-0`)
+              screen.getByTestId(`equation-options-table-td-${equationIndex}-0`)
             )
           : fireEvent.click(
-              screen.getByTestId(`equation-options-table-td-${nthTime}-1`)
+              screen.getByTestId(`equation-options-table-td-${equationIndex}-1`)
             )
       );
 
@@ -129,19 +129,19 @@ describe("Choosing and clicking next", () => {
     expect(screen.queryByText(/Your results: /)).not.toBeInTheDocument();
     expect(screen.queryByText(successMessage)).not.toBeInTheDocument();
 
-    [0, 1, 2, 3, 4].forEach((nthTime) => {
-      expect(screen.getByText(`${nthTime} / 5`)).toBeInTheDocument();
-      testEquationVisibilities(nthTime);
+    [0, 1, 2, 3, 4].forEach((equationIndex) => {
+      expect(screen.getByText(`${equationIndex} / 5`)).toBeInTheDocument();
+      testEquationVisibilities(equationIndex);
       expect(screen.getByText(/NEXT/)).toBeDisabled();
 
-      calculateSum(nthTime, (sum) =>
+      calculateSum(equationIndex, (sum) =>
         [0, 1, 2, 3].forEach((optionIndex) => {
           screen.getByTestId(
-            `equation-options-table-td-${nthTime}-${optionIndex}`
+            `equation-options-table-td-${equationIndex}-${optionIndex}`
           ).textContent == sum &&
             fireEvent.click(
               screen.getByTestId(
-                `equation-options-table-td-${nthTime}-${optionIndex}`
+                `equation-options-table-td-${equationIndex}-${optionIndex}`
               )
             );
         })

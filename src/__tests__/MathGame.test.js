@@ -24,6 +24,12 @@ jest.mock("../pages/childcomponents/Equation", () => (props) => {
   );
 });
 
+const moveToNextEquation = (addPoint = true) => {
+  addPoint && fireEvent.click(screen.getAllByText(AddPointText)[0]);
+  fireEvent.click(screen.getAllByText(setNextButtonDisabledText)[0]);
+  fireEvent.click(screen.getByText(/NEXT/));
+};
+
 beforeEach(() => {
   render(
     <LanguageContext.Provider value={{ language }}>
@@ -116,9 +122,7 @@ describe("Adding points", () => {
             ).not.toBeInTheDocument();
       });
 
-      fireEvent.click(screen.getAllByText(AddPointText)[0]);
-      fireEvent.click(screen.getAllByText(setNextButtonDisabledText)[0]);
-      fireEvent.click(screen.getByText(/NEXT/));
+      moveToNextEquation();
     });
 
     expect(screen.getByText(successMessage)).toBeInTheDocument();
@@ -126,14 +130,11 @@ describe("Adding points", () => {
   });
 
   it("should not render the succes-message unless there's 5 points", () => {
-    [1, 2, 3, 4].forEach((_nthTime) => {
-      fireEvent.click(screen.getAllByText(AddPointText)[0]);
-      fireEvent.click(screen.getAllByText(setNextButtonDisabledText)[0]);
-      fireEvent.click(screen.getByText(/NEXT/));
+    [1, 2, 3, 4].forEach((_equationIndex) => {
+      moveToNextEquation();
     });
 
-    fireEvent.click(screen.getAllByText(setNextButtonDisabledText)[0]);
-    fireEvent.click(screen.getByText(/NEXT/));
+    moveToNextEquation(false);
     expect(screen.queryByText(successMessage)).not.toBeInTheDocument();
     expect(screen.getByText(`${yourResults}: 4 / 5`)).toBeInTheDocument();
   });
@@ -143,10 +144,8 @@ describe("Start over button", () => {
   it("should reload the page when the button is clicked", () => {
     expect(screen.getByText(startOver)).toBeInTheDocument();
 
-    [0, 1, 2, 3, 4].forEach((_nthTime) => {
-      fireEvent.click(screen.getAllByText(AddPointText)[0]);
-      fireEvent.click(screen.getAllByText(setNextButtonDisabledText)[0]);
-      fireEvent.click(screen.getByText(/NEXT/));
+    [0, 1, 2, 3, 4].forEach((_equationIndex) => {
+      moveToNextEquation();
     });
 
     expect(screen.getByText(successMessage)).toBeInTheDocument();
