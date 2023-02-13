@@ -3,20 +3,19 @@ import MathGame from "../pages/MathGame";
 import { screen, render, within, fireEvent } from "@testing-library/react";
 import {
   calculateSum,
-  chooseRightOptionFromEach,
+  chooseRightOptionFromTable,
   makeInitialAssertions,
   testEquationVisibilities,
   testComponentRendering,
   testPlusEqualsQuestionMarkSymbolMarks,
   testThreeRandomNumbers,
-  chooseWrongOptionFromEach,
+  chooseWrongOptionFromTable,
 } from "../testfunctions/MathGameTestFunctions";
 
 jest.mock("../language-context");
 const language = languages.en;
 
-const { title, startOver, successMessage, yourResults } =
-  language.pages.mathGame;
+const { startOver, successMessage, yourResults } = language.pages.mathGame;
 
 beforeEach(() => {
   render(
@@ -64,7 +63,7 @@ describe("Choosing and clicking next", () => {
       expect(screen.getByText(/NEXT/)).toBeDisabled();
 
       calculateSum(equationIndex, (sum) =>
-        chooseWrongOptionFromEach(equationIndex, sum)
+        chooseWrongOptionFromTable(equationIndex, sum)
       );
 
       expect(screen.getByText(/NEXT/)).not.toBeDisabled();
@@ -84,7 +83,7 @@ describe("Choosing and clicking next", () => {
       expect(screen.getByText(/NEXT/)).toBeDisabled();
 
       calculateSum(equationIndex, (sum) =>
-        chooseRightOptionFromEach(equationIndex, sum)
+        chooseRightOptionFromTable(equationIndex, sum)
       );
 
       expect(screen.getByText(/NEXT/)).not.toBeDisabled();
@@ -102,7 +101,7 @@ describe("Start over button", () => {
 
     [0, 1, 2, 3, 4].forEach((equationIndex) => {
       calculateSum(equationIndex, (sum) =>
-        chooseRightOptionFromEach(equationIndex, sum)
+        chooseRightOptionFromTable(equationIndex, sum)
       );
 
       fireEvent.click(screen.getByText(/NEXT/));

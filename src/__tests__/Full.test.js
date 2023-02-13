@@ -16,14 +16,13 @@ import {
   testThreeRandomNumbers,
   makeInitialAssertions,
   testEquationVisibilities,
-  chooseRightOptionFromEach,
-  chooseWrongOptionFromEach,
+  chooseRightOptionFromTable,
+  chooseWrongOptionFromTable,
 } from "../testfunctions/MathGameTestFunctions";
 
 jest.mock("../language-context");
-const language = languages.en;
 const { frontPage, mathGame, sample2, sample3, sample4 } = languages.en.pages;
-const { successMessage, yourResults } = mathGame;
+const { successMessage, yourResults, startOver } = mathGame;
 const navBarLinks = [mathGame, sample2, sample3, sample4];
 const testCases = [];
 
@@ -187,7 +186,6 @@ describe("Front Page", () => {
 });
 
 describe("MathGame", () => {
-  const { startOver } = language.pages.mathGame;
   beforeEach(() => render(<RouterProvider router={testRouter(1)} />));
 
   describe("Rendering", () => {
@@ -219,7 +217,7 @@ describe("MathGame", () => {
   );
 
   describe("Choosing and clicking next", () => {
-    it("should give the results, after choosing and clicking next enough times", async () => {
+    it("should give the results, after choosing and clicking next enough times", () => {
       makeInitialAssertions();
 
       [0, 1, 2, 3, 4].forEach((equationIndex) => {
@@ -228,7 +226,7 @@ describe("MathGame", () => {
         expect(screen.getByText(/NEXT/)).toBeDisabled();
 
         calculateSum(equationIndex, (sum) =>
-          chooseWrongOptionFromEach(equationIndex, sum)
+          chooseWrongOptionFromTable(equationIndex, sum)
         );
 
         expect(screen.getByText(/NEXT/)).not.toBeDisabled();
@@ -248,7 +246,7 @@ describe("MathGame", () => {
         expect(screen.getByText(/NEXT/)).toBeDisabled();
 
         calculateSum(equationIndex, (sum) =>
-          chooseRightOptionFromEach(equationIndex, sum)
+          chooseRightOptionFromTable(equationIndex, sum)
         );
 
         expect(screen.getByText(/NEXT/)).not.toBeDisabled();
@@ -266,7 +264,7 @@ describe("MathGame", () => {
 
       [0, 1, 2, 3, 4].forEach((equationIndex) => {
         calculateSum(equationIndex, (sum) =>
-          chooseRightOptionFromEach(equationIndex, sum)
+          chooseRightOptionFromTable(equationIndex, sum)
         );
 
         fireEvent.click(screen.getByText(/NEXT/));
@@ -276,9 +274,11 @@ describe("MathGame", () => {
       expect(screen.getByText(`${yourResults}: 5 / 5`)).toBeInTheDocument();
       fireEvent.click(screen.getByText(startOver));
       expect(screen.queryByText(successMessage)).not.toBeInTheDocument();
+
       expect(
         screen.queryByText(`${yourResults}: 5 / 5`)
       ).not.toBeInTheDocument();
+
       expect(screen.getByText("0 / 5")).toBeInTheDocument();
     });
   });

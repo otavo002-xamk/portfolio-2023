@@ -113,9 +113,9 @@ describe("Adding points", () => {
     expect(screen.queryByText(/Your results: /)).not.toBeInTheDocument();
     expect(screen.queryByText(successMessage)).not.toBeInTheDocument();
 
-    [0, 1, 2, 3, 4].forEach((index) => {
+    [0, 1, 2, 3, 4].forEach((equationIndex) => {
       [0, 1, 2, 3, 4].forEach((pointAmount) => {
-        index === pointAmount
+        equationIndex === pointAmount
           ? expect(screen.getByText(`${pointAmount} / 5`)).toBeInTheDocument()
           : expect(
               screen.queryByText(`${pointAmount} / 5`)

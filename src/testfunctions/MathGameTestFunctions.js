@@ -60,7 +60,7 @@ export const calculateSum = (equationIndex, cb) => {
   cb(randomNumbers[0] + randomNumbers[1] + randomNumbers[2]);
 };
 
-export const chooseWrongOptionFromEach = (equationIndex, sum) => {
+export const chooseWrongOptionFromTable = (equationIndex, sum) => {
   let options = [];
 
   [0, 1, 2, 3].forEach((optionIndex) =>
@@ -75,7 +75,7 @@ export const chooseWrongOptionFromEach = (equationIndex, sum) => {
   fireEvent.click(wrongOptions[0]);
 };
 
-export const chooseRightOptionFromEach = (equationIndex, sum) => {
+export const chooseRightOptionFromTable = (equationIndex, sum) => {
   [0, 1, 2, 3].forEach((optionIndex) => {
     screen.getByTestId(
       `equation-options-table-td-${equationIndex}-${optionIndex}`
