@@ -1,6 +1,7 @@
 import { languages, LanguageContext } from "../language-context";
 import MathGame from "../pages/MathGame";
 import { screen, render, fireEvent } from "@testing-library/react";
+import { testComponentRendering } from "./testfunctions/MathGameTestFunctions";
 
 jest.mock("../language-context");
 const mockChildComponent = jest.fn();
@@ -53,8 +54,7 @@ describe("Rendering & hiding", () => {
   );
 
   it("should render button and title", () => {
-    expect(screen.getByText(title)).toBeInTheDocument();
-    expect(screen.getByText(/NEXT/)).toBeInTheDocument();
+    testComponentRendering();
   });
 
   it("should hide the right components when needed", () => {
@@ -142,15 +142,13 @@ describe("Adding points", () => {
 
 describe("Start over button", () => {
   it("should reload the page when the button is clicked", () => {
-    expect(screen.getByText(startOver)).toBeInTheDocument();
-
     [0, 1, 2, 3, 4].forEach((_equationIndex) => {
       moveToNextEquation();
     });
 
     expect(screen.getByText(successMessage)).toBeInTheDocument();
     expect(screen.getByText(`${yourResults}: 5 / 5`)).toBeInTheDocument();
-    fireEvent.click(screen.getByText("Start over!"));
+    fireEvent.click(screen.getByText(startOver));
     expect(screen.queryByText(successMessage)).not.toBeInTheDocument();
     expect(screen.getByText("0 / 5")).toBeInTheDocument();
     expect(screen.queryByText(/Your results:/)).not.toBeInTheDocument();
