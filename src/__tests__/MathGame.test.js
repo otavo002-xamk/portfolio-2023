@@ -1,7 +1,7 @@
 import { languages, LanguageContext } from "../language-context";
 import MathGame from "../pages/MathGame";
 import { screen, render, fireEvent } from "@testing-library/react";
-import { testComponentRendering } from "./testfunctions/MathGameTestFunctions";
+import { testComponentRendering } from "../testfunctions/MathGameTestFunctions";
 
 jest.mock("../language-context");
 const mockChildComponent = jest.fn();

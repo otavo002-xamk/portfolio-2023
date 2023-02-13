@@ -1,12 +1,6 @@
 import { languages, LanguageContext } from "../language-context";
 import MathGame from "../pages/MathGame";
-import {
-  screen,
-  render,
-  within,
-  fireEvent,
-  waitFor,
-} from "@testing-library/react";
+import { screen, render, within, fireEvent } from "@testing-library/react";
 import {
   calculateSum,
   chooseRightOptionFromEach,
@@ -16,7 +10,7 @@ import {
   testPlusEqualsQuestionMarkSymbolMarks,
   testThreeRandomNumbers,
   chooseWrongOptionFromEach,
-} from "./testfunctions/MathGameTestFunctions";
+} from "../testfunctions/MathGameTestFunctions";
 
 jest.mock("../language-context");
 const language = languages.en;
@@ -38,7 +32,7 @@ describe("Rendering", () => {
   });
 
   it.each([0, 1, 2, 3, 4])(
-    "should render the right elements in equation index %d",
+    "should render the right symbols in equation index %d",
     (index) => {
       testPlusEqualsQuestionMarkSymbolMarks(index);
     }
@@ -61,10 +55,10 @@ describe("Rendering", () => {
 });
 
 describe("Choosing and clicking next", () => {
-  it("should give the results, after choosing and clicking next enough times", async () => {
+  it("should give the results, after choosing and clicking next enough times", () => {
     makeInitialAssertions();
 
-    [0, 1, 2, 3, 4].forEach(async (equationIndex) => {
+    [0, 1, 2, 3, 4].forEach((equationIndex) => {
       expect(screen.getByText("0 / 5")).toBeInTheDocument();
       testEquationVisibilities(equationIndex);
       expect(screen.getByText(/NEXT/)).toBeDisabled();
@@ -77,7 +71,7 @@ describe("Choosing and clicking next", () => {
       fireEvent.click(screen.getByText(/NEXT/));
     });
 
-    await waitFor(() => expect(screen.getByText(`0 / 5`)).toBeInTheDocument());
+    expect(screen.getByText(`${yourResults}: 0 / 5`)).toBeInTheDocument();
     expect(screen.queryByText(successMessage)).not.toBeInTheDocument();
   });
 

@@ -1,7 +1,7 @@
 import { screen, fireEvent, within } from "@testing-library/react";
-import { languages, LanguageContext } from "../../language-context";
+import { languages } from "../language-context";
 
-jest.mock("../../language-context");
+jest.mock("../language-context");
 const language = languages.en;
 const { successMessage, title, startOver } = language.pages.mathGame;
 
@@ -61,13 +61,18 @@ export const calculateSum = (equationIndex, cb) => {
 };
 
 export const chooseWrongOptionFromEach = (equationIndex, sum) => {
-  let wrongOptions = within(
-    screen.getByTestId(`equation-options-table-tb-${equationIndex}`)
-  ).getAllByText(
-    (text) => text != String(sum) && Number(text) <= 100 && Number(text) >= 0
+  let options = [];
+
+  [0, 1, 2, 3].forEach((optionIndex) =>
+    options.push(
+      screen.getByTestId(
+        `equation-options-table-td-${equationIndex}-${optionIndex}`
+      )
+    )
   );
 
-  fireEvent.click(wrongOptions[1]);
+  let wrongOptions = options.filter((option) => option.textContent != sum);
+  fireEvent.click(wrongOptions[0]);
 };
 
 export const chooseRightOptionFromEach = (equationIndex, sum) => {
