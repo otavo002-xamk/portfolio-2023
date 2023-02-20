@@ -60,7 +60,7 @@ function MathGame() {
   return (
     <LanguageContext.Consumer>
       {({ language }) => (
-        <>
+        <div className="p-12 lg:p-0">
           <h1 className="text-2xl dark:text-white">
             {language.pages.mathGame.title}
           </h1>
@@ -113,7 +113,7 @@ function MathGame() {
               )}
             </div>
           )}
-        </>
+        </div>
       )}
     </LanguageContext.Consumer>
   );
