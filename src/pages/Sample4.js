@@ -5,8 +5,8 @@ function Sample4() {
   return (
     <LanguageContext.Consumer>
       {({ language }) => (
-        <div>
-          <p className="dark:text-white">{language.pages.sample4.title}</p>
+        <div className="p-12 lg:p-0">
+          <h1 className="text-2xl">{language.pages.sample4.title}</h1>
         </div>
       )}
     </LanguageContext.Consumer>

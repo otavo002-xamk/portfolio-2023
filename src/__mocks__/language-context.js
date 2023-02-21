@@ -17,7 +17,7 @@ export const languages = {
         yourResults: "Your results",
         startOver: "Start over!",
       },
-      sample2: {
+      nasaAPI: {
         link: "Sample 2",
         title: "Sample 2!",
       },
@@ -45,7 +45,7 @@ export const languages = {
         yourResults: "Tuloksesi",
         startOver: "Aloita alusta!",
       },
-      sample2: {
+      nasaAPI: {
         link: "Näyte 2",
         title: "Näyte 2!",
       },

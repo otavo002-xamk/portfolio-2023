@@ -21,9 +21,9 @@ import {
 } from "../testfunctions/MathGameTestFunctions";
 
 jest.mock("../language-context");
-const { frontPage, mathGame, sample2, sample3, sample4 } = languages.en.pages;
+const { frontPage, mathGame, nasaAPI, sample3, sample4 } = languages.en.pages;
 const { successMessage, yourResults, startOver } = mathGame;
-const navBarLinks = [mathGame, sample2, sample3, sample4];
+const navBarLinks = [mathGame, nasaAPI, sample3, sample4];
 const testCases = [];
 
 for (let i = 0; i < 8; i++) {

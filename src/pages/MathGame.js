@@ -61,9 +61,7 @@ function MathGame() {
     <LanguageContext.Consumer>
       {({ language }) => (
         <div className="p-12 lg:p-0">
-          <h1 className="text-2xl dark:text-white">
-            {language.pages.mathGame.title}
-          </h1>
+          <h1 className="text-2xl">{language.pages.mathGame.title}</h1>
           <br />
           {currentEquation === 5 && points === 5 && (
             <h2>{language.pages.mathGame.successMessage}</h2>
@@ -80,7 +78,7 @@ function MathGame() {
             {language.pages.mathGame.startOver}
           </button>
           {tableOfOptions.length === 0 || randomNumbers.length === 0 ? (
-            <p className=" dark:text-white">loading...</p>
+            <p>loading...</p>
           ) : (
             randomNumbers.map((randomThree, index) => (
               <Equation
