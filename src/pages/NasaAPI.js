@@ -13,7 +13,7 @@ function NasaAPI() {
   const cameraNames = [
     { abbreviation: "FHAZ", Name: "Front Hazard Avoidance Camera" },
     { abbreviation: "RHAZ", Name: "Rear Hazard Avoidance Camera" },
-    { abbreviation: "MAST", Name: "	Mast Camera" },
+    { abbreviation: "MAST", Name: "Mast Camera" },
     { abbreviation: "CHEMCAM", Name: "Chemistry and Camera Complex" },
     { abbreviation: "MAHLI", Name: "Mars Hand Lens Imager" },
     { abbreviation: "MARDI", Name: "Mars Descent Imager" },
@@ -65,7 +65,7 @@ function NasaAPI() {
           <h1 className="text-2xl">{language.pages.nasaAPI.title}</h1>
           <br />
           <label htmlFor="sol-input">
-            Insert sol please (a value between 0 - 3495):{" "}
+            {language.pages.nasaAPI.solInputLabel}
           </label>
 
           <input
@@ -79,7 +79,9 @@ function NasaAPI() {
 
           <br />
           <br />
-          <label htmlFor="camera-select">Select camera please:</label>
+          <label htmlFor="camera-select">
+            {language.pages.nasaAPI.cameraSelectLabel}
+          </label>
 
           <select
             className="max-w-full dark:bg-slate-800"
@@ -100,23 +102,18 @@ function NasaAPI() {
             className="p-2  border-2 border-black rounded-lg bg-rose-200 shadow shadow-black dark:border-stone-500 dark:bg-stone-800 dark:shadow-white"
             onClick={() => getImages(sol, camera)}
           >
-            Get images from NASA.
+            {language.pages.nasaAPI.getImagesButtonText}
           </button>
 
           <br />
           <br />
 
-          {tooBigNumber && <p>Too big number!</p>}
+          {tooBigNumber && <p>{language.pages.nasaAPI.tooBigNumber}</p>}
           {loading && (
             <div className="m-auto animate-spin h-8 w-8 border-4 rounded-full border-t-rose-900 border-r-rose-700 border-b-rose-500 border-l-rose-300" />
           )}
 
-          {noPictures && (
-            <p>
-              No pictures found. Try again with a different sol or different
-              camera.
-            </p>
-          )}
+          {noPictures && <p>{language.pages.nasaAPI.noPicturesFound}</p>}
 
           {nasaPictures.length !== 0 && !loading && (
             <CuriosityMiniSlider nasaPictures={nasaPictures} />
