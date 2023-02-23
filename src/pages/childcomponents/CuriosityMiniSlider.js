@@ -21,23 +21,27 @@ function CuriosityMiniSlider({ nasaPictures }) {
   const pause = () => (paused ? setPaused(false) : setPaused(true));
 
   return (
-    <div style={{ height: 1000 }} className="relative bg-black">
-      {nasaPictures.length > 0 && (
-        <>
+    <div className="relative">
+      <img
+        className="w-full"
+        src={nasaPictures[currentImage].img_src}
+        alt={`curiosity-${currentImage}`}
+      />
+      <button className="right-2/4 bottom-0 absolute" onClick={pause}>
+        {paused ? (
           <img
-            className="w-full my-20 absolute"
-            src={nasaPictures[currentImage].img_src}
-            alt={`curiosity-${currentImage}`}
+            className="w-6 tablet:w-8 lg:w-12"
+            src={Play}
+            alt="play-slider"
           />
-          <button className="right-2/4 bottom-0 absolute" onClick={pause}>
-            {paused ? (
-              <img className="w-12" src={Play} alt="play-slider" />
-            ) : (
-              <img className="w-12" src={Pause} alt="pause-slider" />
-            )}
-          </button>
-        </>
-      )}
+        ) : (
+          <img
+            className="w-6 tablet:w-8 lg:w-12"
+            src={Pause}
+            alt="pause-slider"
+          />
+        )}
+      </button>
     </div>
   );
 }
