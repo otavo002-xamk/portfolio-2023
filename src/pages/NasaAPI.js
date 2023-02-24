@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { LanguageContext } from "../language-context";
 import CuriosityMiniSlider from "./childcomponents/CuriosityMiniSlider";
+import { cameraNames } from "./additions/cameraNames";
 
 function NasaAPI() {
   const [nasaPictures, setNasaPictures] = useState([]);
@@ -9,21 +10,6 @@ function NasaAPI() {
   const [tooBigNumber, setTooBigNumber] = useState(false);
   const [loading, setLoading] = useState(false);
   const [noPictures, setNoPictures] = useState(false);
-
-  const cameraNames = [
-    { abbreviation: "FHAZ", Name: "Front Hazard Avoidance Camera" },
-    { abbreviation: "RHAZ", Name: "Rear Hazard Avoidance Camera" },
-    { abbreviation: "MAST", Name: "Mast Camera" },
-    { abbreviation: "CHEMCAM", Name: "Chemistry and Camera Complex" },
-    { abbreviation: "MAHLI", Name: "Mars Hand Lens Imager" },
-    { abbreviation: "MARDI", Name: "Mars Descent Imager" },
-    { abbreviation: "NAVCAM", Name: "Navigation Camera" },
-    { abbreviation: "PANCAM", Name: "Panoramic Camera" },
-    {
-      abbreviation: "MINTES",
-      Name: "Miniature Thermal Emission Spectrometer (Mini-TES)",
-    },
-  ];
 
   const getImages = (sol, camera) => {
     let images = [];
@@ -109,8 +95,12 @@ function NasaAPI() {
           <br />
 
           {tooBigNumber && <p>{language.pages.nasaAPI.tooBigNumber}</p>}
+
           {loading && (
-            <div className="m-auto animate-spin h-8 w-8 border-4 rounded-full border-t-rose-900 border-r-rose-700 border-b-rose-500 border-l-rose-300" />
+            <div
+              data-testid="nasa-api-loader"
+              className="m-auto animate-spin h-8 w-8 border-4 rounded-full border-t-rose-900 border-r-rose-700 border-b-rose-500 border-l-rose-300"
+            />
           )}
 
           {noPictures && <p>{language.pages.nasaAPI.noPicturesFound}</p>}

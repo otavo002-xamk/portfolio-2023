@@ -20,6 +20,12 @@ export const languages = {
       nasaAPI: {
         link: "Sample 2",
         title: "Sample 2!",
+        solInputLabel: "Insert sol please (a value between 0 - 3495):",
+        cameraSelectLabel: "Select camera please:",
+        getImagesButtonText: "Get images from NASA.",
+        tooBigNumber: "Too big number!",
+        noPicturesFound:
+          "No pictures found. Try again with a different sol or different camera.",
       },
       sample3: {
         link: "Sample 3",
@@ -48,6 +54,12 @@ export const languages = {
       nasaAPI: {
         link: "Näyte 2",
         title: "Näyte 2!",
+        solInputLabel: "Syötä sol kiitos (luku väliltä 0 - 3495): ",
+        cameraSelectLabel: "Valitse kamera kiitos: ",
+        getImagesButtonText: "Hae kuvat NASAlta.",
+        tooBigNumber: "Liian suuri luku!",
+        noPicturesFound:
+          "Valitettavasti kuvia ei löytynyt. Kokeile toista solia tai toista kameraa.",
       },
       sample3: {
         link: "Näyte 3",

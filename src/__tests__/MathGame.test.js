@@ -6,8 +6,7 @@ import { testComponentRendering } from "../testfunctions/MathGameTestFunctions";
 jest.mock("../language-context");
 const mockChildComponent = jest.fn();
 const language = languages.en;
-const { title, successMessage, yourResults, startOver } =
-  language.pages.mathGame;
+const { successMessage, yourResults, startOver } = language.pages.mathGame;
 const testTexts = ["Set next button disabled!", "Add point!"];
 const setNextButtonDisabledText = testTexts[0];
 const AddPointText = testTexts[1];
