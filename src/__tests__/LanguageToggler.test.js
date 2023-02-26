@@ -39,6 +39,7 @@ describe("With finnish language", () => {
   beforeEach(() => {
     jest.clearAllMocks();
     const language = languages.fi;
+
     render(
       <LanguageContext.Provider value={{ language, updateLanguage }}>
         <LanguageToggler />

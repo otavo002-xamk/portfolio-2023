@@ -1,5 +1,6 @@
 import CuriosityMiniSlider from "../pages/childcomponents/CuriosityMiniSlider";
-import { render, screen, act, fireEvent } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
+import { testPlayPauseToggleState } from "../testfunctions/NasaAPITestFunctions";
 
 const nasaPictures = [
   {
@@ -26,23 +27,6 @@ describe("Rendering", () => {
   });
 
   it("should toggle the play/pause -state when clicking the button", () => {
-    expect(screen.getByAltText("pause-slider")).toBeInTheDocument();
-    expect(screen.getByAltText("pause-slider").src.slice(17)).toBe("Pause.png");
-    expect(screen.queryByAltText("play-slider")).not.toBeInTheDocument();
-    expect(jest.getTimerCount()).toBe(1);
-    fireEvent.click(screen.getByAltText("pause-slider"));
-    expect(screen.getByAltText("play-slider")).toBeInTheDocument();
-
-    expect(screen.getByAltText("play-slider").src.slice(17)).toBe(
-      "Play-Icon.png"
-    );
-
-    expect(screen.queryByAltText("pause-slider")).not.toBeInTheDocument();
-    expect(jest.getTimerCount()).toBe(0);
-    fireEvent.click(screen.getByAltText("play-slider"));
-    expect(screen.getByAltText("pause-slider")).toBeInTheDocument();
-    expect(screen.getByAltText("pause-slider").src.slice(17)).toBe("Pause.png");
-    expect(screen.queryByAltText("play-slider")).not.toBeInTheDocument();
-    expect(jest.getTimerCount()).toBe(1);
+    testPlayPauseToggleState();
   });
 });

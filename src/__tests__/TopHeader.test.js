@@ -53,10 +53,8 @@ describe("Link works", () => {
     expect(screen.getByText("Sample 1!")).toBeInTheDocument();
     expect(screen.queryByText("Front!")).not.toBeInTheDocument();
     fireEvent.click(screen.getByAltText("home"));
-    await waitFor(() => {
-      expect(screen.getByText("Front!")).toBeInTheDocument();
-      expect(screen.queryByText("Sample 1!")).not.toBeInTheDocument();
-    });
+    expect(screen.getByText("Front!")).toBeInTheDocument();
+    expect(screen.queryByText("Sample 1!")).not.toBeInTheDocument();
   });
 
   it("should render the ThemeToggler & LanguageToggler components", () => {

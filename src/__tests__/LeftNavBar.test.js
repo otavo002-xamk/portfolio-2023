@@ -103,11 +103,8 @@ describe("Clicking link renders match", () => {
       expect(screen.getByText(text)).toBeInTheDocument();
       expect(screen.queryByText(content)).not.toBeInTheDocument();
       fireEvent.click(screen.getByText(text));
-
-      await waitFor(() => {
-        expect(screen.getByText(content)).toBeInTheDocument();
-        expect(screen.queryByText("Front!")).not.toBeInTheDocument();
-      });
+      expect(screen.getByText(content)).toBeInTheDocument();
+      expect(screen.queryByText("Front!")).not.toBeInTheDocument();
     }
   );
 });
@@ -149,13 +146,16 @@ describe("Menu open state changes", () => {
           menuOpen: false,
         })
       );
+
       expect(mockChildComponent).toHaveBeenCalledTimes(1);
       fireEvent.click(screen.getByTestId("menu-change-handler"));
+
       expect(mockChildComponent).toHaveBeenLastCalledWith(
         expect.objectContaining({
           menuOpen: true,
         })
       );
+
       expect(mockChildComponent).toHaveBeenCalledTimes(2);
       fireEvent.click(screen.getByText(text));
       expect(mockChildComponent).toHaveBeenLastCalledWith(

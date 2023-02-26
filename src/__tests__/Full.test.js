@@ -64,11 +64,8 @@ describe("The Language Toggler", () => {
     );
 
     fireEvent.click(screen.getByTestId("finnish-flag"));
-
-    await waitFor(() => {
-      expect(screen.getByText("Etusivu!")).toBeInTheDocument();
-      expect(screen.queryByText(frontPage.title)).not.toBeInTheDocument();
-    });
+    expect(screen.getByText("Etusivu!")).toBeInTheDocument();
+    expect(screen.queryByText(frontPage.title)).not.toBeInTheDocument();
 
     fireEvent.change(screen.getByTestId("language-toggler-input"), {
       target: { value: "en" },
@@ -79,11 +76,8 @@ describe("The Language Toggler", () => {
     );
 
     fireEvent.click(screen.getByTestId("english-flag"));
-
-    await waitFor(() => {
-      expect(screen.getByText(frontPage.title)).toBeInTheDocument();
-      expect(screen.queryByText("Etusivu!")).not.toBeInTheDocument();
-    });
+    expect(screen.getByText(frontPage.title)).toBeInTheDocument();
+    expect(screen.queryByText("Etusivu!")).not.toBeInTheDocument();
   });
 });
 
