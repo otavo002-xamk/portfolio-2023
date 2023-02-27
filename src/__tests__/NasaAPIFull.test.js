@@ -13,24 +13,18 @@ import {
   renderComponent,
   testPlayPauseToggleState,
   testElementRendering,
+  testMiniSliderDoesntRender,
   testNoPicturesFoundNotification,
   testTooLargeNumberInsertedNotification,
-  testAPICallParameters,
+  insertSolSelectCameraAndClickButton,
+  testImagesRendering,
 } from "../testfunctions/NasaAPITestFunctions";
 
 jest.mock("../language-context");
 const nasaAPI = languages.en.pages.nasaAPI;
 
-const testMiniSliderDoesntRender = () => {
-  expect(screen.queryByAltText(/curiosity-/)).not.toBeInTheDocument();
-  expect(screen.queryByAltText("play-slider")).not.toBeInTheDocument();
-  expect(screen.queryByAltText("pause-slider")).not.toBeInTheDocument();
-};
-
 describe("Rendering", () => {
-  beforeEach(() => {
-    renderComponent();
-  });
+  beforeEach(() => renderComponent());
 
   it("should render elements", () => {
     testElementRendering();
@@ -64,7 +58,7 @@ describe("API call", () => {
   it.each(cameraNames)(
     "should send the right parameters with the API call with camera $abbreviation",
     async (camera) => {
-      await testAPICallParameters(camera);
+      await insertSolSelectCameraAndClickButton(camera);
       expect(mockFn).toHaveBeenCalledTimes(1);
 
       expect(mockFn).toHaveBeenCalledWith(
@@ -82,26 +76,8 @@ describe("Rendering slider", () => {
 
   jest.useFakeTimers();
 
-  it("should render each of the images one by one", async () => {
-    fireEvent.change(screen.getByLabelText(nasaAPI.solInputLabel), {
-      target: { value: "24" },
-    });
-
-    fireEvent.click(screen.getByText(nasaAPI.getImagesButtonText));
-    expect(screen.getByTestId("nasa-api-loader")).toBeInTheDocument();
-    await waitForElementToBeRemoved(screen.getByTestId("nasa-api-loader"));
-
-    [0, 1, 2, 3, 0].forEach((index) => {
-      expect(screen.getByAltText(`curiosity-${index}`)).toBeInTheDocument();
-      act(() => jest.runOnlyPendingTimers());
-      expect(
-        screen.queryByAltText(`curiosity-${index}`)
-      ).not.toBeInTheDocument();
-    });
-
-    expect(screen.queryByText(nasaAPI.noPicturesFound)).not.toBeInTheDocument();
-    expect(screen.queryByText(nasaAPI.tooBigNumber)).not.toBeInTheDocument();
-  });
+  it("should render each of the images one by one", async () =>
+    await testImagesRendering());
 
   it("should toggle the play/pause -state when clicking the button", async () => {
     fireEvent.change(screen.getByLabelText(nasaAPI.solInputLabel), {

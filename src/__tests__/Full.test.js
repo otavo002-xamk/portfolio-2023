@@ -5,6 +5,7 @@ import {
   fireEvent,
   waitFor,
   act,
+  waitForElementToBeRemoved,
 } from "@testing-library/react";
 import testRouter from "../testRouter";
 import { languages } from "../language-context";
@@ -16,6 +17,19 @@ import {
   testPageReload,
   testThreeRandomNumbersAndSum,
 } from "../testfunctions/MathGameTestFunctions";
+import {
+  mockFn,
+  images,
+  mockFetch,
+  testPlayPauseToggleState,
+  testElementRendering,
+  testMiniSliderDoesntRender,
+  testNoPicturesFoundNotification,
+  testTooLargeNumberInsertedNotification,
+  insertSolSelectCameraAndClickButton,
+  testImagesRendering,
+} from "../testfunctions/NasaAPITestFunctions";
+import { cameraNames } from "../pages/additions/cameraNames";
 
 jest.mock("../language-context");
 const { frontPage, mathGame, nasaAPI, sample3, sample4 } = languages.en.pages;
@@ -31,9 +45,8 @@ for (let i = 0; i < 8; i++) {
 describe("Top Header", () => {
   beforeEach(() => render(<RouterProvider router={testRouter(1)} />));
 
-  it("should render the home-icon image-element", () => {
-    expect(screen.getByAltText("home")).toBeInTheDocument();
-  });
+  it("should render the home-icon image-element", () =>
+    expect(screen.getByAltText("home")).toBeInTheDocument());
 
   it("should redirect to front-page when image is clicked", async () => {
     expect(screen.getByText(mathGame.title)).toBeInTheDocument();
@@ -179,9 +192,7 @@ describe("MathGame", () => {
   beforeEach(() => render(<RouterProvider router={testRouter(1)} />));
 
   describe("Rendering", () => {
-    it("should render elements correctly", () => {
-      testComponentRendering();
-    });
+    it("should render elements correctly", () => testComponentRendering());
 
     it.each([0, 1, 2, 3, 4])(
       "should render the right symbols in equation index %d",
@@ -192,25 +203,89 @@ describe("MathGame", () => {
 
     it.each([0, 1, 2, 3, 4])(
       "should render the three random numbers for index %d and the sum of each in the options table",
-      (index) => {
-        testThreeRandomNumbersAndSum(index);
-      }
+      (index) => testThreeRandomNumbersAndSum(index)
     );
   });
 
   describe("Choosing and clicking next", () => {
-    it("should give the results, after choosing and clicking next enough times", () => {
-      testEndResultsAreShown();
-    });
+    it("should give the results, after choosing and clicking next enough times", () =>
+      testEndResultsAreShown());
 
-    it("should give the succes-message + results after choosing and clicking next enough times", () => {
-      testSuccessMessageAndResults();
+    it("should give the succes-message + results after choosing and clicking next enough times", () =>
+      testSuccessMessageAndResults());
+  });
+
+  describe("Start over button", () =>
+    it("should reload the page when the start-over-button is clicked", () =>
+      testPageReload()));
+});
+
+describe("NASA API", () => {
+  describe("Rendering", () => {
+    beforeEach(() => render(<RouterProvider router={testRouter(2)} />));
+
+    it("should render elements", () => {
+      testElementRendering();
+      testMiniSliderDoesntRender();
     });
   });
 
-  describe("Start over button", () => {
-    it("should reload the page when the start-over-button is clicked", () => {
-      testPageReload();
+  describe("Warning texts", () => {
+    beforeEach(() => {
+      render(<RouterProvider router={testRouter(2)} />);
+      mockFetch([]);
+    });
+
+    it("should give a notification when no pictures were found", async () => {
+      await testNoPicturesFoundNotification();
+      testMiniSliderDoesntRender();
+    });
+
+    it("should give a notification when too large number is inserted", () => {
+      testTooLargeNumberInsertedNotification();
+      testMiniSliderDoesntRender();
+    });
+  });
+
+  describe("API call", () => {
+    beforeEach(() => {
+      render(<RouterProvider router={testRouter(2)} />);
+      mockFetch(images, true);
+    });
+
+    it.each(cameraNames)(
+      "should send the right parameters with the API call with camera $abbreviation",
+      async (camera) => {
+        await insertSolSelectCameraAndClickButton(camera);
+        expect(mockFn).toHaveBeenCalledTimes(1);
+
+        expect(mockFn).toHaveBeenCalledWith(
+          expect.stringContaining("sol=3495" && `camera=${camera.abbreviation}`)
+        );
+      }
+    );
+  });
+
+  describe("Rendering slider", () => {
+    beforeEach(() => {
+      render(<RouterProvider router={testRouter(2)} />);
+      mockFetch(images);
+    });
+
+    jest.useFakeTimers();
+
+    it("should render each of the images one by one", async () =>
+      await testImagesRendering());
+
+    it("should toggle the play/pause -state when clicking the button", async () => {
+      fireEvent.change(screen.getByLabelText(nasaAPI.solInputLabel), {
+        target: { value: "24" },
+      });
+
+      fireEvent.click(screen.getByText(nasaAPI.getImagesButtonText));
+      expect(screen.getByTestId("nasa-api-loader")).toBeInTheDocument();
+      await waitForElementToBeRemoved(screen.getByTestId("nasa-api-loader"));
+      testPlayPauseToggleState();
     });
   });
 });
@@ -218,7 +293,6 @@ describe("MathGame", () => {
 describe("Footer", () => {
   beforeEach(() => render(<RouterProvider router={testRouter(0)} />));
 
-  it("should render the footer", () => {
-    expect(screen.getByText("Footer")).toBeInTheDocument();
-  });
+  it("should render the footer", () =>
+    expect(screen.getByText("Footer")).toBeInTheDocument());
 });

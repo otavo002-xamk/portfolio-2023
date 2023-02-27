@@ -71,6 +71,12 @@ export const testElementRendering = () => {
   });
 };
 
+export const testMiniSliderDoesntRender = () => {
+  expect(screen.queryByAltText(/curiosity-/)).not.toBeInTheDocument();
+  expect(screen.queryByAltText("play-slider")).not.toBeInTheDocument();
+  expect(screen.queryByAltText("pause-slider")).not.toBeInTheDocument();
+};
+
 export const testNoPicturesFoundNotification = async () => {
   expect(screen.queryByText(nasaAPI.noPicturesFound)).not.toBeInTheDocument();
   expect(screen.queryByTestId("nasa-api-loader")).not.toBeInTheDocument();
@@ -98,7 +104,7 @@ export const testTooLargeNumberInsertedNotification = () => {
   expect(screen.queryByText(nasaAPI.noPicturesFound)).not.toBeInTheDocument();
 };
 
-export const testAPICallParameters = async (camera) => {
+export const insertSolSelectCameraAndClickButton = async (camera) => {
   fireEvent.change(screen.getByLabelText(nasaAPI.solInputLabel), {
     target: { value: "3495" },
   });
@@ -112,6 +118,25 @@ export const testAPICallParameters = async (camera) => {
   await act(() =>
     fireEvent.click(screen.getByText(nasaAPI.getImagesButtonText))
   );
+};
+
+export const testImagesRendering = async () => {
+  fireEvent.change(screen.getByLabelText(nasaAPI.solInputLabel), {
+    target: { value: "24" },
+  });
+
+  fireEvent.click(screen.getByText(nasaAPI.getImagesButtonText));
+  expect(screen.getByTestId("nasa-api-loader")).toBeInTheDocument();
+  await waitForElementToBeRemoved(screen.getByTestId("nasa-api-loader"));
+
+  [0, 1, 2, 3, 0].forEach((index) => {
+    expect(screen.getByAltText(`curiosity-${index}`)).toBeInTheDocument();
+    act(() => jest.runOnlyPendingTimers());
+    expect(screen.queryByAltText(`curiosity-${index}`)).not.toBeInTheDocument();
+  });
+
+  expect(screen.queryByText(nasaAPI.noPicturesFound)).not.toBeInTheDocument();
+  expect(screen.queryByText(nasaAPI.tooBigNumber)).not.toBeInTheDocument();
 };
 
 export const testPlayPauseToggleState = () => {

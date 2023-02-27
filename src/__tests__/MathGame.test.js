@@ -52,9 +52,7 @@ describe("Rendering & hiding", () => {
     expect(screen.getAllByText(text).length).toBe(5)
   );
 
-  it("should render button and title", () => {
-    testComponentRendering();
-  });
+  it("should render button and title", () => testComponentRendering());
 
   it("should hide the right components when needed", () => {
     [0, 1, 2, 3, 4].forEach((index) => {
@@ -129,10 +127,7 @@ describe("Adding points", () => {
   });
 
   it("should not render the succes-message unless there's 5 points", () => {
-    [1, 2, 3, 4].forEach((_equationIndex) => {
-      moveToNextEquation();
-    });
-
+    [1, 2, 3, 4].forEach((_equationIndex) => moveToNextEquation());
     moveToNextEquation(false);
     expect(screen.queryByText(successMessage)).not.toBeInTheDocument();
     expect(screen.getByText(`${yourResults}: 4 / 5`)).toBeInTheDocument();
@@ -141,10 +136,7 @@ describe("Adding points", () => {
 
 describe("Start over button", () => {
   it("should reload the page when the button is clicked", () => {
-    [0, 1, 2, 3, 4].forEach((_equationIndex) => {
-      moveToNextEquation();
-    });
-
+    [0, 1, 2, 3, 4].forEach((_equationIndex) => moveToNextEquation());
     expect(screen.getByText(successMessage)).toBeInTheDocument();
     expect(screen.getByText(`${yourResults}: 5 / 5`)).toBeInTheDocument();
     fireEvent.click(screen.getByText(startOver));

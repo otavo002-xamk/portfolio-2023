@@ -21,11 +21,8 @@ beforeEach(() => {
 });
 
 describe("Rendering", () => {
-  it.each(randomNumbers)(
-    "should render random number %i correctly",
-    (number) => {
-      expect(screen.getByText(number.toString())).toBeInTheDocument();
-    }
+  it.each(randomNumbers)("should render random number %i correctly", (number) =>
+    expect(screen.getByText(number.toString())).toBeInTheDocument()
   );
 
   it("should render +, = & ? correctly", () => {
@@ -34,9 +31,8 @@ describe("Rendering", () => {
     expect(screen.getByText("?")).toBeInTheDocument();
   });
 
-  it("should include the correct sum in the optons list", () => {
-    expect(screen.getByText(sum.toString())).toBeInTheDocument();
-  });
+  it("should include the correct sum in the optons list", () =>
+    expect(screen.getByText(sum.toString())).toBeInTheDocument());
 });
 
 describe("Choosing options", () => {

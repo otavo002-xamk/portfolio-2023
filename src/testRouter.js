@@ -37,7 +37,7 @@ const testRouter = (initialIndex) =>
       },
     ],
     {
-      initialEntries: ["/", "/MathGame"],
+      initialEntries: ["/", "/MathGame", "/NasaAPI"],
       initialIndex: initialIndex,
     }
   );

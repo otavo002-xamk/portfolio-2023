@@ -14,20 +14,19 @@ import {
   testElementRendering,
   testNoPicturesFoundNotification,
   testTooLargeNumberInsertedNotification,
-  testAPICallParameters,
+  insertSolSelectCameraAndClickButton,
 } from "../testfunctions/NasaAPITestFunctions";
 
-jest.mock("../pages/childcomponents/CuriosityMiniSlider", () => (props) => {
-  mockFn(props);
-});
+jest.mock(
+  "../pages/childcomponents/CuriosityMiniSlider",
+  () => (props) => mockFn(props)
+);
 
 jest.mock("../language-context");
 const nasaAPI = languages.en.pages.nasaAPI;
 
 describe("Rendering", () => {
-  beforeEach(() => {
-    renderComponent();
-  });
+  beforeEach(() => renderComponent());
 
   it("should render elements", () => {
     testElementRendering();
@@ -61,7 +60,7 @@ describe("API call", () => {
   it.each(cameraNames)(
     "should send the right parameters with the API call with camera $abbreviation",
     async (camera) => {
-      await testAPICallParameters(camera);
+      await insertSolSelectCameraAndClickButton(camera);
       expect(mockFn).toHaveBeenCalledTimes(2);
 
       expect(mockFn).toHaveBeenNthCalledWith(

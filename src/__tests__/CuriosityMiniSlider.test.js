@@ -26,7 +26,6 @@ describe("Rendering", () => {
     expect(screen.getByAltText("curiosity-1").src.slice(17)).toBe("test_two");
   });
 
-  it("should toggle the play/pause -state when clicking the button", () => {
-    testPlayPauseToggleState();
-  });
+  it("should toggle the play/pause -state when clicking the button", () =>
+    testPlayPauseToggleState());
 });
