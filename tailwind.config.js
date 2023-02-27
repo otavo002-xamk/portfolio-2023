@@ -28,7 +28,10 @@ module.exports = {
       },
       backgroundImage: {
         header: "url('./pictures/jarvi.jpg')",
-        // leftNavBar: "url('./pictures/WP_20191220_324.jpg')",
+        leftNavBar: "url('./pictures/WP_20191220_326.jpg')",
+        darkLeftNavBar: "url('./pictures/WP_20191220_325.jpg')",
+        lgLeftNavBar: "url('./pictures/WP_20191220_321.jpg')",
+        lgDarkLeftNavBar: "url('./pictures/WP_20191220_322.jpg')",
       },
     },
     fontFamily: {
