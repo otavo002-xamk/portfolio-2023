@@ -9,6 +9,7 @@ function MathGame() {
   const [isNextButtonDisabled, setNextButtonDisabled] = useState(true);
   const [points, setPoints] = useState(0);
   const [state, setState] = useState(0);
+  const [gameHasStarted, setGameHasStarted] = useState(false);
 
   const addPoint = () => setPoints((points) => points + 1);
 
@@ -18,6 +19,7 @@ function MathGame() {
     setCurrentEquation(0);
     setNextButtonDisabled(true);
     setPoints(0);
+    setGameHasStarted(false);
     setState((state) => {
       return { ...state };
     });
@@ -63,53 +65,68 @@ function MathGame() {
         <div className="p-12 lg:p-0">
           <h1 className="text-2xl">{language.pages.mathGame.title}</h1>
           <br />
-          {currentEquation === 5 && points === 5 && (
-            <h2>{language.pages.mathGame.successMessage}</h2>
-          )}
-          {currentEquation === 5 && (
-            <h2>
-              {language.pages.mathGame.yourResults}: {points} / 5
-            </h2>
-          )}
-          <button
-            className="underline text-red-600 text-shadow dark:text-shadow-white"
-            onClick={resetStates}
-          >
-            {language.pages.mathGame.startOver}
-          </button>
-          {tableOfOptions.length === 0 || randomNumbers.length === 0 ? (
-            <p>loading...</p>
-          ) : (
-            randomNumbers.map((randomThree, index) => (
-              <Equation
-                key={index.toString()}
-                index={index}
-                shouldBeHidden={
-                  currentEquation !== index && currentEquation < 5
-                }
-                randomNumbers={randomThree}
-                tableOfOptions={tableOfOptions[index]}
-                setNextButtonDisabled={setNextButtonDisabled}
-                addPoint={addPoint}
-              />
-            ))
-          )}
-          {currentEquation < 5 && (
-            <div className="flex gap-10 justify-center">
-              <p>{points} / 5</p>
-              {isNextButtonDisabled ? (
-                <button className="margin-auto text-stone-400" disabled>
-                  NEXT &#10095;
-                </button>
-              ) : (
-                <button
-                  className="margin-auto text-red-900 dark:text-white text-shadow dark:text-shadow-white"
-                  onClick={moveToNextEquation}
-                >
-                  NEXT &#10095;
-                </button>
+          {gameHasStarted ? (
+            <>
+              {currentEquation === 5 && points === 5 && (
+                <h2>{language.pages.mathGame.successMessage}</h2>
               )}
-            </div>
+              {currentEquation === 5 && (
+                <h2>
+                  {language.pages.mathGame.yourResults}: {points} / 5
+                </h2>
+              )}
+              <button
+                className="underline text-red-600 text-shadow dark:text-shadow-white"
+                onClick={resetStates}
+              >
+                {language.pages.mathGame.startOver}
+              </button>
+              {tableOfOptions.length === 0 || randomNumbers.length === 0 ? (
+                <p>loading...</p>
+              ) : (
+                randomNumbers.map((randomThree, index) => (
+                  <Equation
+                    key={index.toString()}
+                    index={index}
+                    shouldBeHidden={
+                      currentEquation !== index && currentEquation < 5
+                    }
+                    randomNumbers={randomThree}
+                    tableOfOptions={tableOfOptions[index]}
+                    setNextButtonDisabled={setNextButtonDisabled}
+                    addPoint={addPoint}
+                  />
+                ))
+              )}
+              {currentEquation < 5 && (
+                <div className="flex gap-10 justify-center">
+                  <p>{points} / 5</p>
+                  {isNextButtonDisabled ? (
+                    <button className="margin-auto text-stone-400" disabled>
+                      NEXT &#10095;
+                    </button>
+                  ) : (
+                    <button
+                      className="margin-auto text-red-900 dark:text-white text-shadow dark:text-shadow-white"
+                      onClick={moveToNextEquation}
+                    >
+                      NEXT &#10095;
+                    </button>
+                  )}
+                </div>
+              )}
+            </>
+          ) : (
+            <>
+              <p>{language.pages.mathGame.ready}</p>
+              <br />
+              <button
+                onClick={setGameHasStarted}
+                className="underline text-red-600 text-shadow dark:text-shadow-white"
+              >
+                {language.pages.mathGame.start}
+              </button>
+            </>
           )}
         </div>
       )}

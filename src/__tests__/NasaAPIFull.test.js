@@ -2,7 +2,6 @@ import { cameraNames } from "../pages/additions/cameraNames";
 import {
   fireEvent,
   screen,
-  act,
   waitForElementToBeRemoved,
 } from "@testing-library/react";
 import { languages } from "../language-context";

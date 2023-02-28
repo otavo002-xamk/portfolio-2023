@@ -1,12 +1,16 @@
-import { languages, LanguageContext } from "../language-context";
-import MathGame from "../pages/MathGame";
-import { screen, render, fireEvent } from "@testing-library/react";
-import { testComponentRendering } from "../testfunctions/MathGameTestFunctions";
+import { languages } from "../language-context";
+import { screen, fireEvent } from "@testing-library/react";
+import {
+  renderAndStart,
+  testComponentRendering,
+  testStartButtonWorks,
+} from "../testfunctions/MathGameTestFunctions";
 
 jest.mock("../language-context");
 const mockChildComponent = jest.fn();
 const language = languages.en;
-const { successMessage, yourResults, startOver } = language.pages.mathGame;
+const { title, ready, start, successMessage, yourResults, startOver } =
+  language.pages.mathGame;
 const testTexts = ["Set next button disabled!", "Add point!"];
 const setNextButtonDisabledText = testTexts[0];
 const AddPointText = testTexts[1];
@@ -30,15 +34,16 @@ const moveToNextEquation = (addPoint = true) => {
   fireEvent.click(screen.getByText(/NEXT/));
 };
 
-beforeEach(() => {
-  render(
-    <LanguageContext.Provider value={{ language }}>
-      <MathGame />
-    </LanguageContext.Provider>
-  );
+describe("Starting", () => {
+  beforeEach(() => renderAndStart(false));
+
+  it("should render the Start!-button and start game after clicking it", () =>
+    testStartButtonWorks());
 });
 
 describe("Rendering & hiding", () => {
+  beforeEach(() => renderAndStart());
+
   it("should call the child component with right props", () => {
     expect(mockChildComponent).toHaveBeenCalledTimes(5);
 
@@ -74,6 +79,8 @@ describe("Rendering & hiding", () => {
 });
 
 describe("Random numbers & sums", () => {
+  beforeEach(() => renderAndStart());
+
   it("should include only numbers between 0 an 100", () => {
     mockChildComponent.mock.calls.forEach((mockCall) => {
       mockCall[0].randomNumbers.forEach((randomNumber) => {
@@ -96,6 +103,8 @@ describe("Random numbers & sums", () => {
 });
 
 describe("Enabling and disabling NEXT-button", () => {
+  beforeEach(() => renderAndStart());
+
   it("should enable the NEXT-button by clicking the table and then disable it by clicking the button itself", () => {
     expect(screen.getByText(/NEXT/)).toBeDisabled();
     fireEvent.click(screen.getAllByText(setNextButtonDisabledText)[0]);
@@ -106,6 +115,8 @@ describe("Enabling and disabling NEXT-button", () => {
 });
 
 describe("Adding points", () => {
+  beforeEach(() => renderAndStart());
+
   it("shoud add points when the mock-button is clicked, should render a success-message when there's 5 points", () => {
     expect(screen.queryByText(/Your results: /)).not.toBeInTheDocument();
     expect(screen.queryByText(successMessage)).not.toBeInTheDocument();
@@ -135,13 +146,17 @@ describe("Adding points", () => {
 });
 
 describe("Start over button", () => {
+  beforeEach(() => renderAndStart());
+
   it("should reload the page when the button is clicked", () => {
     [0, 1, 2, 3, 4].forEach((_equationIndex) => moveToNextEquation());
     expect(screen.getByText(successMessage)).toBeInTheDocument();
     expect(screen.getByText(`${yourResults}: 5 / 5`)).toBeInTheDocument();
     fireEvent.click(screen.getByText(startOver));
     expect(screen.queryByText(successMessage)).not.toBeInTheDocument();
-    expect(screen.getByText("0 / 5")).toBeInTheDocument();
     expect(screen.queryByText(/Your results:/)).not.toBeInTheDocument();
+    expect(screen.getByText(title)).toBeInTheDocument();
+    expect(screen.getByText(ready)).toBeInTheDocument();
+    expect(screen.getByText(start)).toBeInTheDocument();
   });
 });

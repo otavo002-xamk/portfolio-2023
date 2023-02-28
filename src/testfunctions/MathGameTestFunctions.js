@@ -1,9 +1,10 @@
-import { screen, fireEvent, within } from "@testing-library/react";
-import { languages } from "../language-context";
+import { screen, fireEvent, within, render } from "@testing-library/react";
+import { languages, LanguageContext } from "../language-context";
+import MathGame from "../pages/MathGame";
 
 jest.mock("../language-context");
 const language = languages.en;
-const { successMessage, title, startOver, yourResults } =
+const { successMessage, title, ready, start, startOver, yourResults } =
   language.pages.mathGame;
 
 const calculateSum = (equationIndex, cb) => {
@@ -63,6 +64,27 @@ const makeInitialAssertions = () => {
   ).not.toBeInTheDocument();
 
   expect(screen.queryByText(successMessage)).not.toBeInTheDocument();
+};
+
+export const renderAndStart = (clickStart = true) => {
+  render(
+    <LanguageContext.Provider value={{ language }}>
+      <MathGame />
+    </LanguageContext.Provider>
+  );
+
+  clickStart && fireEvent.click(screen.getByText(start));
+};
+
+export const testStartButtonWorks = () => {
+  expect(screen.getByText(title)).toBeInTheDocument();
+  expect(screen.getByText(ready)).toBeInTheDocument();
+  expect(screen.getByText(start)).toBeInTheDocument();
+  expect(screen.queryByText(startOver)).not.toBeInTheDocument();
+  fireEvent.click(screen.getByText(start));
+  expect(screen.getByText(title)).toBeInTheDocument();
+  expect(screen.queryByText(start)).not.toBeInTheDocument();
+  expect(screen.getByText(startOver)).toBeInTheDocument();
 };
 
 export const testComponentRendering = () => {
@@ -169,5 +191,7 @@ export const testPageReload = () => {
   fireEvent.click(screen.getByText(startOver));
   expect(screen.queryByText(successMessage)).not.toBeInTheDocument();
   expect(screen.queryByText(`${yourResults}: 5 / 5`)).not.toBeInTheDocument();
-  expect(screen.getByText("0 / 5")).toBeInTheDocument();
+  expect(screen.getByText(title)).toBeInTheDocument();
+  expect(screen.getByText(ready)).toBeInTheDocument();
+  expect(screen.getByText(start)).toBeInTheDocument();
 };

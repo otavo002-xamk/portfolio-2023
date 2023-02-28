@@ -1,6 +1,3 @@
-import { languages, LanguageContext } from "../language-context";
-import MathGame from "../pages/MathGame";
-import { render } from "@testing-library/react";
 import {
   testComponentRendering,
   testPlusEqualsQuestionMarkSymbolMarks,
@@ -8,20 +5,22 @@ import {
   testEndResultsAreShown,
   testSuccessMessageAndResults,
   testPageReload,
+  renderAndStart,
+  testStartButtonWorks,
 } from "../testfunctions/MathGameTestFunctions";
 
 jest.mock("../language-context");
-const language = languages.en;
 
-beforeEach(() => {
-  render(
-    <LanguageContext.Provider value={{ language }}>
-      <MathGame />
-    </LanguageContext.Provider>
-  );
+describe("Starting", () => {
+  beforeEach(() => renderAndStart(false));
+
+  it("should render the Start!-button and start game after clicking it", () =>
+    testStartButtonWorks());
 });
 
 describe("Rendering", () => {
+  beforeEach(() => renderAndStart());
+
   it("should render elements correctly", () => testComponentRendering());
 
   it.each([0, 1, 2, 3, 4])(
@@ -36,6 +35,8 @@ describe("Rendering", () => {
 });
 
 describe("Choosing and clicking next", () => {
+  beforeEach(() => renderAndStart());
+
   it("should give the results, after choosing and clicking next enough times", () =>
     testEndResultsAreShown());
 
@@ -44,6 +45,8 @@ describe("Choosing and clicking next", () => {
 });
 
 describe("Start over button", () => {
+  beforeEach(() => renderAndStart());
+
   it("should reload the page when the start-over-button is clicked", () =>
     testPageReload());
 });

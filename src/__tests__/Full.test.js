@@ -16,6 +16,7 @@ import {
   testSuccessMessageAndResults,
   testPageReload,
   testThreeRandomNumbersAndSum,
+  testStartButtonWorks,
 } from "../testfunctions/MathGameTestFunctions";
 import {
   mockFn,
@@ -189,9 +190,20 @@ describe("Front Page", () => {
 });
 
 describe("MathGame", () => {
-  beforeEach(() => render(<RouterProvider router={testRouter(1)} />));
+  const renderAndStart = (clickStart = true) => {
+    render(<RouterProvider router={testRouter(1)} />);
+    clickStart && fireEvent.click(screen.getByText(mathGame.start));
+  };
+
+  describe("Starting", () => {
+    beforeEach(() => renderAndStart(false));
+
+    it("should render the Start!-button and start game after clicking it", () =>
+      testStartButtonWorks());
+  });
 
   describe("Rendering", () => {
+    beforeEach(() => renderAndStart());
     it("should render elements correctly", () => testComponentRendering());
 
     it.each([0, 1, 2, 3, 4])(
@@ -208,6 +220,8 @@ describe("MathGame", () => {
   });
 
   describe("Choosing and clicking next", () => {
+    beforeEach(() => renderAndStart());
+
     it("should give the results, after choosing and clicking next enough times", () =>
       testEndResultsAreShown());
 
@@ -215,9 +229,12 @@ describe("MathGame", () => {
       testSuccessMessageAndResults());
   });
 
-  describe("Start over button", () =>
+  describe("Start over button", () => {
+    beforeEach(() => renderAndStart());
+
     it("should reload the page when the start-over-button is clicked", () =>
-      testPageReload()));
+      testPageReload());
+  });
 });
 
 describe("NASA API", () => {
