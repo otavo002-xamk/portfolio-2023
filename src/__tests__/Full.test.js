@@ -32,7 +32,7 @@ import {
 import { cameraNames } from "../pages/additions/cameraNames";
 
 jest.mock("../language-context");
-const { frontPage, mathGame, nasaAPI, sample3, sample4 } = languages.en.pages;
+const { mathGame, nasaAPI, sample3, sample4 } = languages.en.pages;
 const navBarLinks = [mathGame, nasaAPI, sample3, sample4];
 const testCases = [];
 
@@ -50,9 +50,9 @@ describe("Top Header", () => {
 
   it("should redirect to front-page when image is clicked", async () => {
     expect(screen.getByText(mathGame.title)).toBeInTheDocument();
-    expect(screen.queryByText(frontPage.title)).not.toBeInTheDocument();
+    expect(screen.queryByAltText("slideshow-0")).not.toBeInTheDocument();
     fireEvent.click(screen.getByAltText("home"));
-    expect(screen.getByText(frontPage.title)).toBeInTheDocument();
+    expect(screen.getByAltText("slideshow-0")).toBeInTheDocument();
     expect(screen.queryByText(mathGame.title)).not.toBeInTheDocument();
   });
 });
@@ -61,8 +61,8 @@ describe("The Language Toggler", () => {
   beforeEach(() => render(<RouterProvider router={testRouter(0)} />));
 
   it("should change the language from english to finnish & back to english", async () => {
-    expect(screen.queryByText(frontPage.title)).toBeInTheDocument();
-    expect(screen.queryByText("Etusivu!")).not.toBeInTheDocument();
+    expect(screen.getByText(mathGame.link)).toBeInTheDocument();
+    expect(screen.queryByText("Matikkapeli")).not.toBeInTheDocument();
 
     fireEvent.change(screen.getByTestId("language-toggler-input"), {
       target: { value: "fi" },
@@ -73,8 +73,8 @@ describe("The Language Toggler", () => {
     );
 
     fireEvent.click(screen.getByTestId("finnish-flag"));
-    expect(screen.getByText("Etusivu!")).toBeInTheDocument();
-    expect(screen.queryByText(frontPage.title)).not.toBeInTheDocument();
+    expect(screen.getByText("Matikkapeli")).toBeInTheDocument();
+    expect(screen.queryByText(mathGame.link)).not.toBeInTheDocument();
 
     fireEvent.change(screen.getByTestId("language-toggler-input"), {
       target: { value: "en" },
@@ -85,8 +85,8 @@ describe("The Language Toggler", () => {
     );
 
     fireEvent.click(screen.getByTestId("english-flag"));
-    expect(screen.getByText(frontPage.title)).toBeInTheDocument();
-    expect(screen.queryByText("Etusivu!")).not.toBeInTheDocument();
+    expect(screen.getByText(mathGame.link)).toBeInTheDocument();
+    expect(screen.queryByText("Matikkapeli")).not.toBeInTheDocument();
   });
 });
 
@@ -100,11 +100,11 @@ describe("LeftNavBar", () => {
     "should render the navbar link $link and render content $content when the link is clicked",
     (navBarLink) => {
       expect(screen.getByText(navBarLink.link)).toBeInTheDocument();
-      expect(screen.getByText(frontPage.title)).toBeInTheDocument();
+      expect(screen.getByAltText("slideshow-0")).toBeInTheDocument();
       expect(screen.queryByText(navBarLink.title)).not.toBeInTheDocument();
       fireEvent.click(screen.getByText(navBarLink.link));
       expect(screen.getByText(navBarLink.title)).toBeInTheDocument();
-      expect(screen.queryByText(frontPage.title)).not.toBeInTheDocument();
+      expect(screen.queryByAltText("slideshow-0")).not.toBeInTheDocument();
     }
   );
 });
@@ -113,7 +113,7 @@ describe("Front Page", () => {
   beforeEach(() => render(<RouterProvider router={testRouter(0)} />));
 
   it("should render the content", () => {
-    expect(screen.getByText(frontPage.title)).toBeInTheDocument();
+    expect(screen.getByAltText("slideshow-0")).toBeInTheDocument();
     expect(screen.getByTestId("slider-prev-button")).toBeInTheDocument();
     expect(screen.getByTestId("slider-next-button")).toBeInTheDocument();
     expect(screen.getByAltText("slideshow-0")).toBeInTheDocument();

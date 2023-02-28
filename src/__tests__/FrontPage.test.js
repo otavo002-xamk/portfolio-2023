@@ -54,7 +54,7 @@ describe("Rendering", () => {
     expect(screen.getByTestId("slider-next-button")).toBeInTheDocument();
     expect(screen.getByAltText("slideshow-0")).toBeInTheDocument();
     expect(screen.getByText("Change slide 5!")).toBeInTheDocument();
-    expect(screen.getByText("Front Page!")).toBeInTheDocument();
+    expect(screen.getByAltText("slideshow-0")).toBeInTheDocument();
   });
 });
 

@@ -66,7 +66,6 @@ function FrontPage() {
               handleClick={handleClick}
             />
           </div>
-          <p className="dark:text-white">{language.pages.frontPage.title}</p>
         </>
       )}
     </LanguageContext.Consumer>

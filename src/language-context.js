@@ -7,9 +7,6 @@ export const languages = {
     name: "en",
     flag: En,
     pages: {
-      frontPage: {
-        title: "Front Page!",
-      },
       mathGame: {
         link: "Math Game",
         title: "Math Game!",
@@ -41,9 +38,6 @@ export const languages = {
     name: "fi",
     flag: Fi,
     pages: {
-      frontPage: {
-        title: "Etusivu!",
-      },
       mathGame: {
         link: "Matikkapeli",
         title: "Matikkapeli!",

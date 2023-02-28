@@ -18,7 +18,7 @@ function Equation({
 
   const chooseAnswer = (event) => {
     if (!isTableLocked) {
-      event.target.id.slice(7) != sum
+      Number(event.target.id.slice(7)) !== sum
         ? setShowWrong(event.target.id)
         : addPoint();
       setShowCorrect(true);
@@ -68,7 +68,7 @@ function Equation({
                   className="flex justify-center gap-1 cursor-pointer shadow-mathBox w-full text-center py-2 bg-red-400"
                 >
                   {option}
-                  {option == sum && showCorrect && (
+                  {Number(option) === sum && showCorrect && (
                     <img className="h-6" alt="correct" src={Correct} />
                   )}
                   {showWrong === `td-${index}-${i}-${option}` && (
