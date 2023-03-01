@@ -1,7 +1,10 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Correct from "../../pictures/correct.png";
 import False from "../../pictures/false.png";
+import Progress from "react-progressbar";
+
+let interval;
 
 function Equation({
   index,
@@ -15,17 +18,45 @@ function Equation({
   const [showWrong, setShowWrong] = useState(null);
   const [isTableLocked, setTableLocked] = useState(false);
   const sum = randomNumbers[0] + randomNumbers[1] + randomNumbers[2];
+  const [timePast, setTimePast] = useState(0);
+  const [timeBarColor, setTimeBarColor] = useState("rgb(0,255,255)");
+  const [endMessage, setEndMessage] = useState(null);
+
+  const unlockNext = useCallback(() => {
+    setShowCorrect(true);
+    setTableLocked(true);
+    setNextButtonDisabled(false);
+    clearInterval(interval);
+  }, [setShowCorrect, setTableLocked, setNextButtonDisabled]);
 
   const chooseAnswer = (event) => {
     if (!isTableLocked) {
-      Number(event.target.id.slice(7)) !== sum
-        ? setShowWrong(event.target.id)
-        : addPoint();
-      setShowCorrect(true);
-      setTableLocked(true);
-      setNextButtonDisabled(false);
+      if (Number(event.target.id.slice(7)) !== sum) {
+        setShowWrong(event.target.id);
+        setEndMessage("Wrong!");
+      } else {
+        setEndMessage("Correct!");
+        addPoint();
+      }
+      unlockNext();
     }
   };
+
+  useEffect(() => {
+    let i = 0;
+    if (!shouldBeHidden && !isTableLocked) {
+      interval = setInterval(() => {
+        if (i < 100) {
+          setTimePast(i);
+          setTimeBarColor(`rgb(${i * 2}, ${255 - i * 2}, ${255 - i * 2})`);
+          i++;
+        } else {
+          unlockNext();
+          setEndMessage("Time ended!");
+        }
+      }, 100);
+    }
+  }, [shouldBeHidden, isTableLocked, setNextButtonDisabled, unlockNext]);
 
   return (
     <div data-testid={`equation-${index}`} hidden={shouldBeHidden}>
@@ -72,7 +103,7 @@ function Equation({
                     <img className="h-6" alt="correct" src={Correct} />
                   )}
                   {showWrong === `td-${index}-${i}-${option}` && (
-                    <img className="h-6" alt="false" src={False} />
+                    <img className="h-6" alt="incorrect" src={False} />
                   )}
                 </td>
               </tr>
@@ -83,6 +114,20 @@ function Equation({
           ?
         </div>
       </div>
+      <br />
+      {endMessage ? (
+        <p className="text-center text-red-600">{endMessage}</p>
+      ) : (
+        <p className="text-center">
+          Time left: {Math.ceil((100 - timePast) / 10)}
+        </p>
+      )}
+      <br />
+      <br />
+      <Progress
+        color={timePast === 100 ? "red" : timeBarColor}
+        completed={timePast}
+      />
       <br />
     </div>
   );
