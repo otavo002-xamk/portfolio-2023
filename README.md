@@ -4,6 +4,10 @@ This project holds a web page created with React.js. There is currently a slider
 
 Navigate to the project folder and enter npm install to install dependencies. Then enter npm start in the CLI to run the app in the development mode. npm test launches the tests. To run a single test enter npm test [filename].
 
+To be able to use the NASA API you should go to NASA's web page, that is api.nasa.gov and generate an API key. When you have the key create a .env file to the project's root folder and write to it:
+
+REACT_APP_NASA_API_TOKEN= '[your key]'
+
 Copyright 2023 Tapani Voutilainen
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at

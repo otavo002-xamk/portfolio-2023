@@ -3,6 +3,8 @@ import { LanguageContext } from "../language-context";
 import CuriosityMiniSlider from "./childcomponents/CuriosityMiniSlider";
 import { cameraNames } from "./additions/cameraNames";
 
+const NASA_API_TOKEN = process.env.REACT_APP_NASA_API_TOKEN;
+
 function NasaAPI() {
   const [nasaPictures, setNasaPictures] = useState([]);
   const [sol, setSol] = useState("");
@@ -19,7 +21,7 @@ function NasaAPI() {
       setLoading(true);
 
       fetch(
-        `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${sol}&camera=${camera}&api_key=oe6EW1xJH9VdPM26LRV6fwrAMEedCQxcI53robyv`
+        `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${sol}&camera=${camera}&api_key=${NASA_API_TOKEN}`
       )
         .then((response) => {
           return response.json();
