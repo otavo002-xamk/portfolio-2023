@@ -171,7 +171,7 @@ export const testSuccessMessageAndResults = () => {
     fireEvent.click(screen.getByText(/NEXT/));
   });
 
-  expect(screen.queryByText(successMessage)).toBeInTheDocument();
+  expect(screen.getByText(successMessage)).toBeInTheDocument();
   expect(screen.getByText(`${yourResults}: 5 / 5`)).toBeInTheDocument();
 };
 

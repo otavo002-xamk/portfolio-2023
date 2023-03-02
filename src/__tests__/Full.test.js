@@ -204,13 +204,12 @@ describe("MathGame", () => {
 
   describe("Rendering", () => {
     beforeEach(() => renderAndStart());
+    afterEach(() => jest.clearAllTimers());
     it("should render elements correctly", () => testComponentRendering());
 
     it.each([0, 1, 2, 3, 4])(
       "should render the right symbols in equation index %d",
-      (index) => {
-        testPlusEqualsQuestionMarkSymbolMarks(index);
-      }
+      (index) => testPlusEqualsQuestionMarkSymbolMarks(index)
     );
 
     it.each([0, 1, 2, 3, 4])(
