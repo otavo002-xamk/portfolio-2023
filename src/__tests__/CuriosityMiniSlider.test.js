@@ -19,8 +19,12 @@ describe("Rendering", () => {
   it("should render ok", () => {
     expect(screen.getByAltText("curiosity-0")).toBeInTheDocument();
     expect(screen.getByAltText("curiosity-0").src.slice(17)).toBe("test_one");
-    expect(screen.getByAltText("pause-slider")).toBeInTheDocument();
-    expect(screen.getByAltText("pause-slider").src.slice(17)).toBe("Pause.png");
+    expect(screen.getByAltText("pause-slider-button")).toBeInTheDocument();
+
+    expect(screen.getByAltText("pause-slider-button").src.slice(17)).toBe(
+      "Pause.png"
+    );
+
     act(() => jest.runOnlyPendingTimers());
     expect(screen.getByAltText("curiosity-1")).toBeInTheDocument();
     expect(screen.getByAltText("curiosity-1").src.slice(17)).toBe("test_two");

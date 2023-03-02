@@ -32,13 +32,13 @@ function CuriosityMiniSlider({ nasaPictures }) {
           <img
             className="w-6 tablet:w-8 lg:w-12"
             src={Play}
-            alt="play-slider"
+            alt="play-slider-button"
           />
         ) : (
           <img
             className="w-6 tablet:w-8 lg:w-12"
             src={Pause}
-            alt="pause-slider"
+            alt="pause-slider-button"
           />
         )}
       </button>

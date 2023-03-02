@@ -73,8 +73,8 @@ export const testElementRendering = () => {
 
 export const testMiniSliderDoesntRender = () => {
   expect(screen.queryByAltText(/curiosity-/)).not.toBeInTheDocument();
-  expect(screen.queryByAltText("play-slider")).not.toBeInTheDocument();
-  expect(screen.queryByAltText("pause-slider")).not.toBeInTheDocument();
+  expect(screen.queryByAltText("play-slider-button")).not.toBeInTheDocument();
+  expect(screen.queryByAltText("pause-slider-button")).not.toBeInTheDocument();
 };
 
 export const testNoPicturesFoundNotification = async () => {
@@ -140,21 +140,25 @@ export const testImagesRendering = async () => {
 };
 
 export const testPlayPauseToggleState = () => {
-  expect(screen.getByAltText("pause-slider")).toBeInTheDocument();
-  expect(screen.getByAltText("pause-slider").src.slice(17)).toBe("Pause.png");
-  expect(screen.queryByAltText("play-slider")).not.toBeInTheDocument();
-  expect(jest.getTimerCount()).toBe(1);
-  fireEvent.click(screen.getByAltText("pause-slider"));
-  expect(screen.getByAltText("play-slider")).toBeInTheDocument();
+  expect(screen.getByAltText("pause-slider-button")).toBeInTheDocument();
 
-  expect(screen.getByAltText("play-slider").src.slice(17)).toBe(
+  expect(screen.getByAltText("pause-slider-button").src.slice(17)).toBe(
+    "Pause.png"
+  );
+
+  expect(screen.queryByAltText("play-slider-button")).not.toBeInTheDocument();
+  expect(jest.getTimerCount()).toBe(1);
+  fireEvent.click(screen.getByAltText("pause-slider-button"));
+  expect(screen.getByAltText("play-slider-button")).toBeInTheDocument();
+
+  expect(screen.getByAltText("play-slider-button").src.slice(17)).toBe(
     "Play-Icon.png"
   );
 
-  expect(screen.queryByAltText("pause-slider")).not.toBeInTheDocument();
+  expect(screen.queryByAltText("pause-slider-button")).not.toBeInTheDocument();
   expect(jest.getTimerCount()).toBe(0);
-  fireEvent.click(screen.getByAltText("play-slider"));
-  expect(screen.getByAltText("pause-slider")).toBeInTheDocument();
-  expect(screen.queryByAltText("play-slider")).not.toBeInTheDocument();
+  fireEvent.click(screen.getByAltText("play-slider-button"));
+  expect(screen.getByAltText("pause-slider-button")).toBeInTheDocument();
+  expect(screen.queryByAltText("play-slider-button")).not.toBeInTheDocument();
   expect(jest.getTimerCount()).toBe(1);
 };

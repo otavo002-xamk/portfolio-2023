@@ -59,11 +59,9 @@ const chooseRightOptionFromTable = (equationIndex, sum) => {
 };
 
 const makeInitialAssertions = () => {
-  expect(
-    screen.queryByText(/Your results: [0-5] \/ 5/)
-  ).not.toBeInTheDocument();
-
-  expect(screen.queryByText(successMessage)).not.toBeInTheDocument();
+  [/Your results: [0-5] \/ 5/, successMessage].forEach((text) =>
+    expect(screen.queryByText(text)).not.toBeInTheDocument()
+  );
 };
 
 export const renderAndStart = (clickStart = true) => {
@@ -98,13 +96,11 @@ export const testPlusEqualsQuestionMarkSymbolMarks = (index) => {
     within(screen.getByTestId(`equation-${index}`)).getAllByText("+")
   ).toHaveLength(2);
 
-  expect(
-    within(screen.getByTestId(`equation-${index}`)).getAllByText("=")
-  ).toHaveLength(1);
-
-  expect(
-    within(screen.getByTestId(`equation-${index}`)).getAllByText("?")
-  ).toHaveLength(1);
+  ["=", "?"].forEach((symbol) =>
+    expect(
+      within(screen.getByTestId(`equation-${index}`)).getAllByText(symbol)
+    ).toHaveLength(1)
+  );
 };
 
 export const testThreeRandomNumbersAndSum = (index) => {
