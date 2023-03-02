@@ -38,18 +38,18 @@ describe("Rendering", () => {
 describe("Choosing options", () => {
   it("should show the correct icon when the correct number is clicked", () => {
     expect(screen.queryByAltText("correct")).not.toBeInTheDocument();
-    expect(screen.queryByAltText("false")).not.toBeInTheDocument();
+    expect(screen.queryByAltText("incorrect")).not.toBeInTheDocument();
     fireEvent.click(screen.getByText(sum.toString()));
     expect(screen.getByAltText("correct")).toBeInTheDocument();
-    expect(screen.queryByAltText("false")).not.toBeInTheDocument();
+    expect(screen.queryByAltText("incorrect")).not.toBeInTheDocument();
   });
 
   it("should show both the correct & false icons when a false number is clicked", () => {
     expect(screen.queryByAltText("correct")).not.toBeInTheDocument();
-    expect(screen.queryByAltText("false")).not.toBeInTheDocument();
+    expect(screen.queryByAltText("incorrect")).not.toBeInTheDocument();
     fireEvent.click(screen.getByText(falseOption.toString()));
     expect(screen.getByAltText("correct")).toBeInTheDocument();
-    expect(screen.getByAltText("false")).toBeInTheDocument();
+    expect(screen.getByAltText("incorrect")).toBeInTheDocument();
   });
 
   it("should call to addPoint() & setNextButtonDisabled() -functions when the correct number is clicked", () => {
