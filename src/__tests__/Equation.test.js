@@ -1,4 +1,5 @@
 import Equation from "../pages/childcomponents/Equation";
+import { languages } from "../language-context";
 import { fireEvent, render, screen } from "@testing-library/react";
 
 const randomNumbers = [32, 17, 94];
@@ -12,6 +13,7 @@ beforeEach(() => {
   render(
     <Equation
       index={1}
+      language={languages.en}
       randomNumbers={randomNumbers}
       tableOfOptions={tableOfOptions}
       setNextButtonDisabled={setNextButtonDisabled}

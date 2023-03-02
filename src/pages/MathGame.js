@@ -87,6 +87,7 @@ function MathGame() {
                 randomNumbers.map((randomThree, index) => (
                   <Equation
                     key={index.toString()}
+                    language={language}
                     index={index}
                     shouldBeHidden={
                       currentEquation !== index && currentEquation < 5

@@ -8,6 +8,7 @@ let interval;
 
 function Equation({
   index,
+  language,
   shouldBeHidden,
   randomNumbers,
   tableOfOptions,
@@ -21,6 +22,7 @@ function Equation({
   const [timePast, setTimePast] = useState(0);
   const [timeBarColor, setTimeBarColor] = useState("rgb(0,255,255)");
   const [endMessage, setEndMessage] = useState(null);
+  const [endResult, setEndResult] = useState(null);
 
   const unlockNext = useCallback(() => {
     setShowCorrect(true);
@@ -33,9 +35,9 @@ function Equation({
     if (!isTableLocked) {
       if (Number(event.target.id.slice(7)) !== sum) {
         setShowWrong(event.target.id);
-        setEndMessage("Wrong!");
+        setEndResult("incorrect");
       } else {
-        setEndMessage("Correct!");
+        setEndResult("correct");
         addPoint();
       }
       unlockNext();
@@ -52,11 +54,27 @@ function Equation({
           i++;
         } else {
           unlockNext();
-          setEndMessage("Time ended!");
+          setEndResult("time ended");
         }
       }, 100);
     }
   }, [shouldBeHidden, isTableLocked, setNextButtonDisabled, unlockNext]);
+
+  useEffect(() => {
+    switch (endResult) {
+      case "incorrect":
+        setEndMessage(language.pages.mathGame.equation.incorrect);
+        break;
+      case "correct":
+        setEndMessage(language.pages.mathGame.equation.correct);
+        break;
+      case "time ended":
+        setEndMessage(language.pages.mathGame.equation.timeEnded);
+        break;
+      default:
+        break;
+    }
+  }, [language, endResult]);
 
   return (
     <div data-testid={`equation-${index}`} hidden={shouldBeHidden}>
@@ -96,7 +114,9 @@ function Equation({
                   id={`td-${index}-${i}-${option}`}
                   data-testid={`equation-options-table-td-${index}-${i}`}
                   onClick={chooseAnswer}
-                  className="flex justify-center gap-1 cursor-pointer shadow-mathBox w-full text-center py-2 bg-red-400"
+                  className={`flex justify-center gap-1 ${
+                    !isTableLocked && "cursor-pointer"
+                  } shadow-mathBox w-full text-center py-2 bg-red-400`}
                 >
                   {option}
                   {Number(option) === sum && showCorrect && (
@@ -119,7 +139,8 @@ function Equation({
         <p className="text-center text-red-600">{endMessage}</p>
       ) : (
         <p className="text-center">
-          Time left: {Math.ceil((100 - timePast) / 10)}
+          {language.pages.mathGame.equation.timeLeft}:{" "}
+          {Math.ceil((100 - timePast) / 10)}
         </p>
       )}
       <br />
