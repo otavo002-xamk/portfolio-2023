@@ -81,7 +81,7 @@ function Equation({
       <div className="grid grid-rows-2 tablet:flex tablet:items-stretch">
         <div
           data-testid={`random-number-${index}-0`}
-          className="row-start-1 row-span-1 self-center text-center py-2 bg-rose-200 tablet:w-2/12"
+          className="row-start-1 row-span-1 self-center text-center py-2 bg-rose-200 dark:bg-rose-800 tablet:w-2/12"
         >
           {randomNumbers[0]}
         </div>
@@ -90,7 +90,7 @@ function Equation({
         </div>
         <div
           data-testid={`random-number-${index}-1`}
-          className="row-start-1 row-span-1 self-center text-center py-2 bg-rose-200 tablet:w-2/12"
+          className="row-start-1 row-span-1 self-center text-center py-2 bg-rose-200 dark:bg-rose-800 tablet:w-2/12"
         >
           {randomNumbers[1]}
         </div>
@@ -99,7 +99,7 @@ function Equation({
         </div>
         <div
           data-testid={`random-number-${index}-2`}
-          className="row-start-1 row-span-1 self-center text-center py-2 bg-rose-200 tablet:w-2/12"
+          className="row-start-1 row-span-1 self-center text-center py-2 bg-rose-200 dark:bg-rose-800 tablet:w-2/12"
         >
           {randomNumbers[2]}
         </div>
@@ -116,7 +116,7 @@ function Equation({
                   onClick={chooseAnswer}
                   className={`flex justify-center gap-1 ${
                     !isTableLocked && "cursor-pointer"
-                  } shadow-mathBox w-full text-center py-2 bg-red-400`}
+                  } shadow-mathBox w-full text-center py-2 bg-red-400 dark:bg-red-800`}
                 >
                   {option}
                   {Number(option) === sum && showCorrect && (
@@ -136,7 +136,7 @@ function Equation({
       </div>
       <br />
       {endMessage ? (
-        <p className="text-center text-red-600">{endMessage}</p>
+        <p className="text-center text-red-600 text-shadow-red">{endMessage}</p>
       ) : (
         <p className="text-center">
           {language.pages.mathGame.equation.timeLeft}:{" "}

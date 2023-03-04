@@ -12,6 +12,7 @@ module.exports = {
     textShadow: {
       default: "1px 1px 1px black",
       white: "1px 1px 1px white",
+      red: "1px 1px 1px red",
       active: "1px 1px 1px #f87171",
       hover: "1px 1px 1px #fca5a5",
     },

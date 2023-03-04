@@ -76,7 +76,7 @@ function MathGame() {
                 </h2>
               )}
               <button
-                className="underline text-red-600 text-shadow dark:text-shadow-white"
+                className="underline text-red-600 text-shadow-red"
                 onClick={resetStates}
               >
                 {language.pages.mathGame.startOver}
@@ -123,7 +123,7 @@ function MathGame() {
               <br />
               <button
                 onClick={setGameHasStarted}
-                className="underline text-red-600 text-shadow dark:text-shadow-white"
+                className="underline text-red-600 text-shadow-red"
               >
                 {language.pages.mathGame.start}
               </button>
