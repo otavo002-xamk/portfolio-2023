@@ -9,5 +9,5 @@ it("should render the right amount of child components", () =>
 
 it("should render the righ text content for paragraph", () => {
   expect(childComponents[0].type).toBe("p");
-  expect(childComponents[0].children[0]).toEqual("Footer");
+  expect(childComponents[0].children[0]).toEqual("Portfolio 2023");
 });

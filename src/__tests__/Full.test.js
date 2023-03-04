@@ -310,5 +310,5 @@ describe("Footer", () => {
   beforeEach(() => render(<RouterProvider router={testRouter(0)} />));
 
   it("should render the footer", () =>
-    expect(screen.getByText("Footer")).toBeInTheDocument());
+    expect(screen.getByText("Portfolio 2023")).toBeInTheDocument());
 });
