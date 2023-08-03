@@ -3,7 +3,7 @@ import App from "./App";
 import FrontPage from "./pages/FrontPage";
 import MathGame from "./pages/MathGame";
 import NasaAPI from "./pages/NasaAPI";
-import Sample3 from "./pages/Sample3";
+import DataBase from "./pages/DataBase";
 import Sample4 from "./pages/Sample4";
 
 const router = createBrowserRouter([
@@ -24,8 +24,8 @@ const router = createBrowserRouter([
         element: <NasaAPI />,
       },
       {
-        path: "/sample3",
-        element: <Sample3 />,
+        path: "/dataBase",
+        element: <DataBase />,
       },
       {
         path: "/sample4",

@@ -33,8 +33,8 @@ import {
 import { cameraNames } from "../pages/additions/cameraNames";
 
 jest.mock("../language-context");
-const { mathGame, nasaAPI, sample3, sample4 } = languages.en.pages;
-const navBarLinks = [mathGame, nasaAPI, sample3, sample4];
+const { mathGame, nasaAPI, dataBase, sample4 } = languages.en.pages;
+const navBarLinks = [mathGame, nasaAPI, dataBase, sample4];
 const testCases = [];
 
 for (let i = 0; i < 8; i++) {

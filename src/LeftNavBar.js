@@ -25,7 +25,7 @@ function LeftNavBar() {
     case "/nasaAPI":
       link2Active = true;
       break;
-    case "/sample3":
+    case "/dataBase":
       link3Active = true;
       break;
     case "/sample4":
@@ -69,7 +69,7 @@ function LeftNavBar() {
                   : "text-white dark:text-black"
               } my-1 font-serif hover:text-red-300 dark:hover:text-red-300 hover:text-shadow-hover`}
             >
-              <Link to="/sample3">{language.pages.sample3.link}</Link>
+              <Link to="/dataBase">{language.pages.dataBase.link}</Link>
             </p>
             <p
               className={`${

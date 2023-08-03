@@ -32,9 +32,9 @@ export const languages = {
         noPicturesFound:
           "No pictures found. Try again with a different sol or different camera.",
       },
-      sample3: {
-        link: "Sample 3",
-        title: "Sample 3!",
+      dataBase: {
+        link: "Database",
+        title: "Database!",
       },
       sample4: {
         link: "Sample 4",
@@ -71,7 +71,7 @@ export const languages = {
         noPicturesFound:
           "Valitettavasti kuvia ei löytynyt. Kokeile toista solia tai toista kameraa.",
       },
-      sample3: {
+      dataBase: {
         link: "Näyte 3",
         title: "Näyte 3!",
       },
