@@ -35,6 +35,8 @@ export const languages = {
       dataBase: {
         link: "Database",
         title: "Database!",
+        noConnection: "No connection!",
+        selectTable: "Select table!",
       },
       sample4: {
         link: "Sample 4",
@@ -72,8 +74,10 @@ export const languages = {
           "Valitettavasti kuvia ei löytynyt. Kokeile toista solia tai toista kameraa.",
       },
       dataBase: {
-        link: "Näyte 3",
-        title: "Näyte 3!",
+        link: "Tietokanta",
+        title: "Tietokanta!",
+        noConnection: "Yhteyttä ei ole!",
+        selectTable: "Valitse taulukko!",
       },
       sample4: {
         link: "Näyte 4",
