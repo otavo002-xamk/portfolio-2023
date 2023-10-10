@@ -9,9 +9,7 @@ function DataBase() {
   useEffect(() => {
     fetch("/api")
       .then((result) => result.json())
-      .then((data) => {
-        setDBTables(data);
-      })
+      .then((data) => setDBTables(data))
       .catch((_error) => setDBTables(null));
   }, []);
 
@@ -47,6 +45,7 @@ function DataBase() {
             <>
               <select
                 className="max-w-full dark:bg-slate-800"
+                data-testid="db-table-select"
                 id="table-select"
                 onChange={selectDBTable}
               >
@@ -73,7 +72,7 @@ function DataBase() {
             <p>{language.pages.dataBase.noConnection}</p>
           )}
           {dbTableContents.length > 0 && (
-            <table>
+            <table data-testid="db-contents-table">
               <thead>
                 <tr>
                   {Object.entries(dbTableContents[0]).map((entry, i) => (
