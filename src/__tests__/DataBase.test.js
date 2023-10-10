@@ -13,24 +13,28 @@ const mockFetch = () =>
     return Promise.resolve({ json: () => mockFn(url, options) });
   });
 
+const testTitleAndFirstFetchCall = () => {
+  expect(screen.getByText(language.pages.dataBase.title)).toBeInTheDocument();
+  expect(mockFn).toHaveBeenCalledTimes(1);
+  expect(mockFn).toHaveBeenCalledWith("/api", undefined);
+};
+
+const renderPage = () =>
+  render(
+    <LanguageContext.Provider value={{ language }}>
+      <DataBase />
+    </LanguageContext.Provider>
+  );
+
 describe("With connection", () => {
   beforeEach(async () => {
     mockFn.mockResolvedValueOnce(alltables).mockResolvedValue(tablecontent);
     mockFetch();
-
-    await act(() =>
-      render(
-        <LanguageContext.Provider value={{ language }}>
-          <DataBase />
-        </LanguageContext.Provider>
-      )
-    );
+    await act(() => renderPage());
   });
 
   it("should call the api and render elements correctly", async () => {
-    expect(screen.getByText(language.pages.dataBase.title)).toBeInTheDocument();
-    expect(mockFn).toHaveBeenCalledTimes(1);
-    expect(mockFn).toHaveBeenCalledWith("/api", undefined);
+    testTitleAndFirstFetchCall();
 
     alltables.forEach((table) =>
       expect(
@@ -74,20 +78,11 @@ describe("With no connection", () => {
   beforeEach(async () => {
     mockFn.mockRejectedValue("Error: no connection");
     mockFetch();
-
-    await act(() =>
-      render(
-        <LanguageContext.Provider value={{ language }}>
-          <DataBase />
-        </LanguageContext.Provider>
-      )
-    );
+    await act(() => renderPage());
   });
 
   it("should render error text only", () => {
-    expect(screen.getByText(language.pages.dataBase.title)).toBeInTheDocument();
-    expect(mockFn).toHaveBeenCalledTimes(1);
-    expect(mockFn).toHaveBeenCalledWith("/api", undefined);
+    testTitleAndFirstFetchCall();
     expect(screen.queryByTestId("db-table-select")).not.toBeInTheDocument();
     expect(screen.queryByTestId("db-contents-table")).not.toBeInTheDocument();
 
