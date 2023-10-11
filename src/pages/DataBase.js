@@ -24,9 +24,9 @@ function DataBase() {
       })
         .then((result) => result.json())
         .then((data) => {
-          setDBTableContents(data);
+          data && setDBTableContents(data);
         })
-        .catch((_error) => setDBTableContents(null));
+        .catch((_error) => setDBTableContents([]));
   }, [selectedDBTable]);
 
   const selectDBTable = (e) => {
@@ -95,7 +95,9 @@ function DataBase() {
               </tbody>
             </table>
           )}
-          {dbTableContents.length === 0 && selectedDBTable && <p>no data</p>}
+          {dbTableContents.length === 0 && selectedDBTable && (
+            <p>{language.pages.dataBase.noData}</p>
+          )}
         </div>
       )}
     </LanguageContext.Consumer>
