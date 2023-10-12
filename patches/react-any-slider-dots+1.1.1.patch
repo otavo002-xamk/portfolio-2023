@@ -1,26 +1,12 @@
 diff --git a/node_modules/react-any-slider-dots/dist/Dots.d.ts b/node_modules/react-any-slider-dots/dist/Dots.d.ts
-<<<<<<< HEAD
-index f4075d7..e77811a 100644
---- a/node_modules/react-any-slider-dots/dist/Dots.d.ts
-+++ b/node_modules/react-any-slider-dots/dist/Dots.d.ts
-@@ -4,6 +4,7 @@ interface IProps extends IReactAnySliderBaseProps {
-=======
 index f4075d7..f475f2e 100644
 --- a/node_modules/react-any-slider-dots/dist/Dots.d.ts
 +++ b/node_modules/react-any-slider-dots/dist/Dots.d.ts
 @@ -4,6 +4,9 @@ interface IProps extends IReactAnySliderBaseProps {
->>>>>>> red-dots
      visibleDotsCount?: number;
      dotSize?: number;
      dotGap?: number;
 +    handleClick?: any;
-<<<<<<< HEAD
- }
- declare const ReactAnySliderDots: React.FC<IProps>;
- export default ReactAnySliderDots;
-diff --git a/node_modules/react-any-slider-dots/dist/esm/Dots.js b/node_modules/react-any-slider-dots/dist/esm/Dots.js
-index d62af30..ec0d8c4 100644
-=======
 +    handleMouseOver?: any;
 +    handleMouseOut?: any;
  }
@@ -52,7 +38,6 @@ index 772448e..146c570 100644
 \ No newline at end of file
 diff --git a/node_modules/react-any-slider-dots/dist/esm/Dots.js b/node_modules/react-any-slider-dots/dist/esm/Dots.js
 index d62af30..31c6683 100644
->>>>>>> red-dots
 --- a/node_modules/react-any-slider-dots/dist/esm/Dots.js
 +++ b/node_modules/react-any-slider-dots/dist/esm/Dots.js
 @@ -33,7 +33,7 @@ var ReactAnySliderDots = function (_a) {
@@ -60,11 +45,7 @@ index d62af30..31c6683 100644
          React.createElement("div", { className: 'react-any-slider-dots__container', ref: contentRef, style: { gap: dotGap } }, Array(dotsCount)
              .fill(0)
 -            .map(function (_, index) { return (React.createElement("div", { key: index, className: makeDotClassName(index === 0 ||
-<<<<<<< HEAD
-+            .map(function (_, index) { return (React.createElement("div", { key: index, id: `sliderdot${index}`, onClick: _a.handleClick, className: makeDotClassName(index === 0 ||
-=======
 +            .map(function (_, index) { return (React.createElement("div", { key: index, id: `sliderdot${index}`, onMouseOver: _a.handleMouseOver, onMouseOut: _a.handleMouseOut, onClick: _a.handleClick, className: makeDotClassName(index === 0 ||
->>>>>>> red-dots
                  index === dotsCount - 1 ||
                  (index > visibleDotsIndexes.left && index < visibleDotsIndexes.right), activeIndex === index), style: { width: dotSize, height: dotSize } })); }))));
  };
