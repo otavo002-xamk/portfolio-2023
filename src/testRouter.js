@@ -30,7 +30,7 @@ const testRouter = (initialIndex) =>
             element: <DataBase />,
           },
           {
-            path: "/sample4",
+            path: "/links",
             element: <Sample4 />,
           },
         ],

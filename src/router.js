@@ -28,7 +28,7 @@ const router = createBrowserRouter([
         element: <DataBase />,
       },
       {
-        path: "/sample4",
+        path: "/links",
         element: <Sample4 />,
       },
     ],
