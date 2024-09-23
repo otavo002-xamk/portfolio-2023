@@ -41,7 +41,7 @@ export const languages = {
       },
       links: {
         link: "Links",
-        title: "Links",
+        title: "Links:",
       },
     },
   },
@@ -83,7 +83,7 @@ export const languages = {
       },
       links: {
         link: "Linkit",
-        title: "Linkit",
+        title: "Linkit:",
       },
     },
   },
