@@ -7,6 +7,14 @@ function Links() {
       {({ language }) => (
         <div className="p-12 lg:p-0">
           <h1 className="text-2xl">{language.pages.links.title}</h1>
+          <br />
+          <br />
+          <p>
+            <b>Git Repository:</b>
+          </p>
+          <a href="https://sourceforge.net/u/woudiiii-girps/profile">
+            https://sourceforge.net/u/woudiiii-girps/profile
+          </a>
         </div>
       )}
     </LanguageContext.Consumer>
