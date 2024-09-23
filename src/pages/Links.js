@@ -1,7 +1,7 @@
 import React from "react";
 import { LanguageContext } from "../language-context";
 
-function Sample4() {
+function Links() {
   return (
     <LanguageContext.Consumer>
       {({ language }) => (
@@ -13,4 +13,4 @@ function Sample4() {
   );
 }
 
-export default Sample4;
+export default Links;
