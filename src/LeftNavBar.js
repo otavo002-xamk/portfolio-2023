@@ -28,7 +28,7 @@ function LeftNavBar() {
     case "/dataBase":
       link3Active = true;
       break;
-    case "/sample4":
+    case "/links":
       link4Active = true;
       break;
     default:
@@ -78,7 +78,7 @@ function LeftNavBar() {
                   : "text-white dark:text-black"
               } my-1 font-serif hover:text-red-300 dark:hover:text-red-300 hover:text-shadow-hover`}
             >
-              <Link to="/sample4">{language.pages.sample4.link}</Link>
+              <Link to="/links">{language.pages.links.link}</Link>
             </p>
           </div>
         </div>

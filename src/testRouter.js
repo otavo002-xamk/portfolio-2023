@@ -4,7 +4,7 @@ import FrontPage from "./pages/FrontPage";
 import MathGame from "./pages/MathGame";
 import NasaAPI from "./pages/NasaAPI";
 import DataBase from "./pages/DataBase";
-import Sample4 from "./pages/Sample4";
+import Links from "./pages/Links";
 
 const testRouter = (initialIndex) =>
   createMemoryRouter(
@@ -30,8 +30,8 @@ const testRouter = (initialIndex) =>
             element: <DataBase />,
           },
           {
-            path: "/sample4",
-            element: <Sample4 />,
+            path: "/links",
+            element: <Links />,
           },
         ],
       },

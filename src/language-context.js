@@ -39,9 +39,9 @@ export const languages = {
         selectTable: "Select table!",
         noData: "no data",
       },
-      sample4: {
-        link: "Sample 4",
-        title: "Sample 4!",
+      links: {
+        link: "Links",
+        title: "Links:",
       },
     },
   },
@@ -81,9 +81,9 @@ export const languages = {
         selectTable: "Valitse taulukko!",
         noData: "ei dataa",
       },
-      sample4: {
-        link: "Näyte 4",
-        title: "Näyte 4!",
+      links: {
+        link: "Linkit",
+        title: "Linkit:",
       },
     },
   },
