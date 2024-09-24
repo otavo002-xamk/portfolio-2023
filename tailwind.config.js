@@ -7,6 +7,7 @@ module.exports = {
   theme: {
     screens: {
       lg: "1024px",
+      md: "700px",
       tablet: "400px",
     },
     textShadow: {
