@@ -10,10 +10,14 @@ function Links() {
           <br />
           <br />
           <p>
-            <b>Git Repository:</b>
+            <b>Git Repositories:</b>
           </p>
           <a href="https://sourceforge.net/u/woudiiii-girps/profile">
             https://sourceforge.net/u/woudiiii-girps/profile
+          </a>
+          <br />
+          <a href="https://github.com/otavo002-xamk">
+            https://github.com/otavo002-xamk
           </a>
         </div>
       )}
