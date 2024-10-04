@@ -37,10 +37,11 @@ export const languages = {
         title: "Database!",
         noConnection: "No connection!",
         selectTable: "Select table!",
+        noData: "no data",
       },
-      sample4: {
-        link: "Sample 4",
-        title: "Sample 4!",
+      links: {
+        link: "Links",
+        title: "Links:",
       },
     },
   },
@@ -78,10 +79,11 @@ export const languages = {
         title: "Tietokanta!",
         noConnection: "Yhteyttä ei ole!",
         selectTable: "Valitse taulukko!",
+        noData: "ei dataa",
       },
-      sample4: {
-        link: "Näyte 4",
-        title: "Näyte 4!",
+      links: {
+        link: "Linkit",
+        title: "Linkit:",
       },
     },
   },

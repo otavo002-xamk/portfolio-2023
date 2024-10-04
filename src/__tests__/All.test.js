@@ -30,11 +30,20 @@ import {
   insertSolSelectCameraAndClickButton,
   testImagesRendering,
 } from "../testfunctions/NasaAPITestFunctions";
+import {
+  testTitleAndFirstFetchCall,
+  selectEmptyTableAndTestMessage,
+  selectTableAndTestTableIsVisible,
+  testOnlyDBSelectComponentIsVisible,
+  withConnectionStartUp,
+  withNoConnectionStartUp,
+  testOnlyErrorTextVisible,
+} from "../testfunctions/DataBaseTestFunctions";
 import { cameraNames } from "../pages/additions/cameraNames";
 
 jest.mock("../language-context");
-const { mathGame, nasaAPI, dataBase, sample4 } = languages.en.pages;
-const navBarLinks = [mathGame, nasaAPI, dataBase, sample4];
+const { mathGame, nasaAPI, dataBase, links } = languages.en.pages;
+const navBarLinks = [mathGame, nasaAPI, dataBase, links];
 const testCases = [];
 
 for (let i = 0; i < 8; i++) {
@@ -286,9 +295,10 @@ describe("NASA API", () => {
     beforeEach(() => {
       render(<RouterProvider router={testRouter(2)} />);
       mockFetch(images);
+      jest.useFakeTimers();
     });
 
-    jest.useFakeTimers();
+    afterEach(() => jest.useRealTimers());
 
     it("should render each of the images one by one", async () =>
       await testImagesRendering());
@@ -302,6 +312,28 @@ describe("NASA API", () => {
       expect(screen.getByTestId("nasa-api-loader")).toBeInTheDocument();
       await waitForElementToBeRemoved(screen.getByTestId("nasa-api-loader"));
       testPlayPauseToggleState();
+    });
+  });
+});
+
+describe("Database", () => {
+  describe("With connection", () => {
+    beforeEach(() => withConnectionStartUp());
+
+    it("should call the api and render elements correctly", () => {
+      testTitleAndFirstFetchCall();
+      testOnlyDBSelectComponentIsVisible();
+      selectTableAndTestTableIsVisible();
+      selectEmptyTableAndTestMessage();
+    });
+  });
+
+  describe("With no connection", () => {
+    beforeEach(() => withNoConnectionStartUp());
+
+    it("should render error text only", () => {
+      testTitleAndFirstFetchCall();
+      testOnlyErrorTextVisible();
     });
   });
 });
