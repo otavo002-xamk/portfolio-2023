@@ -4,7 +4,7 @@ module.exports = function (app) {
   app.use(
     "/api",
     createProxyMiddleware({
-      target: `${process.env.DBURL}`,
+      target: `${process.env.REACT_APP_DBURL}`,
       changeOrigin: true,
     })
   );

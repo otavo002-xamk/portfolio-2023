@@ -10,7 +10,7 @@ REACT_APP_NASA_API_TOKEN= '[your key]'
 
 Before using the database-page you must ensure that both the Portfolio-Server and MySQL are installed and are up and running and they are connected. In addition add a database url to the .env file, for example:
 
-DBURL='http://localhost:3001'
+REACT_APP_DBURL='http://localhost:3001'
 
 Copyright 2023 Tapani Voutilainen
 
