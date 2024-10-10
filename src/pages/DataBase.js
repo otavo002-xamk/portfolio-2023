@@ -7,9 +7,21 @@ function DataBase() {
   const [dbTableContents, setDBTableContents] = useState([]);
 
   useEffect(() => {
+    console.log("starting fetch");
+
     fetch("/api")
-      .then((result) => result.json())
-      .then((data) => setDBTables(data))
+      .then((result) => {
+        return new Promise((resolve, _reject) => {
+          console.log(result);
+          resolve(result.json());
+        });
+      })
+      .then((data) => {
+        return new Promise((resolve, _reject) => {
+          console.log(data);
+          resolve(setDBTables(data));
+        });
+      })
       .catch((_error) => setDBTables(null));
   }, []);
 
