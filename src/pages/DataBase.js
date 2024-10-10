@@ -7,10 +7,28 @@ function DataBase() {
   const [dbTableContents, setDBTableContents] = useState([]);
 
   useEffect(() => {
+    console.log("starting fetch");
+
     fetch("/api")
-      .then((result) => result.json())
-      .then((data) => setDBTables(data))
-      .catch((_error) => setDBTables(null));
+      .then((result) => {
+        return new Promise((resolve, _reject) => {
+          console.log(result);
+          if (!result.ok) {
+            throw new Error(`HTTP error! status: ${result.status}`);
+          }
+          resolve(result.json());
+        });
+      })
+      .then((data) => {
+        return new Promise((resolve, _reject) => {
+          console.log(data);
+          resolve(setDBTables(data));
+        });
+      })
+      .catch((error) => {
+        console.log("ERROR: ", error);
+        setDBTables(null);
+      });
   }, []);
 
   useEffect(() => {
@@ -34,6 +52,8 @@ function DataBase() {
       ? setSelectedDBTable(null)
       : setSelectedDBTable(e.target.value);
   };
+
+  console.log(process.env.REACT_APP_DBURL);
 
   return (
     <LanguageContext.Consumer>

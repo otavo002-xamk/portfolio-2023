@@ -7,6 +7,7 @@ import {
   act,
   fireEvent,
   waitFor,
+  waitForElementToBeRemoved,
 } from "@testing-library/react";
 jest.mock("../language-context");
 
@@ -22,7 +23,7 @@ const mockFetch = () =>
 
 export const testTitleAndFirstFetchCall = async () => {
   expect(screen.getByText(language.pages.dataBase.title)).toBeInTheDocument();
-  expect(mockFn).toHaveBeenCalledTimes(1);
+  await waitFor(() => expect(mockFn).toHaveBeenCalledTimes(1));
   expect(mockFn).toHaveBeenCalledWith("/api", undefined);
 };
 
@@ -31,6 +32,11 @@ const renderPage = () =>
     <LanguageContext.Provider value={{ language }}>
       <DataBase />
     </LanguageContext.Provider>
+  );
+
+const waitForElement = async () =>
+  await waitFor(() =>
+    screen.getByTestId("db-table-select").toBeInTheDocument()
   );
 
 export const withConnectionStartUp = async () => {
@@ -42,14 +48,20 @@ export const withConnectionStartUp = async () => {
   await act(() => renderPage());
 };
 
-export const testOnlyDBSelectComponentIsVisible = () => {
-  alltables.forEach((table) =>
+export const testOnlyDBSelectComponentIsVisible = async () => {
+  await waitForElementToBeRemoved(
+    screen.getByText(language.pages.dataBase.noConnection)
+  );
+
+  alltables.forEach(async (table) => {
+    await waitForElement();
+
     expect(
       within(screen.getByTestId("db-table-select")).getByText(
         Object.values(table)[0]
       )
-    ).toBeInTheDocument()
-  );
+    ).toBeInTheDocument();
+  });
 
   expect(
     screen.queryByTestId(language.pages.dataBase.noConnection)
@@ -59,6 +71,8 @@ export const testOnlyDBSelectComponentIsVisible = () => {
 };
 
 export const selectTableAndTestTableIsVisible = async () => {
+  await waitForElement();
+
   await act(() =>
     fireEvent.change(screen.getByTestId("db-table-select"), {
       target: { value: Object.values(alltables[0])[0] },
@@ -83,6 +97,8 @@ export const selectTableAndTestTableIsVisible = async () => {
 };
 
 export const selectEmptyTableAndTestMessage = async () => {
+  await waitForElement();
+
   await act(() =>
     fireEvent.change(screen.getByTestId("db-table-select"), {
       target: { value: Object.values(alltables[1])[0] },
