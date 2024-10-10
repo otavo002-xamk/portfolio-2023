@@ -22,7 +22,10 @@ function DataBase() {
           resolve(setDBTables(data));
         });
       })
-      .catch((_error) => setDBTables(null));
+      .catch((error) => {
+        console.log("ERROR: ", error);
+        setDBTables(null);
+      });
   }, []);
 
   useEffect(() => {
