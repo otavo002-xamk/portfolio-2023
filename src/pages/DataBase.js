@@ -13,6 +13,9 @@ function DataBase() {
       .then((result) => {
         return new Promise((resolve, _reject) => {
           console.log(result);
+          if (!result.ok) {
+            throw new Error(`HTTP error! status: ${result.status}`);
+          }
           resolve(result.json());
         });
       })
