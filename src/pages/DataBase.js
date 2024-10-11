@@ -11,18 +11,23 @@ function DataBase() {
 
     fetch("/api")
       .then((result) => {
-        return new Promise((resolve, _reject) => {
-          console.log(result);
-          if (!result.ok) {
-            throw new Error(`HTTP error! status: ${result.status}`);
-          }
-          resolve(result.json());
-        });
+        if (!result.ok) {
+          throw new Error(`Network response was not ok`);
+        }
+        return result.text(); // Convert to text first
+      })
+      .then((text) => {
+        try {
+          return JSON.parse(text); // Attempt to parse as JSON
+        } catch (e) {
+          console.error("Failed to parse JSON:", e);
+          throw new Error("Invalid response format");
+        }
       })
       .then((data) => {
         return new Promise((resolve, _reject) => {
-          console.log(data);
-          resolve(setDBTables(data));
+          console.log("Data: ", data);
+          return setDBTables(data);
         });
       })
       .catch((error) => {
