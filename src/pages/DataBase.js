@@ -9,7 +9,7 @@ function DataBase() {
   useEffect(() => {
     console.log("starting fetch");
 
-    fetch("/api")
+    fetch("/_api")
       .then((result) => {
         if (!result.ok) {
           throw new Error(`Network response was not ok`);
@@ -38,7 +38,7 @@ function DataBase() {
 
   useEffect(() => {
     selectedDBTable &&
-      fetch("/api", {
+      fetch("/_api", {
         headers: {
           "Content-Type": "application/json",
         },

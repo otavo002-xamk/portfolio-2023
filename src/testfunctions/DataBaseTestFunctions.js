@@ -24,7 +24,7 @@ const mockFetch = () =>
 export const testTitleAndFirstFetchCall = async () => {
   expect(screen.getByText(language.pages.dataBase.title)).toBeInTheDocument();
   await waitFor(() => expect(mockFn).toHaveBeenCalledTimes(1));
-  expect(mockFn).toHaveBeenCalledWith("/api", undefined);
+  expect(mockFn).toHaveBeenCalledWith("/_api", undefined);
 };
 
 const renderPage = () =>
@@ -81,7 +81,7 @@ export const selectTableAndTestTableIsVisible = async () => {
 
   await waitFor(() => expect(mockFn).toHaveBeenCalledTimes(2));
 
-  expect(mockFn).toHaveBeenLastCalledWith("/api", {
+  expect(mockFn).toHaveBeenLastCalledWith("/_api", {
     body: `{\"table\":\"${Object.values(alltables[0])[0]}\"}`,
     headers: { "Content-Type": "application/json" },
     method: "POST",
@@ -107,7 +107,7 @@ export const selectEmptyTableAndTestMessage = async () => {
 
   expect(mockFn).toHaveBeenCalledTimes(3);
 
-  expect(mockFn).toHaveBeenLastCalledWith("/api", {
+  expect(mockFn).toHaveBeenLastCalledWith("/_api", {
     body: `{\"table\":\"${Object.values(alltables[1])[0]}\"}`,
     headers: { "Content-Type": "application/json" },
     method: "POST",
