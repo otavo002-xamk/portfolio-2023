@@ -7,15 +7,38 @@ function DataBase() {
   const [dbTableContents, setDBTableContents] = useState([]);
 
   useEffect(() => {
-    fetch("/api")
-      .then((result) => result.json())
-      .then((data) => setDBTables(data))
-      .catch((_error) => setDBTables(null));
+    console.log("starting fetch");
+
+    fetch("/_api")
+      .then((result) => {
+        if (!result.ok) {
+          throw new Error(`Network response was not ok`);
+        }
+        return result.text(); // Convert to text first
+      })
+      .then((text) => {
+        try {
+          return JSON.parse(text); // Attempt to parse as JSON
+        } catch (e) {
+          console.error("Failed to parse JSON:", e);
+          throw new Error("Invalid response format");
+        }
+      })
+      .then((data) => {
+        return new Promise((resolve, _reject) => {
+          console.log("Data: ", data);
+          return setDBTables(data);
+        });
+      })
+      .catch((error) => {
+        console.log("ERROR: ", error);
+        setDBTables(null);
+      });
   }, []);
 
   useEffect(() => {
     selectedDBTable &&
-      fetch("/api", {
+      fetch("/_api", {
         headers: {
           "Content-Type": "application/json",
         },
@@ -34,6 +57,8 @@ function DataBase() {
       ? setSelectedDBTable(null)
       : setSelectedDBTable(e.target.value);
   };
+
+  console.log(process.env.REACT_APP_DBURL);
 
   return (
     <LanguageContext.Consumer>
