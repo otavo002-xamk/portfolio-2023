@@ -1,16 +1,10 @@
 {
-  "build": {
-    "env": {
-      "API_URL": "@REACT_APP_DBURL"
-    }
-  },
   "rewrites": [
     {
       "source": "/_api/(.*)",
-      "destination": "https://$API_URL/_api"
+      "destination": "https://portfolio-server-omega-two.vercel.app/_api"
     }
   ],
-
   "headers": [
     {
       "source": "/(.*)",
