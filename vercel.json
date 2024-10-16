@@ -1,0 +1,25 @@
+{
+  "build": {
+    "env": {
+      "API_URL": "@REACT_APP_DBURL"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/_api/(.*)",
+      "destination": "https://$API_URL/_api"
+    }
+  ],
+
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ]
+}
