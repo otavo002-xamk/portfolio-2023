@@ -6,10 +6,15 @@ function DataBase() {
   const [selectedDBTable, setSelectedDBTable] = useState(null);
   const [dbTableContents, setDBTableContents] = useState([]);
 
+  const apiURL =
+    !process.env.VERCEL_ENV || process.env.VERCEL_ENV === "development"
+      ? ""
+      : process.env.REACT_APP_DBURL;
+
   useEffect(() => {
     console.log("starting fetch");
 
-    fetch("/_api")
+    fetch(`${apiURL}/_api`)
       .then((result) => {
         if (!result.ok) {
           throw new Error(`Network response was not ok`);
@@ -38,7 +43,7 @@ function DataBase() {
 
   useEffect(() => {
     selectedDBTable &&
-      fetch("/_api", {
+      fetch(`${apiURL}/_api`, {
         headers: {
           "Content-Type": "application/json",
         },
