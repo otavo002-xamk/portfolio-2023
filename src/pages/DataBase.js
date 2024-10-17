@@ -38,7 +38,7 @@ function DataBase() {
 
   useEffect(() => {
     selectedDBTable &&
-      fetch("/_api", {
+      fetch(`${process.env.REACT_APP_DBURL}/_api`, {
         headers: {
           "Content-Type": "application/json",
         },
