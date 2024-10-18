@@ -7,7 +7,7 @@ function DataBase() {
   const [dbTableContents, setDBTableContents] = useState([]);
 
   useEffect(() => {
-    fetch("/api")
+    fetch(`${process.env.REACT_APP_DBURL}/_api`)
       .then((result) => result.json())
       .then((data) => setDBTables(data))
       .catch((_error) => setDBTables(null));
