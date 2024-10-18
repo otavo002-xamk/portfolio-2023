@@ -58,8 +58,6 @@ function DataBase() {
       : setSelectedDBTable(e.target.value);
   };
 
-  console.log(process.env.REACT_APP_DBURL);
-
   return (
     <LanguageContext.Consumer>
       {({ language }) => (
