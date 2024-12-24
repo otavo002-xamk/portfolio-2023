@@ -1,39 +1,39 @@
-import { useEffect, useState } from "react";
-import { LanguageContext } from "../language-context";
+import { useEffect, useState } from 'react'
+import { LanguageContext } from '../language-context'
 
 function DataBase() {
-  const [dbTables, setDBTables] = useState(null);
-  const [selectedDBTable, setSelectedDBTable] = useState(null);
-  const [dbTableContents, setDBTableContents] = useState([]);
+  const [dbTables, setDBTables] = useState(null)
+  const [selectedDBTable, setSelectedDBTable] = useState(null)
+  const [dbTableContents, setDBTableContents] = useState([])
 
   useEffect(() => {
-    fetch("/api")
+    fetch('/_api')
       .then((result) => result.json())
       .then((data) => setDBTables(data))
-      .catch((_error) => setDBTables(null));
-  }, []);
+      .catch((_error) => setDBTables(null))
+  }, [])
 
   useEffect(() => {
     selectedDBTable &&
-      fetch("/api", {
+      fetch('/_api', {
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        method: "POST",
+        method: 'POST',
         body: JSON.stringify({ table: selectedDBTable }),
       })
         .then((result) => result.json())
         .then((data) => {
-          data && setDBTableContents(data);
+          data && setDBTableContents(data)
         })
-        .catch((_error) => setDBTableContents([]));
-  }, [selectedDBTable]);
+        .catch((_error) => setDBTableContents([]))
+  }, [selectedDBTable])
 
   const selectDBTable = (e) => {
-    e.target.value === "0"
+    e.target.value === '0'
       ? setSelectedDBTable(null)
-      : setSelectedDBTable(e.target.value);
-  };
+      : setSelectedDBTable(e.target.value)
+  }
 
   return (
     <LanguageContext.Consumer>
@@ -101,7 +101,7 @@ function DataBase() {
         </div>
       )}
     </LanguageContext.Consumer>
-  );
+  )
 }
 
-export default DataBase;
+export default DataBase
