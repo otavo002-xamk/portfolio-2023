@@ -22,19 +22,3 @@ jobs:
         with:
           push: true
           tags: woudisnakes/portfolio-2023-front:latest
-          context: .
-          load: true
-
-      - name: Print Docker Info
-        run: |
-          echo "Docker Info:"
-          docker info
-          echo "Docker Version:"
-          docker version
-          echo "Images:"
-          docker images
-
-      - name: Check Docker Context
-        run: |
-          ls -la
-          cat Dockerfile
