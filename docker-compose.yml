@@ -2,7 +2,10 @@ version: '3.8'
 
 services:
   front-end:
-    build: .
+    #Uncomment the following line to build the image locally.
+    #build: .
+    #Comment the following line if you uncomment the previous line.
+    image: woudisnakes/portfolio-2023-front:latest
     command: npm start
     ports:
       - 3000:3000
