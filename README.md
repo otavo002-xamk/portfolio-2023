@@ -12,6 +12,8 @@ Before using the database-page you must ensure that both the Portfolio-Server an
 
 REACT_APP_DBURL='http://localhost:3001'
 
+To run the project in a docker container run 'docker-compose up'. This command pulls the project's image from the registry and then creates the container. If you want to build the image locally, then you have to comment out the image-line in the docker-compose file and also uncomment the build-line.
+
 Copyright 2023 Tapani Voutilainen
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
