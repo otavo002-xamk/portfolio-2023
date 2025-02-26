@@ -17,7 +17,7 @@ function Equation({
 }) {
   const [showCorrect, setShowCorrect] = useState(false);
   const [showWrong, setShowWrong] = useState(null);
-  const [isTableLocked, setTableLocked] = useState(false);
+  const [tableLocked, setTableLocked] = useState(false);
   const sum = randomNumbers[0] + randomNumbers[1] + randomNumbers[2];
   const [timePast, setTimePast] = useState(0);
   const [timeBarColor, setTimeBarColor] = useState("rgb(0,255,255)");
@@ -32,7 +32,7 @@ function Equation({
   }, [setShowCorrect, setTableLocked, setNextButtonDisabled]);
 
   const chooseAnswer = (event) => {
-    if (!isTableLocked) {
+    if (!tableLocked) {
       if (Number(event.target.id.slice(7)) !== sum) {
         setShowWrong(event.target.id);
         setEndResult("incorrect");
@@ -46,7 +46,7 @@ function Equation({
 
   useEffect(() => {
     let i = 0;
-    if (!shouldBeHidden && !isTableLocked) {
+    if (!shouldBeHidden && !tableLocked) {
       interval = setInterval(() => {
         if (i < 100) {
           setTimePast(i);
@@ -58,7 +58,7 @@ function Equation({
         }
       }, 100);
     }
-  }, [shouldBeHidden, isTableLocked, setNextButtonDisabled, unlockNext]);
+  }, [shouldBeHidden, tableLocked, setNextButtonDisabled, unlockNext]);
 
   useEffect(() => {
     switch (endResult) {
@@ -109,13 +109,13 @@ function Equation({
         <table className="col-start-2 col-span-2 tablet:w-2/12 border-separate">
           <tbody data-testid={`equation-options-table-tb-${index}`}>
             {tableOfOptions.map((option, i) => (
-              <tr key={i.toString()}>
+              <tr key={`${i}-${option}`}>
                 <td
                   id={`td-${index}-${i}-${option}`}
                   data-testid={`equation-options-table-td-${index}-${i}`}
                   onClick={chooseAnswer}
                   className={`flex justify-center gap-1 ${
-                    !isTableLocked && "cursor-pointer"
+                    !tableLocked && "cursor-pointer"
                   } shadow-mathBox w-full text-center py-2 bg-red-400 dark:bg-red-800`}
                 >
                   {option}
@@ -161,6 +161,7 @@ Equation.propTypes = {
   tableOfOptions: PropTypes.array.isRequired,
   setNextButtonDisabled: PropTypes.func.isRequired,
   addPoint: PropTypes.func.isRequired,
+  language: PropTypes.object.isRequired,
 };
 
 export default Equation;

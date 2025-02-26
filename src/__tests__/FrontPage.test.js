@@ -19,9 +19,10 @@ jest.mock("react-any-slider-dots", () => {
       mockChildComponent(props);
 
       return (
-        <p id="sliderdot5" onClick={props.handleClick}>
+        // eslint-disable-next-line
+        <button id="sliderdot5" onClick={props.handleClick}>
           Change slide 5!
-        </p>
+        </button>
       );
     },
   };

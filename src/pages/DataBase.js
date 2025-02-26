@@ -1,39 +1,39 @@
-import { useEffect, useState } from 'react'
-import { LanguageContext } from '../language-context'
+import { useEffect, useState } from "react";
+import { LanguageContext } from "../language-context";
 
 function DataBase() {
-  const [dbTables, setDBTables] = useState(null)
-  const [selectedDBTable, setSelectedDBTable] = useState(null)
-  const [dbTableContents, setDBTableContents] = useState([])
+  const [dbTables, setDBTables] = useState(null);
+  const [selectedDBTable, setSelectedDBTable] = useState(null);
+  const [dbTableContents, setDBTableContents] = useState([]);
 
   useEffect(() => {
-    fetch('/_api')
+    fetch("/_api")
       .then((result) => result.json())
       .then((data) => setDBTables(data))
-      .catch((_error) => setDBTables(null))
-  }, [])
+      .catch((_error) => setDBTables(null));
+  }, []);
 
   useEffect(() => {
     selectedDBTable &&
-      fetch('/_api', {
+      fetch("/_api", {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        method: 'POST',
+        method: "POST",
         body: JSON.stringify({ table: selectedDBTable }),
       })
         .then((result) => result.json())
         .then((data) => {
-          data && setDBTableContents(data)
+          data && setDBTableContents(data);
         })
-        .catch((_error) => setDBTableContents([]))
-  }, [selectedDBTable])
+        .catch((_error) => setDBTableContents([]));
+  }, [selectedDBTable]);
 
   const selectDBTable = (e) => {
-    e.target.value === '0'
+    e.target.value === "0"
       ? setSelectedDBTable(null)
-      : setSelectedDBTable(e.target.value)
-  }
+      : setSelectedDBTable(e.target.value);
+  };
 
   return (
     <LanguageContext.Consumer>
@@ -76,7 +76,10 @@ function DataBase() {
               <thead>
                 <tr>
                   {Object.entries(dbTableContents[0]).map((entry, i) => (
-                    <th key={i} className="p-2 border-2 border-stone-800">
+                    <th // eslint-disable-next-line
+                      key={i}
+                      className="p-2 border-2 border-stone-800"
+                    >
                       {entry[0]}
                     </th>
                   ))}
@@ -84,9 +87,13 @@ function DataBase() {
               </thead>
               <tbody>
                 {dbTableContents.map((item, i) => (
+                  // eslint-disable-next-line
                   <tr key={i}>
-                    {Object.entries(item).map((entry, i) => (
-                      <th key={i} className="p-2 border-2 border-stone-800">
+                    {Object.entries(item).map((entry, j) => (
+                      <th // eslint-disable-next-line
+                        key={j}
+                        className="p-2 border-2 border-stone-800"
+                      >
                         {entry[1]}
                       </th>
                     ))}
@@ -101,7 +108,7 @@ function DataBase() {
         </div>
       )}
     </LanguageContext.Consumer>
-  )
+  );
 }
 
-export default DataBase
+export default DataBase;

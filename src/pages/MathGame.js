@@ -6,7 +6,7 @@ function MathGame() {
   const [randomNumbers, setRandomNumbers] = useState([]);
   const [tableOfOptions, setTableOfOptions] = useState([]);
   const [currentEquation, setCurrentEquation] = useState(0);
-  const [isNextButtonDisabled, setNextButtonDisabled] = useState(true);
+  const [nextButtonDisabled, setNextButtonDisabled] = useState(true);
   const [points, setPoints] = useState(0);
   const [state, setState] = useState(0);
   const [gameHasStarted, setGameHasStarted] = useState(false);
@@ -47,7 +47,7 @@ function MathGame() {
     }
 
     randomResults.forEach((randomResult) => {
-      options.push(randomResult.sort());
+      options.push(randomResult.toSorted((a, b) => a - b));
     });
 
     setRandomNumbers(randoms);
@@ -85,7 +85,7 @@ function MathGame() {
                 <p>loading...</p>
               ) : (
                 randomNumbers.map((randomThree, index) => (
-                  <Equation
+                  <Equation // eslint-disable-next-line
                     key={index.toString()}
                     language={language}
                     index={index}
@@ -102,7 +102,7 @@ function MathGame() {
               {currentEquation < 5 && (
                 <div className="flex gap-10 justify-center">
                   <p>{points} / 5</p>
-                  {isNextButtonDisabled ? (
+                  {nextButtonDisabled ? (
                     <button className="margin-auto text-stone-400" disabled>
                       NEXT &#10095;
                     </button>

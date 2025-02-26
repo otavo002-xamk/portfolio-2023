@@ -20,10 +20,12 @@ jest.mock("../pages/childcomponents/Equation", () => (props) => {
 
   return (
     <>
-      <button onClick={() => props.setNextButtonDisabled(false)}>
+      <button onClick={() => // eslint-disable-next-line
+        props.setNextButtonDisabled(false)}>
         {testTexts[0]}
       </button>
-      <button onClick={props.addPoint}>{testTexts[1]}</button>
+      <button onClick={ // eslint-disable-next-line
+        props.addPoint}>{testTexts[1]}</button>
     </>
   );
 });
