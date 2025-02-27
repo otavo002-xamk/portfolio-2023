@@ -11,7 +11,7 @@ function MenuButton({ handleMenuChange, menuOpen }) {
     : "bg-white dark:bg-black shadow-burger dark:shadow-darkBurger";
 
   return (
-    <div
+    <button
       className="menu-container mt-4 cursor-pointer lg:hidden"
       data-testid="menu-container"
       onClick={handleMenuChange}
@@ -21,7 +21,7 @@ function MenuButton({ handleMenuChange, menuOpen }) {
         className={`${bar2WhenMenuOpen} duration-100 w-6 h-1 bg-white dark:bg-black mt-1 shadow-burger dark:shadow-darkBurger`}
       ></div>
       <div className={`${bar3WhenMenuOpen} duration-100 w-6 h-1 mt-1`}></div>
-    </div>
+    </button>
   );
 }
 

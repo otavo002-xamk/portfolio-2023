@@ -9,7 +9,8 @@ const updateLanguage = (event) => mockFn(event.target.alt);
 jest.mock("react-select", () => (props) => {
   mockFn(props);
 
-  return <div onClick={props.onChange}>{props.placeholder}</div>;
+  //eslint-disable-next-line
+  return <button onClick={props.onChange}>{props.placeholder}</button>;
 });
 
 describe("With english language", () => {

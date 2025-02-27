@@ -74,7 +74,8 @@ const language = languages.en;
 jest.mock("../MenuButton", () => (props) => {
   mockChildComponent(props);
   return (
-    <div data-testid="menu-change-handler" onClick={props.handleMenuChange} />
+    // eslint-disable-next-line
+    <button data-testid="menu-change-handler" onClick={props.handleMenuChange} />
   );
 });
 

@@ -2,7 +2,6 @@ import { cameraNames } from "../pages/additions/cameraNames";
 import {
   fireEvent,
   screen,
-  act,
   waitForElementToBeRemoved,
 } from "@testing-library/react";
 import { languages } from "../language-context";
@@ -65,7 +64,12 @@ describe("API call", () => {
 
       expect(mockFn).toHaveBeenNthCalledWith(
         1,
-        expect.stringContaining("sol=3495" && `camera=${camera.abbreviation}`)
+        expect.stringContaining("sol=3495")
+      );
+
+      expect(mockFn).toHaveBeenNthCalledWith(
+        1,
+        expect.stringContaining(`camera=${camera.abbreviation}`)
       );
     }
   );

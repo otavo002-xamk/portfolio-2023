@@ -25,8 +25,8 @@ const calculateSum = (equationIndex, cb) => {
 const testEquationVisibilities = (equationIndex) => {
   [0, 1, 2, 3, 4].forEach((index) => {
     equationIndex === index
-      ? expect(screen.getByTestId(`equation-${index}`)).toBeVisible
-      : expect(screen.getByTestId(`equation-${index}`)).not.toBeVisible;
+      ? expect(screen.getByTestId(`equation-${index}`)).toBeVisible()
+      : expect(screen.getByTestId(`equation-${index}`)).not.toBeVisible()
   });
 };
 
