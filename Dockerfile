@@ -4,4 +4,6 @@ WORKDIR /usr/src/app
 
 COPY package* ./
 
-RUN npm install
+RUN npm install && useradd -m appuser && chown appuser .
+
+USER appuser
