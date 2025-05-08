@@ -5,9 +5,9 @@ env:
   REACT_APP_NASA_API_TOKEN: ${{ secrets.REACT_APP_NASA_API_TOKEN }}
   REACT_APP_BACKEND_URL: ${{ secrets.REACT_APP_BACKEND_URL }}
 on:
-  pull_request:
+  push:
     branches:
-      - production
+      - main
 jobs:
   Deploy-Preview:
     runs-on: ubuntu-latest
