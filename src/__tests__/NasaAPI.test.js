@@ -62,15 +62,16 @@ describe("API call", () => {
       await insertSolSelectCameraAndClickButton(camera);
       expect(mockFn).toHaveBeenCalledTimes(2);
 
-      expect(mockFn).toHaveBeenNthCalledWith(
-        1,
-        expect.stringContaining("sol=3495")
-      );
-
-      expect(mockFn).toHaveBeenNthCalledWith(
-        1,
-        expect.stringContaining(`camera=${camera.abbreviation}`)
-      );
+      expect(mockFn).toHaveBeenNthCalledWith(1, "/nasa_api", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          sol: "4099",
+          camera: camera.abbreviation,
+        }),
+      });
     }
   );
 });

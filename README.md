@@ -4,13 +4,11 @@ This project holds a web page created with React.js. There is currently a slider
 
 Navigate to the project folder and enter npm install to install dependencies. Then enter npm start in the CLI to run the app in the development mode. npm test launches the tests. To run a single test enter npm test [filename].
 
-To be able to use the NASA API you should go to NASA's web page, that is api.nasa.gov and generate an API key. When you have the key create a .env file to the project's root folder and write to it:
+Before using the NASA API and database pages you must ensure that both the Portfolio-Server and MySQL are installed and are up and running and they are connected. In addition add a database url to the .env file, for example:
 
-REACT_APP_NASA_API_TOKEN= '[your key]'
+REACT_APP_BACKEND_URL='http://localhost:3001'
 
-Before using the database-page you must ensure that both the Portfolio-Server and MySQL are installed and are up and running and they are connected. In addition add a database url to the .env file, for example:
-
-REACT_APP_DBURL='http://localhost:3001'
+To be able to use the NASA API you should go to NASA's web page, that is api.nasa.gov and generate an API key. This key is then entered to the Portfolio-Server's .env file.
 
 To run the project in a docker container run 'docker-compose up'. This command pulls the project's image from the registry and then creates the container. If you want to build the image locally, then you have to comment out the image-line in the docker-compose file and also uncomment the build-line.
 

@@ -1,11 +1,11 @@
-const { createProxyMiddleware } = require('http-proxy-middleware')
+const { createProxyMiddleware } = require("http-proxy-middleware");
 
 module.exports = function (app) {
   app.use(
-    '/_api',
+    ["/_api", "/nasa_api"],
     createProxyMiddleware({
-      target: `${process.env.REACT_APP_DBURL}`,
+      target: `${process.env.REACT_APP_BACKEND_URL}`,
       changeOrigin: true,
     })
-  )
-}
+  );
+};

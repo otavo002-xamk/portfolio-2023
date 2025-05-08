@@ -25,7 +25,7 @@ export const languages = {
       nasaAPI: {
         link: "NASA API",
         title: "NASA API!",
-        solInputLabel: "Insert sol please (a value between 0 - 3495): ",
+        solInputLabel: "Insert sol please (a value between 0 - 4099): ",
         cameraSelectLabel: "Select camera please: ",
         getImagesButtonText: "Get images from NASA.",
         tooBigNumber: "Too big number!",
@@ -67,7 +67,7 @@ export const languages = {
       nasaAPI: {
         link: "NASA API",
         title: "NASA API!",
-        solInputLabel: "Syötä sol kiitos (luku väliltä 0 - 3495): ",
+        solInputLabel: "Syötä sol kiitos (luku väliltä 0 - 4099): ",
         cameraSelectLabel: "Valitse kamera kiitos: ",
         getImagesButtonText: "Hae kuvat NASAlta.",
         tooBigNumber: "Liian suuri luku!",

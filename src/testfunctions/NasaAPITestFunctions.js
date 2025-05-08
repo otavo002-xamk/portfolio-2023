@@ -31,8 +31,8 @@ export const images = [
 ];
 
 export const mockFetch = (images, spyFetchParams = false) =>
-  (global.fetch = (params) => {
-    spyFetchParams && mockFn(params);
+  (global.fetch = (url, body) => {
+    spyFetchParams && mockFn(url, body);
 
     return Promise.resolve({
       json: () => Promise.resolve({ photos: images }),
@@ -96,7 +96,7 @@ export const testTooLargeNumberInsertedNotification = () => {
   expect(screen.queryByText(nasaAPI.tooBigNumber)).not.toBeInTheDocument();
 
   fireEvent.change(screen.getByLabelText(nasaAPI.solInputLabel), {
-    target: { value: "3496" },
+    target: { value: "4100" },
   });
 
   fireEvent.click(screen.getByText(nasaAPI.getImagesButtonText));
@@ -106,7 +106,7 @@ export const testTooLargeNumberInsertedNotification = () => {
 
 export const insertSolSelectCameraAndClickButton = async (camera) => {
   fireEvent.change(screen.getByLabelText(nasaAPI.solInputLabel), {
-    target: { value: "3495" },
+    target: { value: "4099" },
   });
 
   fireEvent.change(screen.getByLabelText(nasaAPI.cameraSelectLabel), {
