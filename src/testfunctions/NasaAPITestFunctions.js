@@ -4,6 +4,7 @@ import {
   fireEvent,
   within,
   waitForElementToBeRemoved,
+  waitFor,
   act,
 } from "@testing-library/react";
 import { LanguageContext, languages } from "../language-context";
@@ -35,6 +36,9 @@ export const mockFetch = (images, spyFetchParams = false) =>
     spyFetchParams && mockFn(url, body);
 
     return Promise.resolve({
+      ok: true,
+      status: 200,
+      statusText: "OK",
       json: () => Promise.resolve({ photos: images }),
     });
   });
@@ -82,7 +86,7 @@ export const testNoPicturesFoundNotification = async () => {
   expect(screen.queryByTestId("nasa-api-loader")).not.toBeInTheDocument();
 
   fireEvent.change(screen.getByLabelText(nasaAPI.solInputLabel), {
-    target: { value: "3495" },
+    target: { value: "4099" },
   });
 
   fireEvent.click(screen.getByText(nasaAPI.getImagesButtonText));
@@ -90,9 +94,13 @@ export const testNoPicturesFoundNotification = async () => {
   await waitForElementToBeRemoved(screen.getByTestId("nasa-api-loader"));
   expect(screen.getByText(nasaAPI.noPicturesFound)).toBeInTheDocument();
   expect(screen.queryByText(nasaAPI.tooBigNumber)).not.toBeInTheDocument();
+
+  expect(
+    screen.queryByText(languages.en.pages.backEnd.noConnection)
+  ).not.toBeInTheDocument();
 };
 
-export const testTooLargeNumberInsertedNotification = () => {
+export const testTooLargeNumberInsertedNotification = async () => {
   expect(screen.queryByText(nasaAPI.tooBigNumber)).not.toBeInTheDocument();
 
   fireEvent.change(screen.getByLabelText(nasaAPI.solInputLabel), {
@@ -102,6 +110,48 @@ export const testTooLargeNumberInsertedNotification = () => {
   fireEvent.click(screen.getByText(nasaAPI.getImagesButtonText));
   expect(screen.getByText(nasaAPI.tooBigNumber)).toBeInTheDocument();
   expect(screen.queryByText(nasaAPI.noPicturesFound)).not.toBeInTheDocument();
+  expect(screen.queryByTestId("nasa-api-loader")).not.toBeInTheDocument();
+
+  expect(
+    screen.queryByText(languages.en.pages.backEnd.noConnection)
+  ).not.toBeInTheDocument();
+};
+
+export const testNoConnectionNotification = async () => {
+  jest.spyOn(console, "error").mockImplementation(() => {});
+
+  global.fetch = jest.fn().mockImplementationOnce((_url, _body) =>
+    Promise.resolve({
+      ok: false,
+      status: 500,
+      statusText: "ERROR",
+      json: () => Promise.resolve({ photos: [] }),
+    })
+  );
+
+  expect(
+    screen.queryByText(languages.en.pages.backEnd.noConnection)
+  ).not.toBeInTheDocument();
+
+  fireEvent.change(screen.getByLabelText(nasaAPI.solInputLabel), {
+    target: { value: "24" },
+  });
+
+  fireEvent.click(screen.getByText(nasaAPI.getImagesButtonText));
+
+  await waitFor(() => {
+    expect(screen.getByTestId("nasa-api-loader")).toBeInTheDocument();
+  });
+
+  await waitForElementToBeRemoved(screen.getByTestId("nasa-api-loader"));
+
+  expect(
+    screen.getByText(languages.en.pages.backEnd.noConnection)
+  ).toBeInTheDocument();
+
+  expect(screen.queryByText(nasaAPI.noPicturesFound)).not.toBeInTheDocument();
+  expect(screen.queryByText(nasaAPI.tooBigNumber)).not.toBeInTheDocument();
+  console.error.mockRestore();
 };
 
 export const insertSolSelectCameraAndClickButton = async (camera) => {

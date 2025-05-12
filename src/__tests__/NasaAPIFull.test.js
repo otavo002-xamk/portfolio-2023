@@ -17,6 +17,7 @@ import {
   testTooLargeNumberInsertedNotification,
   insertSolSelectCameraAndClickButton,
   testImagesRendering,
+  testNoConnectionNotification,
 } from "../testfunctions/NasaAPITestFunctions";
 
 jest.mock("../language-context");
@@ -44,6 +45,11 @@ describe("Warning texts", () => {
 
   it("should give a notification when too large number is inserted", () => {
     testTooLargeNumberInsertedNotification();
+    testMiniSliderDoesntRender();
+  });
+
+  it("should give a notification when no connection is found", async () => {
+    await testNoConnectionNotification();
     testMiniSliderDoesntRender();
   });
 });

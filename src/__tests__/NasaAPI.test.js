@@ -14,6 +14,7 @@ import {
   testNoPicturesFoundNotification,
   testTooLargeNumberInsertedNotification,
   insertSolSelectCameraAndClickButton,
+  testNoConnectionNotification,
 } from "../testfunctions/NasaAPITestFunctions";
 
 jest.mock(
@@ -44,8 +45,13 @@ describe("Warning texts", () => {
     expect(mockFn).not.toHaveBeenCalled();
   });
 
-  it("should give a notification when too large number is inserted", () => {
-    testTooLargeNumberInsertedNotification();
+  it("should give a notification when too large number is inserted", async () => {
+    await testTooLargeNumberInsertedNotification();
+    expect(mockFn).not.toHaveBeenCalled();
+  });
+
+  it("should give a notification when no connection is found", async () => {
+    await testNoConnectionNotification();
     expect(mockFn).not.toHaveBeenCalled();
   });
 });

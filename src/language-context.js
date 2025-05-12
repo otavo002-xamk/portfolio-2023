@@ -35,13 +35,15 @@ export const languages = {
       dataBase: {
         link: "Database",
         title: "Database!",
-        noConnection: "No connection!",
         selectTable: "Select table!",
         noData: "no data",
       },
       links: {
         link: "Links",
         title: "Links:",
+      },
+      backEnd: {
+        noConnection: "No connection!",
       },
     },
   },
@@ -77,13 +79,15 @@ export const languages = {
       dataBase: {
         link: "Tietokanta",
         title: "Tietokanta!",
-        noConnection: "Yhteyttä ei ole!",
         selectTable: "Valitse taulukko!",
         noData: "ei dataa",
       },
       links: {
         link: "Linkit",
         title: "Linkit:",
+      },
+      backEnd: {
+        noConnection: "Yhteyttä ei ole!",
       },
     },
   },

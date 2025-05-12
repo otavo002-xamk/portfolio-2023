@@ -10,10 +10,12 @@ function NasaAPI() {
   const [tooBigNumber, setTooBigNumber] = useState(false);
   const [loading, setLoading] = useState(false);
   const [noPictures, setNoPictures] = useState(false);
+  const [noConnection, setNoConnection] = useState(false);
 
   const getImages = (sol, camera) => {
     let images = [];
-    setNoPictures(false);
+    noPictures && setNoPictures(false);
+    noConnection && setNoConnection(false);
 
     if (sol < 4100) {
       setLoading(true);
@@ -29,6 +31,10 @@ function NasaAPI() {
         }),
       })
         .then((response) => {
+          if (!response.ok) {
+            setNoConnection(true);
+            throw new Error("Network response was not ok");
+          }
           return response.json();
         })
         .then((data) => {
@@ -38,10 +44,9 @@ function NasaAPI() {
 
           setNasaPictures(images);
         })
-        .then(() => {
-          setLoading(false);
-          images.length === 0 && setNoPictures(true);
-        });
+        .then(() => images.length === 0 && setNoPictures(true))
+        .catch((error) => console.error("Error:", error))
+        .finally(() => setLoading(false));
       tooBigNumber && setTooBigNumber(false);
     } else {
       setTooBigNumber(true);
@@ -112,6 +117,7 @@ function NasaAPI() {
           )}
 
           {noPictures && <p>{language.pages.nasaAPI.noPicturesFound}</p>}
+          {noConnection && <p>{language.pages.backEnd.noConnection}</p>}
 
           {nasaPictures.length !== 0 && !loading && (
             <CuriosityMiniSlider nasaPictures={nasaPictures} />

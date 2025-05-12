@@ -69,7 +69,7 @@ function DataBase() {
               <br />
             </>
           ) : (
-            <p>{language.pages.dataBase.noConnection}</p>
+            <p>{language.pages.backEnd.noConnection}</p>
           )}
           {dbTableContents.length > 0 && (
             <table data-testid="db-contents-table">

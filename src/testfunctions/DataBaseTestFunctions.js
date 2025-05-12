@@ -52,7 +52,7 @@ export const testOnlyDBSelectComponentIsVisible = () => {
   );
 
   expect(
-    screen.queryByTestId(language.pages.dataBase.noConnection)
+    screen.queryByTestId(language.pages.backEnd.noConnection)
   ).not.toBeInTheDocument();
 
   expect(screen.queryByTestId("db-contents-table")).not.toBeInTheDocument();
@@ -113,6 +113,6 @@ export const testOnlyErrorTextVisible = () => {
   expect(screen.queryByTestId("db-contents-table")).not.toBeInTheDocument();
 
   expect(
-    screen.getByText(language.pages.dataBase.noConnection)
+    screen.getByText(language.pages.backEnd.noConnection)
   ).toBeInTheDocument();
 };
