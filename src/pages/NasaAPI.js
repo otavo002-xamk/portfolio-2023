@@ -20,7 +20,7 @@ function NasaAPI() {
     if (sol < 4100) {
       setLoading(true);
 
-      fetch("/nasa_api", {
+      fetch(`${process.env.REACT_APP_DBURL}/nasa_api`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

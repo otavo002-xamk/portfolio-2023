@@ -290,16 +290,19 @@ describe("NASA API", () => {
         await insertSolSelectCameraAndClickButton(camera);
         expect(mockFn).toHaveBeenCalledTimes(1);
 
-        expect(mockFn).toHaveBeenCalledWith("/nasa_api", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            sol: "4099",
-            camera: camera.abbreviation,
-          }),
-        });
+        expect(mockFn).toHaveBeenCalledWith(
+          `${process.env.REACT_APP_DBURL}/nasa_api`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              sol: "4099",
+              camera: camera.abbreviation,
+            }),
+          }
+        );
       }
     );
   });
