@@ -25,7 +25,7 @@ export const languages = {
       nasaAPI: {
         link: "NASA API",
         title: "NASA API!",
-        solInputLabel: "Insert sol please (a value between 0 - 3495): ",
+        solInputLabel: "Insert sol please (a value between 0 - 4099): ",
         cameraSelectLabel: "Select camera please: ",
         getImagesButtonText: "Get images from NASA.",
         tooBigNumber: "Too big number!",
@@ -35,13 +35,15 @@ export const languages = {
       dataBase: {
         link: "Database",
         title: "Database!",
-        noConnection: "No connection!",
         selectTable: "Select table!",
         noData: "no data",
       },
       links: {
         link: "Links",
         title: "Links:",
+      },
+      backEnd: {
+        noConnection: "No connection!",
       },
     },
   },
@@ -67,7 +69,7 @@ export const languages = {
       nasaAPI: {
         link: "NASA API",
         title: "NASA API!",
-        solInputLabel: "Syötä sol kiitos (luku väliltä 0 - 3495): ",
+        solInputLabel: "Syötä sol kiitos (luku väliltä 0 - 4099): ",
         cameraSelectLabel: "Valitse kamera kiitos: ",
         getImagesButtonText: "Hae kuvat NASAlta.",
         tooBigNumber: "Liian suuri luku!",
@@ -77,13 +79,15 @@ export const languages = {
       dataBase: {
         link: "Tietokanta",
         title: "Tietokanta!",
-        noConnection: "Yhteyttä ei ole!",
         selectTable: "Valitse taulukko!",
         noData: "ei dataa",
       },
       links: {
         link: "Linkit",
         title: "Linkit:",
+      },
+      backEnd: {
+        noConnection: "Yhteyttä ei ole!",
       },
     },
   },

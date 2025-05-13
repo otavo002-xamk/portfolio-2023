@@ -1,18 +1,14 @@
-version: '3.8'
+version: "3.8"
 
 services:
   front-end:
     #Uncomment the following line to build the image locally.
-    #build: .
+    build:
+      context: .
+      args:
+        - REACT_APP_DBURL=${REACT_APP_DBURL}
     #Comment the following line if you uncomment the previous line.
-    image: woudisnakes/portfolio-2023-front:latest
-    command: npm start
+    #image: woudisnakes/portfolio-2023-front-prod:latest
     ports:
-      - 3000:3000
-    volumes:
-      - ./:/usr/src/app
-      - node_modules:/usr/src/app/node_modules
+      - 80:80
     container_name: front-end
-
-volumes:
-  node_modules:

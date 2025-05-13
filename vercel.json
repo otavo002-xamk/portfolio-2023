@@ -1,0 +1,23 @@
+{
+  "rewrites": [
+    {
+      "source": "/_api/(.*)",
+      "destination": "https://portfolio-server-omega-two.vercel.app/_api"
+    },
+    {
+      "source": "/nasa_api/(.*)",
+      "destination": "https://portfolio-server-omega-two.vercel.app/nasa_api"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
+      ]
+    }
+  ]
+}

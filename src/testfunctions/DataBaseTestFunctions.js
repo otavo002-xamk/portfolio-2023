@@ -23,7 +23,10 @@ const mockFetch = () =>
 export const testTitleAndFirstFetchCall = async () => {
   expect(screen.getByText(language.pages.dataBase.title)).toBeInTheDocument();
   expect(mockFn).toHaveBeenCalledTimes(1);
-  expect(mockFn).toHaveBeenCalledWith("/_api", undefined);
+  expect(mockFn).toHaveBeenCalledWith(
+    `${process.env.REACT_APP_DBURL}/_api`,
+    undefined
+  );
 };
 
 const renderPage = () =>
@@ -52,7 +55,7 @@ export const testOnlyDBSelectComponentIsVisible = () => {
   );
 
   expect(
-    screen.queryByTestId(language.pages.dataBase.noConnection)
+    screen.queryByTestId(language.pages.backEnd.noConnection)
   ).not.toBeInTheDocument();
 
   expect(screen.queryByTestId("db-contents-table")).not.toBeInTheDocument();
@@ -67,11 +70,14 @@ export const selectTableAndTestTableIsVisible = async () => {
 
   await waitFor(() => expect(mockFn).toHaveBeenCalledTimes(2));
 
-  expect(mockFn).toHaveBeenLastCalledWith("/_api", {
-    body: `{"table":"${Object.values(alltables[0])[0]}"}`,
-    headers: { "Content-Type": "application/json" },
-    method: "POST",
-  });
+  expect(mockFn).toHaveBeenLastCalledWith(
+    `${process.env.REACT_APP_DBURL}/_api`,
+    {
+      body: `{"table":"${Object.values(alltables[0])[0]}"}`,
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+    }
+  );
 
   tablecontent.forEach((field) =>
     expect(
@@ -91,11 +97,14 @@ export const selectEmptyTableAndTestMessage = async () => {
 
   expect(mockFn).toHaveBeenCalledTimes(3);
 
-  expect(mockFn).toHaveBeenLastCalledWith("/_api", {
-    body: `{"table":"${Object.values(alltables[1])[0]}"}`,
-    headers: { "Content-Type": "application/json" },
-    method: "POST",
-  });
+  expect(mockFn).toHaveBeenLastCalledWith(
+    `${process.env.REACT_APP_DBURL}/_api`,
+    {
+      body: `{"table":"${Object.values(alltables[1])[0]}"}`,
+      headers: { "Content-Type": "application/json" },
+      method: "POST",
+    }
+  );
 
   expect(screen.queryByTestId("db-contents-table")).not.toBeInTheDocument();
   expect(screen.getByText(language.pages.dataBase.noData)).toBeInTheDocument();
@@ -113,6 +122,6 @@ export const testOnlyErrorTextVisible = () => {
   expect(screen.queryByTestId("db-contents-table")).not.toBeInTheDocument();
 
   expect(
-    screen.getByText(language.pages.dataBase.noConnection)
+    screen.getByText(language.pages.backEnd.noConnection)
   ).toBeInTheDocument();
 };

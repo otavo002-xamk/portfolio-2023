@@ -7,7 +7,7 @@ function DataBase() {
   const [dbTableContents, setDBTableContents] = useState([]);
 
   useEffect(() => {
-    fetch("/_api")
+    fetch(`${process.env.REACT_APP_DBURL}/_api`)
       .then((result) => result.json())
       .then((data) => setDBTables(data))
       .catch((_error) => setDBTables(null));
@@ -15,7 +15,7 @@ function DataBase() {
 
   useEffect(() => {
     selectedDBTable &&
-      fetch("/_api", {
+      fetch(`${process.env.REACT_APP_DBURL}/_api`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -69,7 +69,7 @@ function DataBase() {
               <br />
             </>
           ) : (
-            <p>{language.pages.dataBase.noConnection}</p>
+            <p>{language.pages.backEnd.noConnection}</p>
           )}
           {dbTableContents.length > 0 && (
             <table data-testid="db-contents-table">

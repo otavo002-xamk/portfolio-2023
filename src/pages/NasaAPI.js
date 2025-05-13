@@ -3,8 +3,6 @@ import { LanguageContext } from "../language-context";
 import CuriosityMiniSlider from "./childcomponents/CuriosityMiniSlider";
 import { cameraNames } from "./additions/cameraNames";
 
-const NASA_API_TOKEN = process.env.REACT_APP_NASA_API_TOKEN;
-
 function NasaAPI() {
   const [nasaPictures, setNasaPictures] = useState([]);
   const [sol, setSol] = useState("");
@@ -12,18 +10,31 @@ function NasaAPI() {
   const [tooBigNumber, setTooBigNumber] = useState(false);
   const [loading, setLoading] = useState(false);
   const [noPictures, setNoPictures] = useState(false);
+  const [noConnection, setNoConnection] = useState(false);
 
   const getImages = (sol, camera) => {
     let images = [];
-    setNoPictures(false);
+    noPictures && setNoPictures(false);
+    noConnection && setNoConnection(false);
 
-    if (sol < 3496) {
+    if (sol < 4100) {
       setLoading(true);
 
-      fetch(
-        `https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=${sol}&camera=${camera}&api_key=${NASA_API_TOKEN}`
-      )
+      fetch("/nasa_api", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          sol: sol,
+          camera: camera,
+        }),
+      })
         .then((response) => {
+          if (!response.ok) {
+            setNoConnection(true);
+            throw new Error("Network response was not ok");
+          }
           return response.json();
         })
         .then((data) => {
@@ -33,10 +44,9 @@ function NasaAPI() {
 
           setNasaPictures(images);
         })
-        .then(() => {
-          setLoading(false);
-          images.length === 0 && setNoPictures(true);
-        });
+        .then(() => images.length === 0 && setNoPictures(true))
+        .catch((error) => console.error("Error:", error))
+        .finally(() => setLoading(false));
       tooBigNumber && setTooBigNumber(false);
     } else {
       setTooBigNumber(true);
@@ -107,6 +117,7 @@ function NasaAPI() {
           )}
 
           {noPictures && <p>{language.pages.nasaAPI.noPicturesFound}</p>}
+          {noConnection && <p>{language.pages.backEnd.noConnection}</p>}
 
           {nasaPictures.length !== 0 && !loading && (
             <CuriosityMiniSlider nasaPictures={nasaPictures} />
