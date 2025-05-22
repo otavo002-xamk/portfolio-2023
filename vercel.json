@@ -1,17 +1,17 @@
 {
   "rewrites": [
     {
-      "source": "/_api/(.*)",
+      "source": "/_api(.*)",
       "destination": "https://portfolio-server-omega-two.vercel.app/_api"
     },
     {
-      "source": "/nasa_api/(.*)",
+      "source": "/nasa_api(.*)",
       "destination": "https://portfolio-server-omega-two.vercel.app/nasa_api"
     }
   ],
   "headers": [
     {
-      "source": "/(.*)",
+      "source": "(.*)",
       "headers": [
         {
           "key": "Cache-Control",
