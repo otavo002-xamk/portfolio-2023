@@ -20,9 +20,17 @@ const options: Option[] = [
   },
 ];
 
-const Input = (props: InputProps<Option, true>) => (
-  <components.Input {...props} data-testid="language-toggler-input" />
-);
+const customComponents = {
+  DropdownIndicator: (props: any) => (
+    <div data-testid="select-dropdown">
+      <components.DropdownIndicator {...props} />
+    </div>
+  ),
+
+  Input: (props: InputProps<Option, false>) => (
+    <components.Input {...props} data-testid="language-toggler-input" />
+  ),
+};
 
 function LanguageToggler() {
   return (
@@ -50,7 +58,7 @@ function LanguageToggler() {
             className="tablet:w-20 tablet:h-20 w-14 h-14"
             placeholder={<img src={language.flag} alt={language.name} />}
             options={options}
-            components={{ Input }}
+            components={customComponents}
             onChange={updateLanguage}
           />
         </div>
