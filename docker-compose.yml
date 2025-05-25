@@ -12,6 +12,3 @@ services:
     ports:
       - 80:80
     container_name: front-end
-
-volumes:
-  node_modules:
