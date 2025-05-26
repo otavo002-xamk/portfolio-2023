@@ -6,9 +6,6 @@ COPY package* ./
 
 RUN npm install
 
-ARG REACT_APP_DBURL
-ENV REACT_APP_DBURL=$REACT_APP_DBURL
-
 COPY . .
 
 RUN npm run build

@@ -2,13 +2,10 @@ version: "3.8"
 
 services:
   front-end:
-    #Uncomment the following 4 lines to build the image locally.
-    #build:
-    #context: .
-    #args:
-    #- REACT_APP_BACKEND_URL=http://localhost:3001
-    #Comment the following line if you uncomment the previous lines.
-    image: woudisnakes/portfolio-2023-front-prod:latest
+    #Uncomment the following line to build the image locally.
+    build: .
+    #Comment the following line if you uncomment the previous line.
+    #image: woudisnakes/portfolio-2023-front-prod:latest
     ports:
       - 80:80
     container_name: front-end
