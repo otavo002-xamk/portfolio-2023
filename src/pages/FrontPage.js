@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { LanguageContext } from "../language-context";
 import { ReactAnySliderDots as Dots } from "react-any-slider-dots";
-import "react-any-slider-dots/dist/dots.css";
+import "../dots.css";
 
 const a = require("../slides/a.jpg");
 const b = require("../slides/b.jpg");
