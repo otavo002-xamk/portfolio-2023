@@ -24,7 +24,7 @@ function CuriosityMiniSlider({ nasaPictures }) {
     <div className="relative">
       <img
         className="w-full"
-        src={nasaPictures[currentImage].img_src}
+        src={nasaPictures[currentImage]}
         alt={`curiosity-${currentImage}`}
       />
       <button className="right-2/4 bottom-0 absolute" onClick={pause}>

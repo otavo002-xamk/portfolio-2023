@@ -20,7 +20,7 @@ import {
 } from "../testfunctions/MathGameTestFunctions";
 import {
   mockFn,
-  images,
+  imagesData,
   mockFetch,
   testPlayPauseToggleState,
   testElementRendering,
@@ -281,7 +281,7 @@ describe("NASA API", () => {
   describe("API call", () => {
     beforeEach(() => {
       render(<RouterProvider router={testRouter(2)} />);
-      mockFetch(images, true);
+      mockFetch(imagesData, true);
     });
 
     it.each(cameraNames)(
@@ -307,7 +307,7 @@ describe("NASA API", () => {
   describe("Rendering slider", () => {
     beforeEach(() => {
       render(<RouterProvider router={testRouter(2)} />);
-      mockFetch(images);
+      mockFetch(imagesData);
       jest.useFakeTimers();
     });
 

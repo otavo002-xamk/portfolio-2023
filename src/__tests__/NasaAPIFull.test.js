@@ -7,7 +7,7 @@ import {
 import { languages } from "../language-context";
 import {
   mockFn,
-  images,
+  imagesData,
   mockFetch,
   renderComponent,
   testPlayPauseToggleState,
@@ -57,7 +57,7 @@ describe("Warning texts", () => {
 describe("API call", () => {
   beforeEach(() => {
     renderComponent();
-    mockFetch(images, true);
+    mockFetch(imagesData, true);
   });
 
   it.each(cameraNames)(
@@ -83,7 +83,7 @@ describe("API call", () => {
 describe("Rendering slider", () => {
   beforeEach(() => {
     renderComponent();
-    mockFetch(images);
+    mockFetch(imagesData);
   });
 
   jest.useFakeTimers();

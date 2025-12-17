@@ -2,14 +2,7 @@ import CuriosityMiniSlider from "../pages/childcomponents/CuriosityMiniSlider";
 import { render, screen, act } from "@testing-library/react";
 import { testPlayPauseToggleState } from "../testfunctions/NasaAPITestFunctions";
 
-const nasaPictures = [
-  {
-    img_src: "test_one",
-  },
-  {
-    img_src: "test_two",
-  },
-];
+const nasaPictures = ["test_one", "test_two"];
 
 beforeEach(() => render(<CuriosityMiniSlider nasaPictures={nasaPictures} />));
 
