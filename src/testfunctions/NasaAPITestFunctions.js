@@ -16,20 +16,22 @@ const language = languages.en;
 const nasaAPI = language.pages.nasaAPI;
 export const mockFn = jest.fn();
 
-export const images = [
+export const imagesData = [
   {
-    name: "one",
+    attributes: { images: { full: "one" } },
   },
   {
-    name: "two",
+    attributes: { images: { full: "two" } },
   },
   {
-    name: "three",
+    attributes: { images: { full: "three" } },
   },
   {
-    name: "four",
+    attributes: { images: { full: "four" } },
   },
 ];
+
+export const images = imagesData.map(item => item.attributes.images.full)
 
 export const mockFetch = (images, spyFetchParams = false) =>
   (global.fetch = (url, body) => {
@@ -39,7 +41,7 @@ export const mockFetch = (images, spyFetchParams = false) =>
       ok: true,
       status: 200,
       statusText: "OK",
-      json: () => Promise.resolve({ photos: images }),
+      json: () => Promise.resolve({ data: images }),
     });
   });
 

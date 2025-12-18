@@ -38,8 +38,8 @@ function NasaAPI() {
           return response.json();
         })
         .then((data) => {
-          data.photos.forEach((element, index) => {
-            index < 400 && images.push(element);
+          data.data.forEach((element, index) => {
+            index < 400 && images.push(element.attributes.images.full);
           });
 
           setNasaPictures(images);
