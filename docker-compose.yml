@@ -1,11 +1,11 @@
-version: "3.8"
+version: '3.8'
 
 services:
   front-end:
     #Uncomment the following line to build the image locally.
-    build: .
+    #build: .
     #Comment the following line if you uncomment the previous line.
-    #image: woudisnakes/portfolio-2023-front-prod:latest
+    image: woudisnakes/portfolio-2023-front-prod:latest
     ports:
       - 80:80
     container_name: front-end
