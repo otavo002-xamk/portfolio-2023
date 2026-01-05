@@ -41,7 +41,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.4.13",
-    "patch-package": "^6.5.1",
+    "patch-package": "^8.0.1",
     "postcss": "^8.4.47",
     "react-any-slider-dots": "git+https://github.com/otavo002-xamk/react-any-slider-dots.git",
     "react-scripts": "5.0.1",
